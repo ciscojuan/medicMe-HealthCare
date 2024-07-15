@@ -2,6 +2,7 @@ import React from 'react'
 import './home.css';
 import Button from '../../shared/button';
 import KPI from './kpi';
+import Rotulo from './Rotulo';
 
 const Home = () => {
 
@@ -19,6 +20,7 @@ const Home = () => {
                 </div>
             </div>
             <KPI />
+            <Rotulo />
         </div>
     )
 }

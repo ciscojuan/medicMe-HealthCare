@@ -2,12 +2,13 @@
     width: 100%;
     height: 80px;
     border: 2px solid red;
-    background-color: var(--color-3);
+    background-color: transparent;
+    backdrop-filter: blur(10px);
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    position: fixed;
+    position: sticky;
     top: 0;
 
     transition: -webkit-backdrop-filter 0.2s ease-out;

@@ -21,11 +21,30 @@
     padding: 0px 5px 0px 5px;
 }
 
-.button--lg {
+.button--lg-light {
     width: 200px;
     height: 75px;
     font-size: var(--font-size-2);
     background: var(--color-1);
     color: var(--color-3);
-        border-radius: var(--border-radius-2);
+    border-radius: var(--border-radius-2);
+}
+
+.button--lg-dark {
+    width: 200px;
+    height: 75px;
+    font-size: var(--font-size-2);
+    background: var(--color-3);
+    color: var(--color-1);
+    border-radius: var(--border-radius-2);
+    border: 2px solid var(--color-3)
+}
+.button--lg-dark:hover {
+    width: 200px;
+    height: 75px;
+    font-size: var(--font-size-2);
+    color: black;
+    background: var(--color-3);
+    border-radius: var(--border-radius-2);
+    border: 2px solid var(--color-4)
 }

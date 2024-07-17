@@ -4,7 +4,7 @@ import { UilBookMedical } from '@iconscout/react-unicons'
 import { UilBooks } from '@iconscout/react-unicons'
 import { Uil21Plus } from '@iconscout/react-unicons'
 import './services.css';
-import Button from '../../../shared/button';
+import { Button } from "react-bootstrap";
 
 const Servcios = () => {
     return (
@@ -14,7 +14,7 @@ const Servcios = () => {
                     <div className="servicios__card1--icon">
                         <UilUserMd size="100" color="#6D30ED" />
                     </div>
-                    <label className="title">Encuentra tu médico ideal</label>
+                    <h4 className="title">Encuentra tu médico ideal</h4>
                     <label className="subtitle">Explora nuestra amplia seleccion de médicos y selecciona al especialista indicado para ti</label>
                 </div>
 
@@ -22,7 +22,7 @@ const Servcios = () => {
                     <div className="servicios__card1--icon">
                         <UilBookMedical size="100" color="#6D30ED" />
                     </div>
-                    <label className="title">Reserva tu cita en linea</label>
+                    <h4 className="title">Reserva tu cita en linea</h4>
                     <label className="subtitle">Nuestrosistemade reservas te permite programar tus citas médicas de manera rapida y sencilla, sin tener que llamar o visitar la clinica.</label>
                 </div>
 
@@ -30,7 +30,7 @@ const Servcios = () => {
                     <div className="servicios__card1--icon">
                         <UilBooks size="100" color="#6D30ED" />
                     </div>
-                    <label className="title">Gestiona tus citas médicas</label>
+                    <h4 className="title">Gestiona tus citas médicas</h4>
                     <label className="subtitle ">Accede a tu perfil para ver y administrar  tus citas médicas de forma conveniente.</label>
                 </div>
 
@@ -38,13 +38,13 @@ const Servcios = () => {
                     <div className="servicios__card1--icon">
                         <Uil21Plus size="100" color="#6D30ED" />
                     </div>
-                    <label className="title">Siempre disponible</label>
+                    <h4 className="title">Siempre disponible</h4>
                     <label className="subtitle">Accede en cualquier momento a nustra plataforma.</label>
                 </div>
             </div>
             
             <div className="servicios__container--button">
-                <Button className='button--lg-light' text="Reservar" />
+                <Button size='lg' className="btn-primary">Reservar</Button>
             </div>
 
 

@@ -24,7 +24,6 @@ body {
   padding: 0;
   background-color: var(--color-3);
   font-family: var(--font-family-1);
-  font-size: var(--font-size-1);
   color: var(--color-4);
 }
 
@@ -36,12 +35,22 @@ button:disabled {
   background-color: var(--color-5);
 
 }
-
 .btn-primary:hover {
   background-color: var(--color-1);
   animation: var(--animation-1);
-
+}
+.btn-secondary{
+  background-color: var(--color-3);
+  color: var(--color-1);
+}
+.btn-secondary:hover {
+  background-color: var(--color-2);
+  color:var(--color-3)
 }
 .fa-gem{
   color: #6D30ED;
+}
+h1{
+  font-size: 56px;
+  font-weight: bold;
 }

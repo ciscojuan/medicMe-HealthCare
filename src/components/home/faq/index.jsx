@@ -1,20 +1,21 @@
 import React from "react";
 import Accordion from 'react-bootstrap/Accordion';
 import { UilQuestionCircle } from '@iconscout/react-unicons'
+import faqImg from '../../../assets/faq.png'
 import './faq.css'
 
 const Faq = () => {
     return (
         <div className="faq">
             <div className="faq__container">
-            <div className="faq__container--image">
-                    <UilQuestionCircle size="400" color="#6D30ED" />
-            </div>
-            <div className="faq__container--acordion">
-                <div className="acordion--title">
-                        Tienes una pregunta?
+                <div className="faq__container--image">
+                    <img src={faqImg} alt="medicMe - HealthCare" className="faq__img"></img>
                 </div>
-                <div className="acordion--content">
+                <div className="faq__container--acordion">
+                    <div className="acordion--title">
+                        Tienes una pregunta?
+                    </div>
+                    <div className="acordion--content">
                         <Accordion>
                             <Accordion.Item eventKey="0">
                                 <Accordion.Header>¿Que es el sistema de reservas y cómo funciona?</Accordion.Header>
@@ -35,9 +36,9 @@ const Faq = () => {
                                 </Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
-                </div>
+                    </div>
 
-            </div>
+                </div>
             </div>
         </div>
     )

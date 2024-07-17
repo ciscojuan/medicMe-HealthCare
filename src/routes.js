@@ -2,7 +2,7 @@ import React from 'react'
 import { Navigate } from 'react-router-dom';
 import Home from './components/home';
 import Login from './components/login';
-import Register from './components/home/register';
+import Register from './components/register';
 
 
 

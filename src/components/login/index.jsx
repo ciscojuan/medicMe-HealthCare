@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { UilUserMd } from '@iconscout/react-unicons';
 import { UilCalendarAlt } from '@iconscout/react-unicons';
+import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import logo from '../../assets/logoWhite.png'
@@ -8,6 +9,9 @@ import './login.css';
 
 const Login = () => {
 
+    const[email,setEmail] = useState([''])
+    const[password,setPassword] = useState([''])
+    
     const [validated, setValidated] = useState(false);
 
     const handleSubmit = (event) => {
@@ -35,7 +39,7 @@ const Login = () => {
                         <div className="service__icon">< UilUserMd size="80" color="#6D30ED" /></div>
                     </div>
                     <div className="login__title">
-                        <h2>Registrate y comienza ahora</h2>
+                        <h2>Ingresa y comienza ahora</h2>
                     </div>
                     <div className="login__service--content">
                         <label >MedicMe, la innovadora aplicacion diseñada para simplificar tu vida y hacer el agendamiento de citas algo censillo.</label>
@@ -49,7 +53,7 @@ const Login = () => {
                     </div>
 
                     <div className="login__form--content">
-                        <Form.Floating className="mb-3">
+                        <Form.Floating className="mb-2">
                             <Form.Control
                                 id="floatingInputCustom"
                                 type="email"
@@ -57,7 +61,7 @@ const Login = () => {
                             />
                             <label htmlFor="floatingInputCustom">Email address</label>
                         </Form.Floating>
-                        <Form.Floating>
+                        <Form.Floating className="mb-2">
                             <Form.Control
                                 id="floatingPasswordCustom"
                                 type="password"
@@ -65,14 +69,17 @@ const Login = () => {
                             />
                             <label htmlFor="floatingPasswordCustom">Password</label>
                         </Form.Floating>
-                        <Form.Floating>
-                            <Button variant="primary" size="lg" className="mt-5"> Ingresar</Button>
+                        <Form.Floating >
+                            <Button variant="primary" size="lg" className="mt-2"> Ingresar</Button>
+                            <p >No tienes cuenta?</p>  <Link to="/register">crea una aca</Link>
                         </Form.Floating>
                     </div>
 
                 </div>
             </div>
-
+        <div className="leftCircle"></div>
+        <div className="RightCircle"></div>
+        <div className="rightRectangle"></div>
         </div>
     )
 }

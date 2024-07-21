@@ -61,9 +61,12 @@
     background-color: var(--color-3);
     padding: 10px;
 }
+.service__icon:hover{
+    transform: scale(1.1);
+}
 
 .login__title {
-    width: 360px;
+    width: 380px;
     text-align: center;
     font-size: var(--font-size-4);
 }

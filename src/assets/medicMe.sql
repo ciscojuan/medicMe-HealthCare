@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `medicMe`.`pacientes` (
   `telephone` VARCHAR(45) NULL,
   `direccion` VARCHAR(45) NULL,
   `usuario_id` INT NULL,
-  `pacientescol` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `createDate` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `updateDate` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`paciente_id`),
   INDEX `fk_pacientes_usuario_idx` (`usuario_id` ASC) VISIBLE,

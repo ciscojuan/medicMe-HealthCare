@@ -1,5 +1,6 @@
 import React from "react";
 import './header.css';
+import logo from '../../../assets/logo.png'
 import Nav from "../../../shared/nav";
 import imgCal from '../../../assets/header-img-calendar.png';
 import avatar1 from '../../../assets/header-img-p1.png';
@@ -11,7 +12,7 @@ import { Button } from "react-bootstrap";
 const Header = () => {
     return (
         <>
-            <Nav />
+            <Nav className="nav" logo={logo}/>
             <div className='header'>
             <div className="header__center">
                     <div className="header__title">
@@ -25,11 +26,11 @@ const Header = () => {
                     </div>
             </div>
             </div>
-            <img src={imgCal} alt="" className="imgCal" />
-            <img src={avatar1} alt="" className="avatar1" />
-            <img src={avatar2} className="avatar2" />
-            <img src={avatar3} className="avatar3" />
-            <img src={imgGrid2} className="imgGrid2" />
+            <img src={imgCal} alt="#" className="imgCal" />
+            <img src={avatar1} alt="#" className="avatar1" />
+            <img src={avatar2} alt="" className="avatar2" />
+            <img src={avatar3} alt="" className="avatar3" />
+            <img src={imgGrid2} alt=""  className="imgGrid2" />
         </>
     )
 }

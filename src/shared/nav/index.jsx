@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './nav.css';
-import Button from '../button';
+import { Button } from 'react-bootstrap';
 import logo from '../../assets/logo.png';
+import logoWhite from '../../assets/logoWhite.png'
+import logoBlack from '../../assets/logoblack.png'
+import './nav.css';
 
 
-const Nav = () => {
+const Nav = ({className,logo}) => {
 
     return (
 
-        <div className="nav">
+        <div className={className}>
 
             <div className="nav__logo">
                 <img src={logo} alt="medicMe" />
@@ -24,11 +26,11 @@ const Nav = () => {
                     <Link to="/contact-us" className="link">Contact us</Link>
                 </div>
             </div>
-
+            {!localStorage.getItem('username') &&
             <div className="nav__loginArea">
-                <Button text="Register" className="button" />
-                <Button text='Login' className="button" />
-            </div>
+                 <Button className="btn-primary"> Ingresar</Button>
+                <Button  className="btn-primary">Registrace</Button>
+            </div>}
         </div>
 
     )

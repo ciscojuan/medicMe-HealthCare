@@ -3,6 +3,9 @@ import { Navigate } from 'react-router-dom';
 import Home from './components/home';
 import Login from './components/login';
 import Register from './components/register';
+import UserPanel from './components/user-panel';
+import AccountManagement from './components/account-mangement';
+import NewDate from './components/new-date';
 
 
 
@@ -11,6 +14,9 @@ const routes = [
     { path: '/home', element:<Home/> },
     { path: '/login', element: <Login />},
     { path: '/register', element: <Register />},
+    { path: '/user-panel', element: <UserPanel /> },
+    { path: '/management/:id', element:<AccountManagement/>},
+    { path: '/new-date', element: <NewDate /> },
     { path: '*', element: <Navigate to='/' /> }
 ]
 

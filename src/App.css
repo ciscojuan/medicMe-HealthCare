@@ -32,13 +32,23 @@ button:disabled {
 }
 
 .btn-primary {
-  background-color: var(--color-5);
+  background-color: var(--color-3);
+  border: 2px solid var(--color-1);
+  color: var(--color-1);
+
 
 }
 .btn-primary:hover {
   background-color: var(--color-1);
   animation: var(--animation-1);
 }
+
+.btn-primary:active,.btn-secondary:active {
+  transform: translateY(3px);
+    background-color: var(--color-1);
+
+}
+
 .btn-secondary{
   background-color: var(--color-3);
   color: var(--color-1);
@@ -53,4 +63,15 @@ button:disabled {
 h1{
   font-size: 56px;
   font-weight: bold;
+}
+
+h2{
+    font-size: 50px;
+      font-weight: bold;
+}
+.react-datepicker__header, .react-datepicker__day--selected{
+  background-color: #6D30ED;
+}
+.react-datepicker__current-month, .react-datepicker__day-name{
+  color: var(--color-3);
 }

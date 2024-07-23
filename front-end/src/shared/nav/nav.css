@@ -1,7 +1,7 @@
 .nav {
     width: 100%;
     height: 80px;
-
+    position: relative;
     backdrop-filter: blur(10px);
     display: flex;
     flex-direction: row;
@@ -16,6 +16,34 @@
     background-color: transparent;
     box-shadow: var(--shadow-1);
     z-index: 100;
+    padding: 10px;
+}
+
+.nav__checkbox {
+    display: none;
+}
+
+.nav__toggle {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    margin: 01rem;
+    right: 0;
+    top: 0;
+}
+
+.nav__toggle svg {
+    width: 1rem;
+    fill: var(--color-1);
+}
+
+.nav__toggle .close {
+    display: none;
+}
+
+.nav__toggle.close,
+.nav__toggle.menu {
+    margin-top: 0.3rem;
 }
 
 .nav--purple {
@@ -78,9 +106,10 @@
     animation-delay: calc(0.3s * var(--i));
 }
 
-.nav--purple .link{
-        color: var(--color-3);
+.nav--purple .link {
+    color: var(--color-3);
 }
+
 header .nav--link .link:hover,
 header .nav--link .active {
     color: #fff;
@@ -119,3 +148,58 @@ header .nav--link .active {
         transform: translateY(0);
     }
 }
+
+@media (max-width: 480px) {
+    .nav {
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .nav__menu--link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 2rem;
+        margin: 1rem;
+    }
+
+    .link {
+        font-size: .8rem;
+    }
+
+    .nav__loginArea {
+        flex-direction: column;
+    }
+
+    #nav__checkbox:checked~.nav__menu,
+    #nav__checkbox:checked~.nav__loginArea {
+        display: flex;
+    }
+
+    #nav__checkbox:checked~.nav__toggle.close {
+        display: block;
+    }
+
+    #nav__checkbox:checked~.nav__toggle.nav__menu {
+        display: none;
+    }
+
+}
+
+@media (max-width: 640px) {}
+
+@media (max-width: 900px) {
+    .nav__toggle {
+        display: block;
+    }
+
+    .nav__menu,
+    .nav__loginArea {
+        display: none;
+    }
+}
+
+@media (max-width: 1200px) {}
+
+@media (max-width: 1800px) {}

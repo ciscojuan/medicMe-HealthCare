@@ -30,7 +30,7 @@
 
 .login__container {
     width: 80%;
-    height: 600px;
+    height: 80%;
 
     display: grid;
     grid-template-columns: auto auto;

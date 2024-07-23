@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import logo from '../../assets/logo.png';
 import logoWhite from '../../assets/logoWhite.png'
@@ -7,7 +7,14 @@ import logoBlack from '../../assets/logoblack.png'
 import './nav.css';
 
 
-const Nav = ({className,logo}) => {
+const Nav = ({ className, logo }) => {
+    const navigate = useNavigate();
+    const redirectTo = (path) => {
+        console.log(path)
+
+        path === '/login' && navigate('/login')
+        path === '/register' && navigate('/register')
+    }
 
     return (
 
@@ -27,10 +34,14 @@ const Nav = ({className,logo}) => {
                 </div>
             </div>
             {!localStorage.getItem('username') &&
-            <div className="nav__loginArea">
-                 <Button className="btn-primary"> Ingresar</Button>
-                <Button  className="btn-primary">Registrace</Button>
-            </div>}
+                <div className="nav__loginArea">
+                    <Button
+                        className="btn-primary"
+                        onClick={() => redirectTo("/login")}> Ingresar</Button>
+                    <Button
+                        className="btn-primary"
+                        onClick={() => redirectTo("/register")}>Registrace</Button>
+                </div>}
         </div>
 
     )

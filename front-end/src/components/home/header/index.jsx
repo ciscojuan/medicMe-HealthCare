@@ -1,5 +1,4 @@
 import React from "react";
-import './header.css';
 import logo from '../../../assets/logo.png'
 import Nav from "../../../shared/nav";
 import imgCal from '../../../assets/header-img-calendar.png';
@@ -8,6 +7,8 @@ import avatar2 from '../../../assets/header-img-p2.png';
 import avatar3 from '../../../assets/header-img-p3.png';
 import imgGrid2 from '../../../assets/header-img-grid2.png';
 import { Button } from "react-bootstrap";
+import './header.css';
+import '../../../shared/nav/nav.css';
 
 const Header = () => {
     return (

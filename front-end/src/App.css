@@ -76,3 +76,10 @@ h2{
 .react-datepicker__current-month, .react-datepicker__day-name{
   color: var(--color-3);
 }
+
+@media (max-width: 1200px) {
+  .btn-primary{
+    width: 120px;
+      padding: 10px;
+  }
+}

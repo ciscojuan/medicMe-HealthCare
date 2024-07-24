@@ -96,33 +96,118 @@
     border-radius: 33px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1800px) {}
+
+@media (max-width: 1200px) {}
+
+@media (max-width: 900px) {
     .header {
-            position: relative;
-            width: 100%;
-            height: 96vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 5rem;
-            z-index: 1;
+        position: relative;
+        width: 100%;
+        height: 96vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5rem;
+        z-index: 1;
     }
 
-    .imgCal{
-        left: 2px;
+    .header__center {
+        width: 80%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-bottom: 250px;
+    }
+
+    .imgCal {
+        top: 600px;
+        left: 250px;
         width: 350px;
         height: 200px;
+        z-index: 3;
     }
-    .avatar1,.avatar2, .avatar3, .imgGrid2{
+
+    .avatar1 {
+        left: 90px;
+        top: 240px;
+        width: 70px;
+        height: 70px;
+    }
+
+    .avatar2 {
+        left: 715px;
+        top: 160px;
+        width: 70px;
+        height: 70px;
+    }
+
+    .avatar3 {
+        left: 125px;
+        top: 490px;
+        width: 70px;
+        height: 70px;
+    }
+
+    .imgGrid2 {
+        left: 533px;
+        top: 560px;
+        width: 70px;
+        height: 70px;
+        z-index: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .avatar2 {
         display: none;
     }
 }
 
-@media (max-width: 640px) {}
+@media (max-width: 640px) {
+    .avatar3 {
+        display: none;
+    }
 
-@media (max-width: 900px) {}
+    .imgGrid2 {
+        left: 400px;
+    }
 
-@media (max-width: 1200px) {}
+    .imgCal {
+        left: 120px;
+    }
+}
 
-@media (max-width: 1800px) {}
+@media (max-width: 480px) {
+    .header {
+        position: relative;
+        width: 100%;
+        height: 96vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5rem;
+        z-index: 1;
+    }
+
+    .imgCal {
+        left: 55px;
+        width: 350px;
+        height: 200px;
+    }
+
+    #nav__checkbox:checked~.imgCal {
+        display: none;
+    }
+
+    .avatar1,
+    .avatar2,
+    .avatar3,
+    .imgGrid2 {
+        display: none;
+    }
+}

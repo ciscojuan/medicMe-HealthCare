@@ -49,18 +49,34 @@
     color: #B39502;
 }
 
-@media (max-width: 480px) {
-    .kpi {
-        height: 100%;
-        flex-direction: column;
-        gap: 50px;
-    }
-}
-
-@media (max-width: 640px) {}
-
-@media (max-width: 900px) {}
+@media (max-width: 1800px) {}
 
 @media (max-width: 1200px) {}
 
-@media (max-width: 1800px) {}
+@media (max-width: 900px) {
+    .kpi {
+        height: 100%;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+        .kpi__card {
+                width: 300px;
+                height: 200px;
+            }
+}
+
+@media (max-width: 640px) {
+    .kpi__card {
+        width: 250px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .kpi__card {
+        width: 300px;
+        height: 200px;
+    }
+}

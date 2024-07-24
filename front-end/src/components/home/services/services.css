@@ -60,14 +60,26 @@
 
 @media (max-width: 1800px) {}
 
-@media (max-width: 1200px) {}
+@media (max-width: 1200px) {
+    .servicios__container {
+        display: grid;
+        grid-template-columns: auto auto;
+        place-items: center;
+            height: 100%;
+            gap: 100px;
+        }
+    
+        .servicios__container--button {
+            width: 80%;
+        }
+}
 
 @media (max-width: 900px) {
     .servicios__container {
-            grid-template-columns: auto;
-            place-items: center;
+            display: flex;
+            flex-wrap: wrap;
             height: 100%;
-            gap: 0;
+            gap: 100px;
         }
     
         .servicios__container--button {

@@ -52,25 +52,44 @@
     border-radius: var(--border-radius-2);
 }
 
-@media (max-width: 480px) {
-    .faq,.faq__container,.faq__container--acordion,.acordion--content{
-        width: 100%;
-        height: 100%;
-    }
-    .faq__container--image {
-        display: none;
-    }
-
-}
-
-@media (max-width: 640px) {
-    .registro {
-        display: none;
-    }
-}
-
-@media (max-width: 900px) {}
+@media (max-width: 1800px) {}
 
 @media (max-width: 1200px) {}
 
-@media (max-width: 1800px) {}
+@media (max-width: 900px) {
+        .faq,
+            .faq__container,
+            .faq__container--acordion,
+            .acordion--content {
+                width: 100%;
+                height: 100%;
+            }
+            .faq__container--image img{
+                max-width: 100%;
+            }
+}
+
+@media (max-width: 768px){
+    .faq,
+        .faq__container,
+        .faq__container--acordion,
+        .acordion--content {
+            width: 100%;
+            height: 100%;
+        }
+    
+        .faq__container--image {
+            display: none;
+        }
+}
+
+@media (max-width: 640px) {
+    
+}
+
+@media (max-width: 480px) {
+
+
+
+
+}

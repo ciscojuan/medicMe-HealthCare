@@ -39,21 +39,24 @@
 
 .imgCal {
     position: absolute;
-    top: 570px;
-    left: 500px;
-    width: 800px;
-    height: 400px;
+    top: 61.25%;
+    left: 30.5%;
+    width: 38%;
+    height: 42%;
     border-radius: 0px;
 }
 
 .avatar1 {
     position: absolute;
-    top: 300px;
-    left: 300px;
-    width: 98px;
-    height: 98px;
+    top: 37.5%;
+    /* 300px / 1920px */
+    left: 17.5%;
+    /* 300px / 1920px */
+    width: 5%;
+    /* 98px / 1920px */
+    height: 5%;
+    /* 98px / 1920px */
     background: #B9E5FFFF;
-    /* secondary-200 */
     opacity: 1;
     overflow: hidden;
     border-radius: 39px;
@@ -61,39 +64,36 @@
 
 .avatar2 {
     position: absolute;
-    top: 380px;
-    left: 1400px;
-    width: 71px;
-    height: 71px;
+    top: 47.5%;
+    left: 86%;
+    width: 5.7%;
+    height: 8.7%;
     background: #FFC9E2FF;
-    /* tertiary1-200 */
     opacity: 1;
     overflow: hidden;
-    border-radius: 26px;
+    border-radius: 50%;
 }
 
 .avatar3 {
     position: absolute;
-    top: 142px;
-    left: 1233px;
-    width: 91px;
-    height: 91px;
+    top: 17.75%;
+    left: 75.125%;
+    width: 4.7%;
+    height: 6.7%;
     background: #D3C1FAFF;
-    /* primary-200 */
     opacity: 1;
     overflow: hidden;
-    border-radius: 36px;
+    border-radius: 50%;
 }
 
 .imgGrid2 {
     position: absolute;
-    top: 600px;
-    left: 967px;
-    width: 65px;
-    height: 65px;
+    top: 75%;
+    left: 67.875%;
+    width: 4%;
+    height: 8%;
     background: #FF56A5FF;
-    /* tertiary1-500 */
-    border-radius: 33px;
+    border-radius: 50%;
 }
 
 @media (max-width: 1800px) {}
@@ -123,42 +123,6 @@
         margin-bottom: 250px;
     }
 
-    .imgCal {
-        top: 600px;
-        left: 250px;
-        width: 350px;
-        height: 200px;
-        z-index: 3;
-    }
-
-    .avatar1 {
-        left: 90px;
-        top: 240px;
-        width: 70px;
-        height: 70px;
-    }
-
-    .avatar2 {
-        left: 715px;
-        top: 160px;
-        width: 70px;
-        height: 70px;
-    }
-
-    .avatar3 {
-        left: 125px;
-        top: 490px;
-        width: 70px;
-        height: 70px;
-    }
-
-    .imgGrid2 {
-        left: 533px;
-        top: 560px;
-        width: 70px;
-        height: 70px;
-        z-index: 1;
-    }
 }
 
 @media (max-width: 768px) {
@@ -172,13 +136,7 @@
         display: none;
     }
 
-    .imgGrid2 {
-        left: 400px;
-    }
 
-    .imgCal {
-        left: 120px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -194,19 +152,12 @@
         z-index: 1;
     }
 
-    .imgCal {
-        left: 55px;
-        width: 350px;
-        height: 200px;
-    }
 
-    #nav__checkbox:checked~.imgCal {
-        display: none;
-    }
 
     .avatar1,
     .avatar2,
     .avatar3,
+    .imgCal,
     .imgGrid2 {
         display: none;
     }

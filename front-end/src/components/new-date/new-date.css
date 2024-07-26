@@ -1,3 +1,6 @@
+.new-date__container h2{
+text-align: center;
+}
 .new-date__container {
     width: 80%;
     height: 100%;
@@ -20,12 +23,21 @@
     gap: 50px;
 }
 
+.new-date__calendar input, .new-date button{
+    width: 100%;
+}
+
+
 .form__date{
     width: 200px;
     height: 200px;
     border: 1px solid
 }
-
+.form__date--btn{
+display: flex;
+justify-content: center;
+align-items: center;
+}
 @media screen and (max-width: 900px) {
     .user-panel__container {
 
@@ -33,6 +45,11 @@
     }
 }
 
+@media screen and (max-width: 640px) {
+        .new-date__calendar {
+                flex-direction: column
+            }
+}
 @media screen and (max-width: 480px) {
     .perfil__portrait {
         width: 80%;

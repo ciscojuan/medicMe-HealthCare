@@ -78,11 +78,9 @@ h2{
 }
 
 @media (max-width: 1200px) {
-  .btn-primary{
-    width: 120px;
-      padding: 10px;
-  }
+
 }
 
 @media (max-width: 480px){
+
 }

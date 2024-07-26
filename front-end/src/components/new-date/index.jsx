@@ -42,34 +42,39 @@ const redirectTo = () =>{
                     </div>
 
                     <div className="perfil__portrait">
-                        <img src={avatar} alt="Username" />
+
+                        <div className="perfil__portrait--image">
+                            <img src={avatar} alt="Username" />
+                        </div>
+
+                        <div className="perfil__portrait--info">
+
+                            <div className="info__name">
+                                <p>Juan Perez Lozano</p>
+                            </div>
+
+                            <div className="perfil__rol">
+                                <p>Paciente</p>
+                            </div>
+
+                            <div className="perfil__age">
+                                <p>Edad: 40</p>
+                            </div>
+
+                            <div className="perfil__email">
+                                <p>320 366 1206</p>
+                            </div>
+
+                            <div className="perfil__email">
+                                <p>juan@mail.com</p>
+                            </div>
+
+                            <Button 
+                            onClick={() => redirectTo()}>Cerrar sesion</Button>
+
+                        </div>
                     </div>
 
-                    <div className="perfil__info">
-
-                        <div className="info__name">
-                            <p>Mombre: Juan Perez Lozano</p>
-                        </div>
-
-                        <div className="perfil__rol">
-                            <p>Paciente</p>
-                        </div>
-
-                        <div className="perfil__age">
-                            <p>Edad: 40</p>
-                        </div>
-
-                        <div className="perfil__email">
-                            <p>Telefono: 320 366 1206</p>
-                        </div>
-
-                        <div className="perfil__email">
-                            <p>Email: juan@mail.com</p>
-                        </div>
-
-                        <Button onClick={() => redirectTo()}>Cerrar sesion</Button>
-
-                    </div>
                 </div>
 
                 <div className="sidebar__user-panel">
@@ -127,9 +132,9 @@ const redirectTo = () =>{
 
                             <div className="form__date"></div>
                             </div>
-                            <Form.Floating >
-                                <Button variant="primary" size="lg" className="mt-2"> Guardar información</Button>
-                            </Form.Floating>
+
+                                <Button variant="primary" size="lg" className="mt-5"> Guardar información</Button>
+
 
                         </div>
 

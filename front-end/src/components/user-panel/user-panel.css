@@ -224,7 +224,7 @@
     }
 
 
-        .user-panel__container {
+    .user-panel__container {
         grid-template-columns: auto;
     }
 

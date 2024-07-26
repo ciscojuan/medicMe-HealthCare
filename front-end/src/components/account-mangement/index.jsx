@@ -12,7 +12,7 @@ import './account.css';
 
 const AccountManagement = () => {
     const navigate = useNavigate();
-    const redirectTo =() =>{
+    const redirectTo = () => {
         navigate("/")
     }
     return (
@@ -64,7 +64,7 @@ const AccountManagement = () => {
                 <div className="sidebar__user-panel">
 
                     <div className="perfil__form">
-                        
+
                         <div className="form__name">
                             <Form.Floating className="mb-2">
                                 <Form.Control
@@ -85,7 +85,7 @@ const AccountManagement = () => {
                         </div>
 
                         <div className="form__name">
-                            <Form.Floating className="mb-2">
+                            <Form.Floating >
                                 <Form.Control
                                     id="telefono"
                                     type="text"
@@ -93,7 +93,7 @@ const AccountManagement = () => {
                                 />
                                 <label htmlFor="telefono">Telefono </label>
                             </Form.Floating>
-                            <Form.Floating className="mb-2">
+                            <Form.Floating>
                                 <Form.Control
                                     id="cumpleaños"
                                     type="date"
@@ -104,7 +104,7 @@ const AccountManagement = () => {
                         </div>
 
                         <div className="form__direction">
-                            <Form.Floating className="mb-2">
+                            <Form.Floating>
                                 <Form.Control
                                     id="direccion"
                                     type="text"
@@ -117,7 +117,7 @@ const AccountManagement = () => {
                         <hr className="hr" />
 
                         <div className="form__name">
-                            <Form.Floating className="mb-2">
+                            <Form.Floating>
                                 <Form.Control
                                     id="email"
                                     type="text"
@@ -137,8 +137,9 @@ const AccountManagement = () => {
                             </Form.Floating>
                         </div>
 
-                        <Form.Floating >
-                            <Button variant="primary" size="lg" className="mt-2"> Guardar información</Button>
+                        <Form.Floating 
+                        className="btn-send" >
+                            <Button variant="primary" size="lg" className="btn-send"> Guardar información</Button>
                         </Form.Floating>
 
                     </div>

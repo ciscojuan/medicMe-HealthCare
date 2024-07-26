@@ -1,7 +1,7 @@
 import React from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from '../../assets/logo.png';
 import logoWithe from '../../assets/logoWhite.png';
 import logoBlack from '../../assets/logoblack.png'
@@ -11,9 +11,14 @@ import Footer from "../../shared/footer";
 import './account.css';
 
 const AccountManagement = () => {
+    const navigate = useNavigate();
+    const redirectTo =() =>{
+        navigate("/")
+    }
     return (
         <div className="user-panel">
             <Nav className="nav--purple" logo={logoBlack} />
+
             <div className="user-panel__container">
 
                 <div className="sidebar__perfil">
@@ -23,33 +28,36 @@ const AccountManagement = () => {
                     </div>
 
                     <div className="perfil__portrait">
-                        <img src={avatar} alt="Username" />
-                    </div>
 
-                    <div className="perfil__info">
-
-                        <div className="info__name">
-                            <p>Mombre: Juan Perez Lozano</p>
+                        <div className="perfil__portrait--image">
+                            <img src={avatar} alt="Username" />
                         </div>
 
-                        <div className="perfil__rol">
-                            <p>Paciente</p>
+                        <div className="perfil__portrait--info">
+
+                            <div className="info__name">
+                                <p>Juan Perez Lozano</p>
+                            </div>
+
+                            <div className="perfil__rol">
+                                <p>Paciente</p>
+                            </div>
+
+                            <div className="perfil__age">
+                                <p>Edad: 40</p>
+                            </div>
+
+                            <div className="perfil__email">
+                                <p>320 366 1206</p>
+                            </div>
+
+                            <div className="perfil__email">
+                                <p>juan@mail.com</p>
+                            </div>
+
+                            <Button onClick={() => redirectTo()}>Cerrar sesion</Button>
+
                         </div>
-
-                        <div className="perfil__age">
-                            <p>Edad: 40</p>
-                        </div>
-
-                        <div className="perfil__email">
-                            <p>Telefono: 320 366 1206</p>
-                        </div>
-
-                        <div className="perfil__email">
-                            <p>Email: juan@mail.com</p>
-                        </div>
-
-                        <Button>Cerrar sesion</Button>
-
                     </div>
                 </div>
 

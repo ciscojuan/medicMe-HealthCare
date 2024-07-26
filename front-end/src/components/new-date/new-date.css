@@ -25,3 +25,55 @@
     height: 200px;
     border: 1px solid
 }
+
+@media screen and (max-width: 900px) {
+    .user-panel__container {
+
+        grid-template-columns: auto;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .perfil__portrait {
+        width: 80%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: var(--border-radius-2);
+        gap: 20px;
+    }
+
+
+    .user-panel__container {
+        grid-template-columns: auto;
+    }
+
+    .card {
+        width: 80%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card__status {
+        display: none;
+    }
+
+    .card__status-mobile {
+        display: block;
+    }
+
+    .card__info {
+        width: 100%;
+    }
+
+    .card__operations {
+        width: 100%;
+        flex-direction: row;
+        border-radius: 0 0 var(--border-radius-2) var(--border-radius-2);
+    }
+}

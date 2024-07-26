@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UilFolderPlus } from '@iconscout/react-unicons'
 import { UilCalender } from '@iconscout/react-unicons'
 
@@ -18,13 +18,17 @@ import './new-date.css';
 const NewDate = () => {
 
 const [selectedDate, setSelectedDate] = useState(new Date());
-
+const navigate = useNavigate();
 const minDate = new Date(Date())
 
 const handleDateChage = (date) => {
     setSelectedDate(date)
     date = `${date.getDay()}-${date.getMonth()}-${date.getFullYear()}`
     console.log(date)
+}
+
+const redirectTo = () =>{
+    navigate("/home")
 }
 
     return (
@@ -63,7 +67,7 @@ const handleDateChage = (date) => {
                             <p>Email: juan@mail.com</p>
                         </div>
 
-                        <Button>Cerrar sesion</Button>
+                        <Button onClick={() => redirectTo()}>Cerrar sesion</Button>
 
                     </div>
                 </div>

@@ -69,10 +69,10 @@ const Login = () => {
                             />
                             <label htmlFor="floatingPasswordCustom">Password</label>
                         </Form.Floating>
-                        <Form.Floating >
-                            <Button variant="primary" size="lg" className="mt-2"> Ingresar</Button>
-                            <p >No tienes cuenta?</p>  <Link to="/register">crea una aca</Link>
-                        </Form.Floating>
+                        <div className="login__buton">
+                            <Button variant="primary" size="lg" className="btn-login"> Ingresar</Button>
+                            <label>¿No tienes cuanta?</label> <Link to="/register">Creala  aca</Link>
+                        </div>
                     </div>
 
                 </div>

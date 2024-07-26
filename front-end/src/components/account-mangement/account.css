@@ -1,39 +1,65 @@
-.perfil__title{
+.user-panel__container {
+    place-items: center;
+}
+
+.perfil__title {
     height: 130px;
 }
-.perfil__form{
+
+.perfil__portrait {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius-2);
+}
+
+.perfil__form {
     width: 80%;
-    height: 600px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 1px dotted;
-
 }
-.form__name{
+
+.form__name {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 80%;
+    height: 100%;
     outline: none;
-    gap:30px
+    gap: 30px
 }
-.form__name input{
+
+.form__name input {
     width: 260px;
 }
 
-.form__direction{
-    width: 60%;
-}
-.hr{
+.form__direction {
     width: 80%;
-        border: 1px solid #ccc;
+    height: 100%;
 }
-.perfil__form--button{
-width: 80%;
-height: 100%;
+
+.hr {
+    width: 80%;
+    border: 1px solid #ccc;
+}
+
+.perfil__form--button {
+    width: 80%;
+    height: 100%;
     display: flex;
-        align-items: center;
-        justify-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 640px) {
+    .user-panel__container {
+        grid-template-columns: auto;
+    }
 }

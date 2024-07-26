@@ -52,21 +52,21 @@
     /* 300px / 1920px */
     left: 17.5%;
     /* 300px / 1920px */
-    width: 5%;
+    width: 4%;
     /* 98px / 1920px */
-    height: 5%;
+    height: 7%;
     /* 98px / 1920px */
     background: #B9E5FFFF;
     opacity: 1;
     overflow: hidden;
-    border-radius: 39px;
+    border-radius: 50%;
 }
 
 .avatar2 {
     position: absolute;
     top: 47.5%;
     left: 86%;
-    width: 5.7%;
+    width: 4.7%;
     height: 8.7%;
     background: #FFC9E2FF;
     opacity: 1;
@@ -78,7 +78,7 @@
     position: absolute;
     top: 17.75%;
     left: 75.125%;
-    width: 4.7%;
+    width: 3.7%;
     height: 6.7%;
     background: #D3C1FAFF;
     opacity: 1;

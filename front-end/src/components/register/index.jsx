@@ -51,7 +51,7 @@ const Register = () => {
                     </div>
 
                     <div className="register__form--content">
-                        <Form.Floating className="mb-3">
+                        <Form.Floating className="">
                             <Form.Control
                                 id="floatingInputCustom"
                                 type="email"
@@ -59,7 +59,7 @@ const Register = () => {
                             />
                             <label htmlFor="floatingInputCustom">Nombre</label>
                         </Form.Floating>
-                        <Form.Floating className="mb-3">
+                        <Form.Floating className="">
                             <Form.Control
                                 id="floatingPasswordCustom"
                                 type="password"
@@ -67,7 +67,7 @@ const Register = () => {
                             />
                             <label htmlFor="floatingPasswordCustom">Apellido</label>
                         </Form.Floating>
-                        <Form.Floating className="mb-3">
+                        <Form.Floating className="">
                             <Form.Control
                                 id="floatingInputCustom"
                                 type="email"
@@ -75,7 +75,7 @@ const Register = () => {
                             />
                             <label htmlFor="floatingInputCustom">Email</label>
                         </Form.Floating>
-                        <Form.Floating className="mb-3">
+                        <Form.Floating className="">
                             <Form.Control
                                 id="floatingPasswordCustom"
                                 type="password"
@@ -83,10 +83,11 @@ const Register = () => {
                             />
                             <label htmlFor="floatingPasswordCustom">Contraseña</label>
                         </Form.Floating>
-                        <Form.Floating >
-                            <Button variant="primary" size="lg" className="mt-5"> Ingresar</Button>
+                        <div className="register__buton">
+                                <Button variant="primary" size="lg" className="btn-register"> Ingresar</Button>
                             <label>Ya tienes cuenta?</label> <Link to="/login">Ingresa aca</Link>
-                        </Form.Floating>
+                        </div>
+
                     </div>
 
                 </div>

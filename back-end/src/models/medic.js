@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 const medicSchema = mongoose.Schema({
     name: {
         type: String,
@@ -10,6 +11,15 @@ const medicSchema = mongoose.Schema({
     },
     birthdate: {
         type: Date,
+        validate: {
+            validator: function(value) {
+                return moment(value, 'DD-MM-YYYY', true).isValid();
+            },
+            message: props => `${props.value} is not a valid birthdate format (DD-MM-YYYY)`
+        },
+        get: function(value) {
+            return moment(value).format('DD-MM-YYYY');
+        }
     },
     phone: {
         type: String,
@@ -23,11 +33,13 @@ const medicSchema = mongoose.Schema({
         require: true
     },
     createAt: {
-        type: Timestamp,
-        require: true
+        type: Date,
+default: Date.now(),
+require: true
     },
     updateAt: {
-        type: Timestamp,
+        type: Date,
+        default: Date.now(),
         require: true
     }
 

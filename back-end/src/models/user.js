@@ -1,13 +1,22 @@
 const mongoose = require('mongoose');
+const { updateUser } = require('../controllers/user');
 const userSchema = mongoose.Schema({
     email:{
         type:String,
-        require:[true, 'Email is require'],
+        required:[true, 'Email is require'],
         unique: [true, 'email already exists']
     },
     password:{
         type: String,
-        require:[true, 'password is require']
+        required:[true, 'password is require']
+    },
+    createAt:{
+        type:Date,
+        default:Date.now
+    },
+    updateAt:{
+        type:Date,
+        default:Date.now
     }
 })
 

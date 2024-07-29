@@ -1,27 +1,32 @@
-const Booking = require('../models/booking.model');
-const User = require('../models/user.model');
-const Doctor = require('../models/doctor.model');
-const Paciente = require('../models/patient.model');
-const Sede = require('../models/sede.model');
-
 const Booking = require('../models/booking');
+const Medic = require('../models/medic');
+const Paciente = require('../models/patient');
+const Sede = require('../models/location');
+
 const { default: mongoose } = require('mongoose');
 
 // CREATE
 exports.createBooking = async (req, res) => {
 
-    const { paciente_id, medico_id, sede_id, appointment } = req.body;
+  const { paciente_id, medico_id, sede_id, appointment } = req.body;
 
-    if(!mongoose.isValidObjectId(paciente_id)) res.status(400).json({error: 'Invalid paciente_id'});
-    if(!mongoose.isValidObjectId(medico_id)) res.status(400).json({error: 'Invalid medico_id'});
-    if(!mongoose.isValidObjectId(sede_id)) res.status(400).json({error: 'Invalid sede_id'});
-    
+  if (!mongoose.isValidObjectId(paciente_id)) return res.status(400).json({ error: 'Invalid paciente_id' });
+  if (!mongoose.isValidObjectId(medico_id)) return res.status(400).json({ error: 'Invalid medico_id' });
+  if (!mongoose.isValidObjectId(sede_id)) return res.status(400).json({ error: 'Invalid sede_id' });
+
+  const paciente = await Paciente.findById(paciente_id)
+  if (!paciente) return res.status(404).json({ message: "Invalid id for Patient." })
+  const medico = await Medic.findById(medico_id)
+  if (!medico) return res.status(404).json({ message: "Invalid id for Medic." })
+  const sede = await Sede.findById(sede_id)
+  if (!sede) return res.status(404).json({ message: "Invalid id for sede." })
   try {
+
     const newBooking = new Booking({
-      paciente_id: req.body.paciente_id,
-      medico_id: req.body.medico_id,
-      sede_id: req.body.sede_id,
-      appointment: req.body.appointment,
+      paciente_id: paciente,
+      medico_id: medico,
+      sede_id: sede,
+      appointment: appointment,
       createDate: new Date(),
       updateAt: new Date()
     });
@@ -45,9 +50,9 @@ exports.getBookings = async (req, res) => {
 
 // UPDATE
 exports.updateBooking = async (req, res) => {
-    if (!updatedBooking) {
-      return res.status(404).json({ error: 'Booking not found' });
-    }
+  if (!updatedBooking) {
+    return res.status(404).json({ error: 'Booking not found' });
+  }
 
   try {
     const updatedBooking = await Booking.findByIdAndUpdate(
@@ -72,9 +77,9 @@ exports.updateBooking = async (req, res) => {
 
 // DELETE
 exports.deleteBooking = async (req, res) => {
-    if (!deletedBooking) {
-      return res.status(404).json({ error: 'Booking not found' });
-    }
+  if (!deletedBooking) {
+    return res.status(404).json({ error: 'Booking not found' });
+  }
 
   try {
     const deletedBooking = await Booking.findByIdAndDelete(req.params.id);

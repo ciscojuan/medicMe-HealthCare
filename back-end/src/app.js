@@ -8,6 +8,8 @@ const app = express();
 const userRoutes = require('./routes/user');
 const medicRoutes = require('./routes/medic');
 const locationRoutes = require('./routes/location');
+const patientRoutes = require('./routes/patient');
+const bookingRoutes = require('./routes/booking');
 
 const PORT = process.env.PORT || 6533;
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -21,9 +23,11 @@ app.options('*', cors());
 //cargar rutas
 const api = '/api/v1'
 
-app.use(`${api}/user`, userRoutes),
-app.use(`${api}/medic`, medicRoutes)
-app.use(`${api}/location`, locationRoutes)
+app.use(`${api}/user`, userRoutes);
+app.use(`${api}/medic`, medicRoutes);
+app.use(`${api}/location`, locationRoutes);
+app.use(`${api}/patient`, patientRoutes);
+app.use(`${api}/booking`, bookingRoutes)
 
 
 

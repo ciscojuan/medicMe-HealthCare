@@ -21,12 +21,14 @@ const bookingSchema = mongoose.Schema({
         require:true
     },
     createDate:{
-        type: Timestamp,
+        type: Date,
+        default: Date.now(),
         require: true
     },
     updateAt: {
-        type:Timestamp,
-        require:true
+        type: Date,
+        default: Date.now(),
+        require: true
     }
 })
 

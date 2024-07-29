@@ -24,12 +24,14 @@ const patientSchema = mongoose.Schema({
         require:true
     },
     createAt:{
-        type:Timestamp,
-        require:true
+        type: Date,
+        default: Date.now(),
+        require: true
     },
     updateAt:{
-        type: Timestamp,
-        require : true
+        type: Date,
+        default: Date.now(),
+        require: true
     }
 
 })

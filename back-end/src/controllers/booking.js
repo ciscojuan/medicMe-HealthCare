@@ -48,12 +48,24 @@ exports.getBookings = async (req, res) => {
   }
 };
 
+exports.getBooking = async (req, res) =>{
+  const {id} = req.params
+
+  if(!id) return res.status(404).json({message: "Invalid id", note})
+
+    try{
+      const booking = await Booking.findOne({_id: id});
+      res.status(200).json({Booking: booking});
+    }catch(err){
+      res.status(500).json({Error:err})
+    }
+}
+
 // UPDATE
 exports.updateBooking = async (req, res) => {
-  if (!updatedBooking) {
-    return res.status(404).json({ error: 'Booking not found' });
-  }
-
+  const {id} = req.params
+  if (!id)  return res.status(404).json({ error: 'Invalid Id.' });
+  
   try {
     const updatedBooking = await Booking.findByIdAndUpdate(
       req.params.id,
@@ -77,8 +89,10 @@ exports.updateBooking = async (req, res) => {
 
 // DELETE
 exports.deleteBooking = async (req, res) => {
-  if (!deletedBooking) {
-    return res.status(404).json({ error: 'Booking not found' });
+  const { id } = req.params
+  const booking = Booking.findById(id)
+  if (!booking) {
+    return res.status(404).json({ error: 'InvalidBooking Id.' });
   }
 
   try {

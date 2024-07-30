@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
     },
     password:{
         type: String,
-        required:[true, 'password is require']
+        required:[true, 'password is required']
     },
     createAt:{
         type:Date,

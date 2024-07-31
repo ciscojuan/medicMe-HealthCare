@@ -10,6 +10,11 @@ const userSchema = mongoose.Schema({
         type: String,
         required:[true, 'password is required']
     },
+    role:{
+        type:String,
+        enum: ['Patient', 'Doctor'],
+        default: 'Patient'
+    },
     createAt:{
         type:Date,
         default:Date.now

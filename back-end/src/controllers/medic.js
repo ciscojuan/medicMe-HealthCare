@@ -50,7 +50,7 @@ exports.getMedic = async (req, res) => {
 
 // UPDATE
 exports.updatedMedic = async (req, res) => {
-  const { name, lastname, birthdate, phone, address, user } = req.body;
+  const { name, lastname, birthdate, phone, address, user, specialty } = req.body;
   const userExists = await User.findById(user);
   if (!userExists) {
     return res.status(400).json({ error: 'Invalid user ID' });
@@ -66,6 +66,7 @@ exports.updatedMedic = async (req, res) => {
           phone: phone,
           address: address,
           user: user,
+          specialty: specialty,
           updateAt: new Date(),
         },
       },

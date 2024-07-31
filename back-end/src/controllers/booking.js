@@ -41,31 +41,31 @@ exports.createBooking = async (req, res) => {
 // READ
 exports.getBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find();
+    const bookings = await Booking.find().populate('medico_id', { 'name': 1, 'lastname': 1 }).populate('sede_id', { 'sede': 1, 'direction': 1 }).populate('appointment');
     res.json(bookings);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
-exports.getBooking = async (req, res) =>{
-  const {id} = req.params
+exports.getBooking = async (req, res) => {
+  const { id } = req.params
 
-  if(!id) return res.status(404).json({message: "Invalid id", note})
+  if (!id) return res.status(404).json({ message: "Invalid id", note })
 
-    try{
-      const booking = await Booking.findOne({_id: id});
-      res.status(200).json({Booking: booking});
-    }catch(err){
-      res.status(500).json({Error:err})
-    }
+  try {
+    const booking = await Booking.findOne({ _id: id });
+    res.status(200).json({ Booking: booking });
+  } catch (err) {
+    res.status(500).json({ Error: err })
+  }
 }
 
 // UPDATE
 exports.updateBooking = async (req, res) => {
-  const {id} = req.params
-  if (!id)  return res.status(404).json({ error: 'Invalid Id.' });
-  
+  const { id } = req.params
+  if (!id) return res.status(404).json({ error: 'Invalid Id.' });
+
   try {
     const updatedBooking = await Booking.findByIdAndUpdate(
       req.params.id,

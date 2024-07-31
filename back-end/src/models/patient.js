@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const patientSchema = mongoose.Schema({
     name:{
         type: String,
-        require: [true, 'Name is require']
+        required: [true, 'Name is required.']
     },
     lastname:{
         type:String,
-        require: [true, 'Lastname is require']
+        required: [true, 'Lastname is required.']
     },
     birthdate:{
         type: Date,
@@ -19,19 +19,20 @@ const patientSchema = mongoose.Schema({
         type: String
     },
     user:{
-        type:mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
+        unique: true,
         ref: 'User',
-        require:true
+        required:true
     },
     createAt:{
         type: Date,
         default: Date.now(),
-        require: true
+        required: true
     },
     updateAt:{
         type: Date,
         default: Date.now(),
-        require: true
+        required: true
     }
 
 })

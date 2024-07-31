@@ -61,6 +61,12 @@ button:disabled {
 .fa-gem{
   color: #6D30ED;
 }
+.fa-gem:hover{
+  animation-name: parpadeo;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
 h1{
 
   font-weight: bold;
@@ -76,11 +82,55 @@ h2{
 .react-datepicker__current-month, .react-datepicker__day-name{
   color: var(--color-3);
 }
-
+.form-floating{
+  height: 20%;
+}
 @media (max-width: 1200px) {
 
 }
 
 @media (max-width: 480px){
 
+}
+
+@-moz-keyframes parpadeo {
+  0% {
+    opacity: 1.0;
+  }
+
+  50% {
+    opacity: 0.0;
+  }
+
+  100% {
+    opacity: 1.0;
+  }
+}
+
+@-webkit-keyframes parpadeo {
+  0% {
+    opacity: 1.0;
+  }
+
+  50% {
+    opacity: 0.0;
+  }
+
+  100% {
+    opacity: 1.0;
+  }
+}
+
+@keyframes parpadeo {
+  0% {
+    opacity: 1.0;
+  }
+
+  50% {
+    opacity: 0.0;
+  }
+
+  100% {
+    opacity: 1.0;
+  }
 }

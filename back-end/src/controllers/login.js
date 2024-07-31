@@ -12,11 +12,18 @@ exports.login = async (req, res) => {
     if (!(email || password)) return res.status(500).json({ message: "One or more fields are missing" })
 
     try {
-        const user = await User.findOne({ email: email }).lean();
+
+        // Log the request payload for debugging
+
+        console.log(`Request payload: ${JSON.stringify(req.body)}`);
+
+        const user = await User.findOne({ email: email });
+
+        console.log(`User found: ${JSON.stringify(user)}`); // Added JSON.stringify for better visibility
 
         const validPassword = user === null ? false : await bcrypt.compare(password, user.password);
-
-        if (!(user && validPassword)) res.status(401).json({ Error: "unauthorized.", message: "email or password invalid" })
+        
+        if (!(user && validPassword)) return res.status(401).json({ Error: "unauthorized.", message: "email or password invalid" })
 
         const userForToken = {
             username: user.email,
@@ -28,10 +35,10 @@ exports.login = async (req, res) => {
             algorithm: "RS256",
         });
 
-        res.status(200).send({
+        res.status(200).json({
             token,
-            username: User.email,
-            id: User._id
+            username: user.email,
+            id: user._id
         });
     } catch (err) {
         res.status(500).json({ Error: err.message })

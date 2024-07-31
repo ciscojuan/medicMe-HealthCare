@@ -48,7 +48,7 @@ const Nav = ({ className, logo }) => {
                     <Link to="/contact-us" className="link">Contact us</Link>
                 </div>
             </div>
-            {!localStorage.getItem('username') &&
+            {!localStorage.getItem('userLogged') &&
                 <div className="nav__loginArea">
                     <Button
                         className="btn-primary"

@@ -25,18 +25,20 @@ exports.createPatient = async (req, res) => {
 
 exports.getPatients = async (req, res) => {
     try {
-        const patients = await Patient.find();
+        const patients = await Patient.find().populate('user',{'email':1, 'role': 1, _id:0});
         if (!patients) return res.status(404).json({ message: "No documents found." })
         res.status(200).json(patients)
     } catch (err) {
-        res.status(500).json({ Error: err })
+        res.status(500).json({ Error: err.message})
     }
 }
 
 exports.getPatient = async (req, res) => {
+    const { id } = req.params
+    console.log(id)
     try {
-        const patient = await Patient.findById(req.params.id)
-        if (!patient) return res.status(404).json({ message: "No patient found." });
+        const patient = await Patient.findOne({user: id})
+        if (!patient) return res.status(404).json({ message: "No patient found.", id:id });
         res.status(200).json(patient);
     } catch (err) {
         res.status(500).json({ Error: err.message })
@@ -63,8 +65,9 @@ exports.updatePatient = async (req, res) => {
             { new: true }
         );
 
+        res.status(200).json(updatedPatient)
     } catch (err) {
-        res.status(500).json({ Error: err })
+        res.status(500).json({ Error: err.message})
     }
 }
 

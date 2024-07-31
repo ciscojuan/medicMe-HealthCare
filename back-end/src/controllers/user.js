@@ -1,11 +1,12 @@
 const bcrypt = require('bcryptjs');
-const express = require('express');
+
 const User = require('../models/user');
+
 
 // Create a new user
 exports.createUser = async (req, res) => {
 
-  const { email, password } = req.body
+  const { email, password, role } = req.body
   if (!email || !password) return res.status(400).send({ error: 'Email and password are required' });
   console.log(req.body);
   const seed = 10;
@@ -13,6 +14,7 @@ exports.createUser = async (req, res) => {
     const user = new User({
       email: email,
       password: await bcrypt.hash(password, seed),
+      role: role
     });
     await user.save();
 

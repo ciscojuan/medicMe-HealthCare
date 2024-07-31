@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect} from "react";
 import { UilFolderPlus } from '@iconscout/react-unicons'
 import { UilCalender } from '@iconscout/react-unicons'
 import { UilUser } from '@iconscout/react-unicons'
@@ -7,6 +7,7 @@ import { UilClockNine } from '@iconscout/react-unicons'
 import { UilRedo } from '@iconscout/react-unicons'
 import { UilTrash } from '@iconscout/react-unicons'
 import { Button } from "react-bootstrap";
+import moment from 'moment'
 
 import logo from '../../assets/logo.png';
 import logoWithe from '../../assets/logoWhite.png';
@@ -14,13 +15,34 @@ import logoBlack from '../../assets/logoblack.png'
 import avatar from '../../assets/header-img-p3.png'
 import Nav from "../../shared/nav";
 import Footer from "../../shared/footer";
+import userService from "../../services/user";
 import './user-panel.css';
 import { Link, useNavigate } from "react-router-dom";
 
-const UserPanel = () => {
-    const navigate = useNavigate();
 
-    const redirectTo = () => {
+const UserPanel = () => {
+    
+    const navigate = useNavigate();
+    const [reservas, setReservas] = useState([])
+    const [patient, setPatient] = useState([])
+
+
+    useEffect(() => {
+        userService.getBookings().then((res) => {
+            setReservas(res.data); // Store fetched data in `blogs` state
+            console.log(reservas)
+        });
+        const userLogged = JSON.parse(localStorage.getItem("userLogged")); //devuelvo el contenido de localS en formato JSON
+        const userId = userLogged.id    
+        console.log(userId)
+        userService.getPatient(userId).then((res) => {
+            console.log(res.data)
+            setPatient(res.data)
+        })
+    }, []);
+
+    const logOut = () => {
+        window.localStorage.clear()
         navigate("/home")
     }
 
@@ -63,7 +85,7 @@ const UserPanel = () => {
                                 <p>juan@mail.com</p>
                             </div>
 
-                            <Button onClick={() => redirectTo()}>Cerrar sesion</Button>
+                            <Button onClick={() => logOut()}>Cerrar sesion</Button>
 
                         </div>
                     </div>
@@ -88,139 +110,58 @@ const UserPanel = () => {
                     </div>
 
                     <div className="cards__container">
-                        <div className="card">
-                            <div className="card__status">
-                                <h4>confirmado</h4>
-                                <h6>Jueves</h6>
-                                <h6>18-07-2024</h6>
-                                <h4>14:40</h4>
-                            </div>
-                            <div className="card__status-mobile">
-                                <h4>confirmado</h4>
-                                <h4>Jueves - 18 /07/2024 - 14:40</h4>
-                            </div>
-                            <div className="card__info">
-                                <div className="card__info--row">
-                                    <div className="info-icon">
-                                        <UilUser size="30" className="user" />
-                                    </div>
-                                    <div className="info__complement">
-                                        Taborda Martin, Juan de Arco - Doctor
-                                    </div>
-                                </div>
-                                <div className="card__info--row">
-                                    <div className="info-icon">
-                                        <UilMapPin size="30" className="location" />
-                                    </div>
-                                    <div className="info__complement">
-                                        Clinica OdontoSanitas Cll 80 - Cll 80 # 20 - 265 Piso 2
-                                    </div>
-                                </div>
-                                <div className="card__info--row">
-                                    <div className="info-icon">
-                                        <UilClockNine size="30" className="time"/>
-                                    </div>
-                                    <div className="info__complement">
-                                        Duracion de la cita: 20 Minutos
-                                    </div>
-                                </div>
-                            </div>
+                        {reservas.map((booking) => {
+                            const appointmentDate = moment(booking.appointment);
 
-                            <div className="card__operations">
-                                <UilRedo className="booking" size="30" />
-                                <UilTrash className="delete" size="30" />
-                            </div>
-                        </div>
-                        <div className="card">
-                            <div className="card__status">
-                                <h4>confirmado</h4>
-                                <h6>Jueves</h6>
-                                <h6>18-07-2024</h6>
-                                <h4>14:40</h4>
-                            </div>
-                            <div className="card__status-mobile">
-                                <h4>confirmado</h4>
-                                <h4>Jueves - 18 /07/2024 - 14:40</h4>
-                            </div>
-                            <div className="card__info">
-                                <div className="card__info--row">
-                                    <div className="info-icon">
-                                        <UilUser size="30" />
+                            return (
+                                <div className="card" key={booking.id}>
+                                    <div className="card__status">
+                                        <h4>Confirmado</h4>
+                                        <h6>Día: {appointmentDate.format('DD')}</h6>
+                                        <h6>Mes: {appointmentDate.format('MM')}</h6>
+                                        <h6>Año: {appointmentDate.format('YYYY')}</h6>
+                                        <h5>{appointmentDate.format('HH:mm')}</h5>
                                     </div>
-                                    <div className="info__complement">
-                                        Taborda Martin, Juan de Arco - Doctor
+                                    <div className="card__status-mobile">
+                                        <h4>Confirmado</h4>
+                                        <h4>
+                                            {appointmentDate.format('dddd')} - {appointmentDate.format('DD/MM/YYYY')} - {appointmentDate.format('HH:mm')}
+                                        </h4>
+                                    </div>
+                                    <div className="card__info">
+                                        <div className="card__info--row">
+                                            <div className="info-icon">
+                                                <UilUser size="30" className="user" />
+                                            </div>
+                                            <div className="info__complement">
+                                                {booking.medico_id.name} - {booking.medico_id.lastname}
+                                            </div>
+                                        </div>
+                                        <div className="card__info--row">
+                                            <div className="info-icon">
+                                                <UilMapPin size="30" className="location" />
+                                            </div>
+                                            <div className="info__complement">
+                                                {booking.sede_id.name} - {booking.sede_id.direction}
+                                            </div>
+                                        </div>
+                                        <div className="card__info--row">
+                                            <div className="info-icon">
+                                                <UilClockNine size="30" className="time" />
+                                            </div>
+                                            <div className="info__complement">
+                                                Duración de la cita: 20 Minutos
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="card__operations">
+                                        <UilRedo className="booking" size="30" />
+                                        <UilTrash className="delete" size="30" />
                                     </div>
                                 </div>
-                                <div className="card__info--row">
-                                    <div className="info-icon">
-                                        <UilMapPin size="30" />
-                                    </div>
-                                    <div className="info__complement">
-                                        Clinica OdontoSanitas Cll 80 - Cll 80 # 20 - 265 Piso 2
-                                    </div>
-                                </div>
-                                <div className="card__info--row">
-                                    <div className="info-icon">
-                                        <UilClockNine size="30" />
-                                    </div>
-                                    <div className="info__complement">
-                                        Duracion de la cita: 20 Minutos
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="card__operations">
-                                <UilRedo className="booking" size="30" />
-                                <UilTrash className="delete" size="30" />
-                            </div>
-                        </div>
-
-                        <div className="card">
-                            <div className="card__status">
-                                <h4>confirmado</h4>
-                                <h6>Jueves</h6>
-                                <h6>18-07-2024</h6>
-                                <h4>14:40</h4>
-                            </div>
-                            <div className="card__status-mobile">
-                                <h4>confirmado</h4>
-                                <h4>Jueves - 18 /07/2024 - 14:40</h4>
-                            </div>
-                            <div className="card__info">
-                                <div className="card__info--row">
-                                    <div className="info-icon">
-                                        <UilUser size="30" />
-                                    </div>
-                                    <div className="info__complement">
-                                        Taborda Martin, Juan de Arco - Doctor
-                                    </div>
-                                </div>
-                                <div className="card__info--row">
-                                    <div className="info-icon">
-                                        <UilMapPin size="30" />
-                                    </div>
-                                    <div className="info__complement">
-                                        Clinica OdontoSanitas Cll 80 - Cll 80 # 20 - 265 Piso 2
-                                    </div>
-                                </div>
-                                <div className="card__info--row">
-                                    <div className="info-icon">
-                                        <UilClockNine size="30" />
-                                    </div>
-                                    <div className="info__complement">
-                                        Duracion de la cita: 20 Minutos
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="card__operations">
-                                <UilRedo className="booking" size="30" />
-                                <UilTrash className="delete" size="30" />
-                            </div>
-                        </div>
-
-
-
+                            );
+                        })}
 
                     </div>
                 </div>

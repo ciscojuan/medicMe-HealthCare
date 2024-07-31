@@ -6,6 +6,7 @@ import Register from './components/register';
 import UserPanel from './components/user-panel';
 import AccountManagement from './components/account-mangement';
 import NewDate from './components/new-date';
+import ProtectedRoute from './shared/protectedRoutes/ProtectedRouted';
 
 
 
@@ -14,9 +15,9 @@ const routes = [
     { path: '/home', element:<Home/> },
     { path: '/login', element: <Login />},
     { path: '/register', element: <Register />},
-    { path: '/user-panel', element: <UserPanel /> },
-    { path: '/management/:id', element:<AccountManagement/>},
-    { path: '/new-date', element: <NewDate /> },
+    { path: '/user-panel', element: < ProtectedRoute element={< UserPanel />}  /> },
+    { path: '/management/:id', element: <ProtectedRoute element={<AccountManagement />} />},
+    { path: '/new-date', element: <ProtectedRoute element={<NewDate />} /> },
     { path: '*', element: <Navigate to='/' /> }
 ]
 

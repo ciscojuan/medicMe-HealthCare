@@ -10,15 +10,10 @@ import './register.css';
 const Register = () => {
 
     const [validated, setValidated] = useState(false);
-
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
     const handleSubmit = (event) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-
-        setValidated(true);
+        
     };
 
     return (
@@ -46,49 +41,51 @@ const Register = () => {
 
                 <div className="register__form">
 
-                    <div className="register__title">
-                        <h2>Formulario de Registro</h2>
-                    </div>
-
-                    <div className="register__form--content">
-                        <Form.Floating className="">
-                            <Form.Control
-                                id="floatingInputCustom"
-                                type="email"
-                                placeholder="name@example.com"
-                            />
-                            <label htmlFor="floatingInputCustom">Nombre</label>
-                        </Form.Floating>
-                        <Form.Floating className="">
-                            <Form.Control
-                                id="floatingPasswordCustom"
-                                type="password"
-                                placeholder="Password"
-                            />
-                            <label htmlFor="floatingPasswordCustom">Apellido</label>
-                        </Form.Floating>
-                        <Form.Floating className="">
-                            <Form.Control
-                                id="floatingInputCustom"
-                                type="email"
-                                placeholder="name@example.com"
-                            />
-                            <label htmlFor="floatingInputCustom">Email</label>
-                        </Form.Floating>
-                        <Form.Floating className="">
-                            <Form.Control
-                                id="floatingPasswordCustom"
-                                type="password"
-                                placeholder="Password"
-                            />
-                            <label htmlFor="floatingPasswordCustom">Contraseña</label>
-                        </Form.Floating>
-                        <div className="register__buton">
-                                <Button variant="primary" size="lg" className="btn-register"> Ingresar</Button>
-                            <label>Ya tienes cuenta?</label> <Link to="/login">Ingresa aca</Link>
+                <div className="register__form--container">
+                        <div className="register__title">
+                            <h2>Formulario de Registro</h2>
                         </div>
 
-                    </div>
+                        <div className="register__form--content">
+                            <Form.Floating className="">
+                                <Form.Control
+                                    id="floatingInputCustom"
+                                    type="email"
+                                    placeholder="name@example.com"
+                                />
+                                <label htmlFor="floatingInputCustom">Nombre</label>
+                            </Form.Floating>
+                            <Form.Floating className="">
+                                <Form.Control
+                                    id="floatingPasswordCustom"
+                                    type="password"
+                                    placeholder="Password"
+                                />
+                                <label htmlFor="floatingPasswordCustom">Apellido</label>
+                            </Form.Floating>
+                            <Form.Floating className="">
+                                <Form.Control
+                                    id="floatingInputCustom"
+                                    type="email"
+                                    placeholder="name@example.com"
+                                />
+                                <label htmlFor="floatingInputCustom">Email</label>
+                            </Form.Floating>
+                            <Form.Floating className="">
+                                <Form.Control
+                                    id="floatingPasswordCustom"
+                                    type="password"
+                                    placeholder="Password"
+                                />
+                                <label htmlFor="floatingPasswordCustom">Contraseña</label>
+                            </Form.Floating>
+                            <div className="register__buton">
+                                <Button variant="primary" size="lg" className="btn-register"> Ingresar</Button>
+                                <label>Ya tienes cuenta?</label> <Link to="/login">Ingresa aca</Link>
+                            </div>
+
+                        </div>
+                </div>
 
                 </div>
             </div>

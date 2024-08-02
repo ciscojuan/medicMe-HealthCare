@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { UilFolderPlus } from '@iconscout/react-unicons'
 import { UilCalender } from '@iconscout/react-unicons'
 import { UilUser } from '@iconscout/react-unicons'
@@ -21,10 +21,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 const UserPanel = () => {
-    
+
     const navigate = useNavigate();
     const [reservas, setReservas] = useState([])
-    const [patient, setPatient] = useState([])
+    const [user, setUser] = useState([])
 
 
     useEffect(() => {
@@ -32,12 +32,13 @@ const UserPanel = () => {
             setReservas(res.data); // Store fetched data in `blogs` state
             console.log(reservas)
         });
+        
         const userLogged = JSON.parse(localStorage.getItem("userLogged")); //devuelvo el contenido de localS en formato JSON
-        const userId = userLogged.id    
+        const userId = userLogged.id
         console.log(userId)
-        userService.getPatient(userId).then((res) => {
+        userService.getUser(userId).then((res) => {
             console.log(res.data)
-            setPatient(res.data)
+            setUser(res.data)
         })
     }, []);
 
@@ -46,17 +47,25 @@ const UserPanel = () => {
         navigate("/home")
     }
 
+    const getDate = (birthDate) => {
+
+        const date = moment(birthDate);
+        const today = moment();
+        const age = today.diff(date, 'years');
+        return age;
+    }
+
     return (
         <div className="user-panel">
             <Nav className="nav--purple" logo={logoBlack} />
-            
+
             <div className="user-panel__container">
                 <div className="sidebar__perfil">
 
                     <div className="perfil__title">
                         <h3>Informacion Personal</h3>
                     </div>
-                    
+
                     <div className="perfil__portrait">
 
                         <div className="perfil__portrait--image">
@@ -66,23 +75,23 @@ const UserPanel = () => {
                         <div className="perfil__portrait--info">
 
                             <div className="info__name">
-                                <p>Juan Perez Lozano</p>
+                                <p>{user.name} {user.lastname}</p>
                             </div>
 
                             <div className="perfil__rol">
-                                <p>Paciente</p>
+                                <p>{ user.credentials?.role }</p>
                             </div>
 
                             <div className="perfil__age">
-                                <p>Edad: 40</p>
+                                <p>Edad: {getDate(user.birthdate)}</p>
                             </div>
 
                             <div className="perfil__email">
-                                <p>320 366 1206</p>
+                                <p>{user.phone}</p>
                             </div>
 
                             <div className="perfil__email">
-                                <p>juan@mail.com</p>
+                                <p>{ user.credentials?.email }</p>
                             </div>
 
                             <Button onClick={() => logOut()}>Cerrar sesion</Button>
@@ -134,7 +143,7 @@ const UserPanel = () => {
                                                 <UilUser size="30" className="user" />
                                             </div>
                                             <div className="info__complement">
-                                                {booking.medico_id.name} - {booking.medico_id.lastname}
+                                                {booking.doctor_id?.name} - {booking.doctor_id?.lastname} - {booking.doctor_id?.specialty}
                                             </div>
                                         </div>
                                         <div className="card__info--row">

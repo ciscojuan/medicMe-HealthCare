@@ -27,7 +27,8 @@ const handleDateChage = (date) => {
     console.log(date)
 }
 
-const redirectTo = () =>{
+const logOut = () =>{
+    localStorage.clear();
     navigate("/home")
 }
 
@@ -70,7 +71,7 @@ const redirectTo = () =>{
                             </div>
 
                             <Button 
-                            onClick={() => redirectTo()}>Cerrar sesion</Button>
+                            onClick={() => logOut()}>Cerrar sesion</Button>
 
                         </div>
                     </div>

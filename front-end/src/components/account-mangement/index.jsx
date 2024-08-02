@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Link, useNavigate } from "react-router-dom";
+import moment from 'moment';
+import { Link, useNavigate, useParams } from "react-router-dom";
+import userService from "../../services/user";
 import logo from '../../assets/logo.png';
 import logoWithe from '../../assets/logoWhite.png';
 import logoBlack from '../../assets/logoblack.png'
@@ -11,8 +13,63 @@ import Footer from "../../shared/footer";
 import './account.css';
 
 const AccountManagement = () => {
+    const {id} = useParams();
     const navigate = useNavigate();
-    const redirectTo = () => {
+
+    const [credentials, setCredentials] = useState([]);
+    const [user, setUser] = useState([]);
+
+    const [name, setName] = useState('');
+    const [lastname, setLastname] = useState('');
+    const [phone, setPhone] = useState('');
+    const [birthdate, setBirthdate] = useState('');
+    const [address, setAddress] = useState('')
+    
+    useEffect(()=>{
+        const userLogged = JSON.parse(localStorage.getItem('userLogged'));
+        const credentialId = userLogged.id;
+        console.log(credentialId)
+        userService.getCredentials(credentialId).then((res)=>{
+            setCredentials(res.data)
+        })
+    }, [])
+
+    useEffect(()=>{
+        
+        userService.getUser(id).then((res)=>{
+            setUser(res.data)
+            console.log(user)
+        })
+    }, [])
+    const handleSubmit = (e) =>{
+        e.preventDefault()
+        const credentiales = {name, lastname, phone, birthdate, address, credentials:user._id}
+        console.log(credentiales)
+        try{
+            const savedUser =  userService.saveUser(credentiales).then((res)=>{
+                console.log(res)
+
+                const userId = savedUser._id
+
+                setTimeout(() =>{
+                    navigate(`/user-management/${userId}`)
+                })
+            })
+        }catch(err){
+            console.log(err)
+        }    
+
+    }
+
+    const getDate = (birthDate) => {
+        const date = moment(birthDate);
+        const today = moment();
+        const age = today.diff(date, 'years');
+        return age;
+    } 
+
+    const logOut = () => {
+        localStorage.clear();
         navigate("/")
     }
     return (
@@ -30,32 +87,32 @@ const AccountManagement = () => {
                     <div className="perfil__portrait">
 
                         <div className="perfil__portrait--image">
-                            <img src={avatar} alt="Username" />
+                            <img src={ credentials.avatar || avatar } alt="Username" />
                         </div>
 
                         <div className="perfil__portrait--info">
 
                             <div className="info__name">
-                                <p>Juan Perez Lozano</p>
+                                <p>{ user.name || 'Juan Perez Lozano'}</p>
                             </div>
 
                             <div className="perfil__rol">
-                                <p>Paciente</p>
+                                <p>{ user.credentials?.role || 'Paciente'}</p>
                             </div>
 
                             <div className="perfil__age">
-                                <p>Edad: 40</p>
+                                <p>Edad: { getDate(user.birthdate) }</p>
                             </div>
 
                             <div className="perfil__email">
-                                <p>320 366 1206</p>
+                                <p>{ user.phone || '320 366 1206'}</p>
                             </div>
 
                             <div className="perfil__email">
-                                <p>juan@mail.com</p>
+                                <p>{ user.credentials?.email || 'juan@mail.com'}</p>
                             </div>
 
-                            <Button onClick={() => redirectTo()}>Cerrar sesion</Button>
+                            <Button onClick={() => logOut()}>Cerrar sesion</Button>
 
                         </div>
                     </div>
@@ -64,83 +121,101 @@ const AccountManagement = () => {
                 <div className="sidebar__user-panel">
 
                     <div className="perfil__form">
-
-                        <div className="form__name">
-                            <Form.Floating className="mb-2">
-                                <Form.Control
-                                    id="nombre"
-                                    type="text"
-                                    placeholder="nombre"
-                                />
-                                <label htmlFor="nombre">Nombre </label>
-                            </Form.Floating>
-                            <Form.Floating className="mb-2">
-                                <Form.Control
-                                    id="apellido"
-                                    type="text"
-                                    placeholder="Apellido"
-                                />
-                                <label htmlFor="apellido">Apellido</label>
-                            </Form.Floating>
+                        <div className="register__title">
+                            <h2>Actualizacion de Datos</h2>
                         </div>
 
-                        <div className="form__name">
-                            <Form.Floating >
-                                <Form.Control
-                                    id="telefono"
-                                    type="text"
-                                    placeholder="Telefono"
-                                />
-                                <label htmlFor="telefono">Telefono </label>
-                            </Form.Floating>
-                            <Form.Floating>
-                                <Form.Control
-                                    id="cumpleaños"
-                                    type="date"
-                                    placeholder="dd-mm-yyyy"
-                                />
-                                <label htmlFor="cumpleaños">Cumpleaños</label>
-                            </Form.Floating>
-                        </div>
+                        <form onSubmit={handleSubmit} className='form__container'> 
+                            <div className="form__name">
+                                <Form.Floating className="mb-2">
+                                    <Form.Control
+                                        id="nombre"
+                                        type="text"
+                                        placeholder="nombre"
+                                        value={user.name}
+                                        onChange={({ target }) => setName(target.value)} />
+                                    <label htmlFor="nombre">Nombre </label>
+                                </Form.Floating>
+                                <Form.Floating className="mb-2">
+                                    <Form.Control
+                                        id="apellido"
+                                        type="text"
+                                        placeholder="Apellido"
+                                        value={user.lastname}
+                                        onChange={({ target }) => setLastname(target.value)}
+                                    />
+                                    <label htmlFor="apellido">Apellido</label>
+                                </Form.Floating>
+                            </div>
 
-                        <div className="form__direction">
-                            <Form.Floating>
-                                <Form.Control
-                                    id="direccion"
-                                    type="text"
-                                    placeholder="Direccion"
-                                />
-                                <label htmlFor="direccion">Direccion</label>
-                            </Form.Floating>
-                        </div>
+                            <div className="form__name">
+                                <Form.Floating >
+                                    <Form.Control
+                                        id="telefono"
+                                        type="text"
+                                        placeholder="Telefono"
+                                        value={user.phone}
+                                        onChange={({ target }) => setPhone(target.value)}
+                                    />
+                                    <label htmlFor="telefono">Telefono </label>
+                                </Form.Floating>
+                                <Form.Floating>
+                                    <Form.Control
+                                        id="cumpleaños"
+                                        type="date"
+                                        placeholder="dd-mm-yyyy"
+                                        value={user.birthdate}
+                                        onChange={({ target }) => setBirthdate(target.value)}
+                                    />
+                                    <label htmlFor="cumpleaños">Cumpleaños</label>
+                                </Form.Floating>
+                            </div>
 
-                        <hr className="hr" />
+                            <div className="form__direction">
+                                <Form.Floating>
+                                    <Form.Control
+                                        id="direccion"
+                                        type="text"
+                                        placeholder="Direccion"
+                                        value={user.address}
+                                        onChange={({ target }) => setAddress(target.value)}
+                                    />
+                                    <label htmlFor="direccion">Direccion</label>
+                                </Form.Floating>
+                            </div>
 
-                        <div className="form__name">
-                            <Form.Floating>
-                                <Form.Control
-                                    id="email"
-                                    type="text"
-                                    placeholder="Email"
-                                    disabled
-                                />
-                                <label htmlFor="email">Email</label>
-                            </Form.Floating>
-                            <Form.Floating className="mb-2">
-                                <Form.Control
-                                    id="password"
-                                    type="pasword"
-                                    placeholder="Contraseña"
-                                    disabled
-                                />
-                                <label htmlFor="password">Contraseña </label>
-                            </Form.Floating>
-                        </div>
+                            <hr className="hr" />
 
-                        <Form.Floating 
-                        className="btn-send" >
-                            <Button variant="primary" size="lg" className="btn-send"> Guardar información</Button>
-                        </Form.Floating>
+                            <div className="form__name">
+                                <Form.Floating>
+                                    <Form.Control
+                                        id="email"
+                                        type="text"
+                                        placeholder="Email"
+                                        value={credentials?.email}
+                                        disabled
+                                    />
+                                    <label htmlFor="email">Email</label>
+                                </Form.Floating>
+                                <Form.Floating className="mb-2">
+                                    <Form.Control
+                                        id="password"
+                                        type="pasword"
+                                        placeholder="Contraseña"
+                                        value={credentials?.password}
+                                        disabled
+                                    />
+                                    <label htmlFor="password">Contraseña </label>
+                                </Form.Floating>
+                            </div>
+
+                            <Form.Floating
+                                className="btn-send" >
+                                <Button variant="primary" size="lg"
+                                 className="btn-send"
+                                 type='submit'> Guardar información</Button>
+                            </Form.Floating>
+                        </form>
 
                     </div>
 

@@ -16,7 +16,7 @@ const routes = [
     { path: '/login', element: <Login />},
     { path: '/register', element: <Register />},
     { path: '/user-panel', element: < ProtectedRoute element={< UserPanel />}  /> },
-    { path: '/management/:id', element: <ProtectedRoute element={<AccountManagement />} />},
+    { path: '/user-management/:id', element: <ProtectedRoute element={<AccountManagement />} />},
     { path: '/new-date', element: <ProtectedRoute element={<NewDate />} /> },
     { path: '*', element: <Navigate to='/' /> }
 ]

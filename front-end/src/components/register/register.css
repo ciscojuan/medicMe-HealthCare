@@ -72,12 +72,6 @@
     text-align: center;
     font-size: var(--font-size-4);
 }
-
-.register__service--content {
-    width: 500px;
-    text-align: center;
-    font-size: var(--font-size-2);
-}
 .register__form--container{
     width: 80%;
     height: 80%;
@@ -85,6 +79,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.register__service--content {
+    width: 500px;
+    text-align: center;
+    font-size: var(--font-size-2);
 }
 .register__form {
     width: 100%;
@@ -109,6 +109,15 @@
     z-index: 1;
 }
 
+.register__form--content form {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .form-floating {
     width: 80%;
     height: 15%;
@@ -124,7 +133,7 @@
 }
 
 .register__buton .btn-register {
-    width: 80%;
+    width: 100%;
 }
 
 .leftCircle {

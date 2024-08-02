@@ -1,9 +1,9 @@
 import axios from "axios";
 
 const urlBooking = 'http://localhost:5535/api/v1/booking'
-const urlPatient = 'http://localhost:5535/api/v1/patient'
-const urlMedic = 'http://localhost:5535/api/v1/medic'
+const urlUser = 'http://localhost:5535/api/v1/user'
 const urlLocation = 'http://localhost:5535/api/v1/location'
+const urlCredentials = 'http://localhost:5535/api/v1/credentials'
 
 let token = null
 
@@ -17,16 +17,45 @@ const getBookings = () =>{
 
 }
 
-const getPatient = (id) => {
-    return axios.get(`${urlPatient}/${id}`)
+const getUser = (id) => {
+    return axios.get(`${urlUser}/${id}`)
 }
 
-const getMecis = () => {
-    return axios(urlMedic)
+const getCredentials = (id) => {
+    return axios.get(`${urlCredentials}/${id}`)
 }
 
 const getLocation= () => {
-    return axios(urlLocation)
+    return axios.get(urlLocation)
 }
 
-export default {setToken, getBookings, getPatient, getLocation, getMecis}
+const saveCredentials = async (credentials) => {
+    console.log(credentials)
+    try{
+        const res = await axios.post(urlCredentials, credentials)
+        return res.data
+    }catch(err){
+        console.log(err)
+    }
+}
+
+const saveUser = async (credentials) => {
+    console.log(credentials)
+    try {
+        const res = await axios.post(urlUser, credentials)
+        return res.data
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+const updateUser = async (credentials) =>{
+    console.log(`Credenciales para actualizar: ${JSON.stringify(credentials)}`)
+    try{
+        const res = await axios.put(`${urlUser}/${credentials.id}`, credentials)
+        return res.data
+    }catch(err){
+        console.log(err)
+    }
+}
+export default {setToken, getBookings, getUser, getLocation, saveUser, getCredentials, saveCredentials}

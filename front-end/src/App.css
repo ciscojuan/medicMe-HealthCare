@@ -82,7 +82,13 @@ h2{
 .react-datepicker__current-month, .react-datepicker__day-name{
   color: var(--color-3);
 }
-.form-floating{
+.form-floating__login{
+  height: 20%;
+}
+.form-floating__register {
+  height: 20%;
+}
+.form-floating__update {
   height: 20%;
 }
 @media (max-width: 1200px) {

@@ -1,19 +1,47 @@
 import React, { useState } from "react";
 import { UilUserMd } from '@iconscout/react-unicons';
 import { UilCalendarAlt } from '@iconscout/react-unicons';
-import { Link } from "react-router-dom";
+import userService from "../../services/user";
+import { Link, useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import logo from '../../assets/logoWhite.png'
+import logo from '../../assets/logoWhite.png';
+import Notification from "../../shared/Notification";
 import './register.css';
+import login from "../../services/login";
 
 const Register = () => {
 
-    const [validated, setValidated] = useState(false);
+    const navigate = new useNavigate();
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
-    const handleSubmit = (event) => {
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const credentials= { email, password };
+
+        const newUser = await userService.saveCredentials(credentials)
         
+        const userId = newUser.id || newUser._id;
+        
+        setEmail("")
+        setPassword("")
+
+        setSuccessMessage("Usuario creado con exito")
+
+        const user = await login.auth(credentials)
+        localStorage.setItem("userLogged", JSON.stringify({token: user.token, id: user.id}));
+
+        setTimeout(() => {
+
+            setSuccessMessage(null);
+            navigate(`/user-management/`)
+            console.log(userId)
+        }, 2000);
     };
 
     return (
@@ -47,42 +75,37 @@ const Register = () => {
                         </div>
 
                         <div className="register__form--content">
-                            <Form.Floating className="">
-                                <Form.Control
-                                    id="floatingInputCustom"
-                                    type="email"
-                                    placeholder="name@example.com"
-                                />
-                                <label htmlFor="floatingInputCustom">Nombre</label>
-                            </Form.Floating>
-                            <Form.Floating className="">
-                                <Form.Control
-                                    id="floatingPasswordCustom"
-                                    type="password"
-                                    placeholder="Password"
-                                />
-                                <label htmlFor="floatingPasswordCustom">Apellido</label>
-                            </Form.Floating>
-                            <Form.Floating className="">
-                                <Form.Control
-                                    id="floatingInputCustom"
-                                    type="email"
-                                    placeholder="name@example.com"
-                                />
-                                <label htmlFor="floatingInputCustom">Email</label>
-                            </Form.Floating>
-                            <Form.Floating className="">
-                                <Form.Control
-                                    id="floatingPasswordCustom"
-                                    type="password"
-                                    placeholder="Password"
-                                />
-                                <label htmlFor="floatingPasswordCustom">Contraseña</label>
-                            </Form.Floating>
-                            <div className="register__buton">
-                                <Button variant="primary" size="lg" className="btn-register"> Ingresar</Button>
-                                <label>Ya tienes cuenta?</label> <Link to="/login">Ingresa aca</Link>
-                            </div>
+                            <Notification messageError={errorMessage} message={successMessage} />
+                        <form onSubmit={handleSubmit}>
+                                <Form.Floating className="form-floating__register">
+                                    <Form.Control
+                                        id="floatingInputCustom"
+                                        type="email"
+                                        placeholder="Email"
+                                        value={email}
+                                        onChange={({target}) => setEmail(target.value)}
+                                    />
+                                    <label htmlFor="floatingInputCustom">Email</label>
+                                </Form.Floating>
+                                <Form.Floating className="">
+                                    <Form.Control
+                                        id="floatingPasswordCustom"
+                                        type="password"
+                                        value={password}
+                                        placeholder="Password"
+                                        onChange={({target}) => setPassword(target.value)}
+                                    />
+                                    <label htmlFor="floatingPasswordCustom">Contraseña</label>
+                                </Form.Floating>
+                                <div className="register__buton">
+                                    <Button v
+                                    ariant="primary" 
+                                    size="lg" 
+                                    className="btn-register"
+                                    type="submit"> Ingresar</Button>
+                                    <label>Ya tienes cuenta?</label> <Link to="/login">Ingresa aca</Link>
+                                </div>
+                        </form>
 
                         </div>
                 </div>

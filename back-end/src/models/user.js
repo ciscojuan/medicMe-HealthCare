@@ -1,30 +1,44 @@
 const mongoose = require('mongoose');
-const { updateUser } = require('../controllers/user');
-const userSchema = mongoose.Schema({
-    email:{
-        type:String,
-        required:[true, 'Email is require'],
-        unique: [true, 'email already exists']
-    },
-    password:{
+const patientSchema = mongoose.Schema({
+    name: {
         type: String,
-        required:[true, 'password is required']
+        required: [true, 'Name is required.']
     },
-    role:{
-        type:String,
-        enum: ['Patient', 'Doctor'],
-        default: 'Patient'
+    lastname: {
+        type: String,
+        required: [true, 'Lastname is required.']
     },
-    createAt:{
-        type:Date,
-        default:Date.now
+    birthdate: {
+        type: Date,
     },
-    updateAt:{
-        type:Date,
-        default:Date.now
+    phone: {
+        type: String,
+    },
+    address: {
+        type: String
+    },
+    credentials: {
+        type: mongoose.Schema.Types.ObjectId,
+        unique: true,
+        ref: 'Credentials',
+        required: true
+    },
+    specialty: {
+        type: String
+    },
+    createAt: {
+        type: Date,
+        default: Date.now(),
+        required: true
+    },
+    updateAt: {
+        type: Date,
+        default: Date.now(),
+        required: true
     }
+
 })
 
-const User = mongoose.model('User', userSchema)
+const Patient = mongoose.model("User", patientSchema);
 
-module.exports= User;
+module.exports = Patient;

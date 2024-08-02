@@ -5,14 +5,11 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
 const app = express();
-const { swaggerUi, swaggerSpec } = require('./swagger.config.js');
-// Configuración de Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 const userRoutes = require('./routes/user');
-const medicRoutes = require('./routes/medic');
 const locationRoutes = require('./routes/location');
-const patientRoutes = require('./routes/patient');
 const bookingRoutes = require('./routes/booking');
+const credentialsRoutes = require('./routes/credentials');
 const LoginRoute = require('./routes/login');
 
 const PORT = process.env.PORT || 6533;
@@ -27,12 +24,11 @@ app.options('*', cors());
 //cargar rutas
 const api = '/api/v1'
 
-app.use(`${api}/user`, userRoutes);
-app.use(`${api}/medic`, medicRoutes);
 app.use(`${api}/location`, locationRoutes);
-app.use(`${api}/patient`, patientRoutes);
+app.use(`${api}/user`, userRoutes);
 app.use(`${api}/booking`, bookingRoutes);
 app.use(`${api}/login`, LoginRoute);
+app.use(`${api}/credentials`, credentialsRoutes);
 
 
 

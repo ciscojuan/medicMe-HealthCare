@@ -1,76 +1,94 @@
-const bcrypt = require('bcryptjs');
-
 const User = require('../models/user');
+const Credentials = require('../models/credentials');
 
-
-// Create a new user
 exports.createUser = async (req, res) => {
+    const { name, lastname, birthdate, phone, address, credentials, specialty } = req.body;
+    if (!name || !lastname || !birthdate || !phone || !address || !credentials) return res.status(400).json({ message: "One or more fields are missing." })
 
-  const { email, password, role } = req.body
-  if (!email || !password) return res.status(400).send({ error: 'Email and password are required' });
-  console.log(req.body);
-  const seed = 10;
-  try {
-    const user = new User({
-      email: email,
-      password: await bcrypt.hash(password, seed),
-      role: role
-    });
-    await user.save();
+    const credentialsExist = await Credentials.findById(credentials);
+    if (!credentialsExist) return res.status(404).json({ message: "Invalid user id" })
 
-    res.status(201).send({message:"user Created.",user});
-  } catch (err) {
-    res.status(400).send({ error: err });
-  }
-};
+    try {
+        const newUser = new User({
+            name: name,
+            lastname: lastname,
+            birthdate: birthdate,
+            phone: phone,
+            address: address,
+            credentials: credentials,
+            specialty: specialty
+        });
+        const saveUser = await newUser.save();
+        res.status(201).json(saveUser)
+    } catch (err) {
+        res.status(500).json({ Error: err.message })
+    }
+}
 
-// Get all users
 exports.getUsers = async (req, res) => {
-  try {
-    const users = await User.find();
-    res.send(users);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-};
+    try {
+        const users = await User.find().populate('credentials', { 'email': 1, 'role': 1, _id: 0 });
+        if (!users) return res.status(404).json({ message: "No documents found." })
+        res.status(200).json(users)
+    } catch (err) {
+        res.status(500).json({ Error: err.message })
+    }
+}
 
-// Get a specific user
 exports.getUser = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) return res.status(404).send();
-    res.send(user);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-};
+    const { id } = req.params
+    console.log(id)
+    try {
+        const user = await User.findById(id).populate('credentials', { 'email': 1, 'role': 1, _id: 0 });
+        if (!user) return res.status(404).json({ message: "No document found.", id: id });
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json({ Error: err.message })
+    }
+}
 
-// Update a user
 exports.updateUser = async (req, res) => {
-  try {
-    const user = await User.findByIdAndUpdate(req.params.id, {
-      email: req.body.email,
-      password: req.body.password,
-      updateAt: Date.now(),
-    }, {
-      new: true,
-    });
-    if (!user) return res.status(404).send();
-    res.send(user);
-  } catch (err) {
-    res.status(400).send(err);
-  }
-};
+    const { name, lastname, birthdate, phone, address, specialty } = req.body;
+    if (!name || !lastname || !birthdate || !phone || !address || specialty) return res.status(400).json({ message: "One or more fields are missing." })
 
-// Delete a user
-exports.deleteUser = async (req, res) => {
-  try {
-    const user = await User.findByIdAndDelete(req.params.id);
-    if (!user) return res.status(404).send();
-    res.send(user);
-  } catch (err) {
-    res.status(500).send(err);
-  }
+    const credentialsExist = await Credentials.findById(req.params.id);
+    if (!credentialsExist) return res.status(404).json({ message: "Invalid id for credentials" })
+
+    try {
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, {
+            $set: {
+                name: name,
+                lastname: lastname,
+                birthdate: birthdate,
+                phone: phone,
+                address: address,
+                credentials: req.params.id,
+                specialty: specialty,
+                updateAt: new Date()
+            },
+        },
+            { new: true }
+        );
+
+        res.status(200).json(updatedUser)
+    } catch (err) {
+        res.status(500).json({ Error: err.message })
+    }
+
+}
+
+exports.deletedUser = async (req, res) => {
+    try {
+        const deletedUser = await User.findByIdAndDelete(req.params.id);
+
+        if (!deletedUser) {
+            return res.status(404).json({ error: 'Invalid id' });
+        }
+
+        res.json({ message: 'document deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 };
 
 module.exports = exports;

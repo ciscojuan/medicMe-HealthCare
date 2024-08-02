@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const Location = require('../models/location');
 
 exports.createLocation = async (req, res) => {

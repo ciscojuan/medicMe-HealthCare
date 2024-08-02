@@ -1,15 +1,14 @@
-const { Timestamp } = require('bson');
 const mongoose = require('mongoose');
 const bookingSchema = mongoose.Schema({
-    paciente_id:{
+    doctor_id:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Patient",
+        ref: "User",
         require: true
     },
-    medico_id:{
-        type: mongoose.Types.ObjectId,
-        ref: 'Medic',
-        require:true
+    paciente_id:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        require: true
     },
     sede_id:{
         type: mongoose.Types.ObjectId,

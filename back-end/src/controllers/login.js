@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const User = require('../models/user');
+const Credentials = require('../models/credentials');
 const fs = require("fs");
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken')
@@ -17,17 +17,17 @@ exports.login = async (req, res) => {
 
         console.log(`Request payload: ${JSON.stringify(req.body)}`);
 
-        const user = await User.findOne({ email: email });
+        const credentials = await Credentials.findOne({ email: email });
 
-        console.log(`User found: ${JSON.stringify(user)}`); // Added JSON.stringify for better visibility
+        console.log(`User found: ${JSON.stringify(credentials)}`); // Added JSON.stringify for better visibility
 
-        const validPassword = user === null ? false : await bcrypt.compare(password, user.password);
+        const validPassword = credentials === null ? false : await bcrypt.compare(password, credentials.password);
         
-        if (!(user && validPassword)) return res.status(401).json({ Error: "unauthorized.", message: "email or password invalid" })
+        if (!(credentials && validPassword)) return res.status(401).json({ Error: "unauthorized.", message: "email or password invalid" })
 
         const userForToken = {
-            username: user.email,
-            id: user._id,
+            username: credentials.email,
+            id: credentials._id,
         };
 
         const token = jwt.sign(userForToken, private_key, {
@@ -37,8 +37,8 @@ exports.login = async (req, res) => {
 
         res.status(200).json({
             token,
-            username: user.email,
-            id: user._id
+            username: credentials.email,
+            id: credentials._id
         });
     } catch (err) {
         res.status(500).json({ Error: err.message })

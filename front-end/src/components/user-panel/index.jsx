@@ -17,7 +17,7 @@ import Nav from "../../shared/nav";
 import Footer from "../../shared/footer";
 import userService from "../../services/user";
 import './user-panel.css';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 
 const UserPanel = () => {
@@ -25,23 +25,23 @@ const UserPanel = () => {
     const navigate = useNavigate();
     const [reservas, setReservas] = useState([])
     const [user, setUser] = useState([])
+    const idParams = useParams()
 
 
     useEffect(() => {
         userService.getBookings().then((res) => {
             setReservas(res.data); // Store fetched data in `blogs` state
-            console.log(reservas)
         });
         
         const userLogged = JSON.parse(localStorage.getItem("userLogged")); //devuelvo el contenido de localS en formato JSON
-        const userId = userLogged.id
-        console.log(userId)
-        userService.getUser(userId).then((res) => {
-            console.log(res.data)
+        const userId = !idParams.id == null ? idParams.id : userLogged.id
+        userService.getCredentials(userId).then((res) => {
             setUser(res.data)
         })
     }, []);
-
+    
+    const id = user._id;
+    console.log(`Credencial_id: ${id}`)
     const logOut = () => {
         window.localStorage.clear()
         navigate("/home")
@@ -114,7 +114,7 @@ const UserPanel = () => {
                         </div>
                         <div className="user-panel__operation--card">
                             <UilCalender size="60" />
-                            <p>Consultar Citas</p>
+                            <Link to={`/user-management/${user._id}`}>Editar Informacion</Link>
                         </div>
                     </div>
 

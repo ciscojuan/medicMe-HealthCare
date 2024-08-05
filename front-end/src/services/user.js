@@ -22,7 +22,7 @@ const getUser = (id) => {
 }
 
 const getCredentials = (id) => {
-    return axios.get(`${urlCredentials}/${id}`)
+    return axios.get(`${urlCredentials}/user/${id}`)
 }
 
 const getLocation= () => {
@@ -49,13 +49,13 @@ const saveUser = async (credentials) => {
     }
 }
 
-const updateUser = async (credentials) =>{
-    console.log(`Credenciales para actualizar: ${JSON.stringify(credentials)}`)
+const updateUser = async (id, credentials) =>{
+    console.log(`campos para actualizar: ${JSON.stringify(credentials)} ID: ${id}`)
     try{
-        const res = await axios.put(`${urlUser}/${credentials.id}`, credentials)
+        const res = await axios.put(`${urlUser}/${id}`, credentials)
         return res.data
     }catch(err){
         console.log(err)
     }
 }
-export default {setToken, getBookings, getUser, getLocation, saveUser, getCredentials, saveCredentials}
+export default {setToken, getBookings, getUser, getLocation, saveUser, updateUser, getCredentials, saveCredentials}

@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 
 const Credential = require('../models/credentials');
+const User = require('../models/user');
 
 
 // Create a new user
@@ -23,7 +24,15 @@ exports.createUser = async (req, res) => {
     res.status(500).send({ error: err });
   }
 };
-
+exports.getUserFromCredentials = async (req, res) => {
+  try {
+    const user = await User.findOne({credentials:req.params.id}).populate('credentials');
+    if (!user) return res.status(404).send();
+    res.send(user);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+}
 // Get all users
 exports.getUsers = async (req, res) => {
   try {

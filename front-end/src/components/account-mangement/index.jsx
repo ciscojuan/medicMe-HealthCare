@@ -15,9 +15,10 @@ import './account.css';
 const AccountManagement = () => {
     const {id} = useParams();
     const navigate = useNavigate();
-
-    const [credentials, setCredentials] = useState([]);
+    const userLogged = JSON.parse(localStorage.getItem('userLogged'));
+    const [credencial, setCredentials] = useState([])
     const [user, setUser] = useState([]);
+    const [update, setUpdate] = useState(false);
 
     const [name, setName] = useState('');
     const [lastname, setLastname] = useState('');
@@ -25,39 +26,57 @@ const AccountManagement = () => {
     const [birthdate, setBirthdate] = useState('');
     const [address, setAddress] = useState('')
     
-    useEffect(()=>{
-        const userLogged = JSON.parse(localStorage.getItem('userLogged'));
-        const credentialId = userLogged.id;
-        console.log(credentialId)
-        userService.getCredentials(credentialId).then((res)=>{
+    useEffect(() =>{
+        userService.getCredentials(userLogged.id).then((res)=>{
             setCredentials(res.data)
         })
-    }, [])
+    },[])
 
     useEffect(()=>{
         
         userService.getUser(id).then((res)=>{
             setUser(res.data)
-            console.log(user)
+            setUpdate(true)
         })
     }, [])
+
+console.log(user)
+console.log(userLogged.id)
     const handleSubmit = (e) =>{
+
         e.preventDefault()
-        const credentiales = {name, lastname, phone, birthdate, address, credentials:user._id}
+        const credentiales = {name, lastname, phone, birthdate, address, credentials: userLogged.id}
         console.log(credentiales)
-        try{
-            const savedUser =  userService.saveUser(credentiales).then((res)=>{
-                console.log(res)
+        
+        if(update){
+            try {
+                const updateUser = userService.updateUser(user._id, credentiales).then((res) => {
+                    console.log(res)
 
-                const userId = savedUser._id
+                    const userId = updateUser._id
 
-                setTimeout(() =>{
-                    navigate(`/user-management/${userId}`)
+                    setTimeout(() => {
+                        navigate(`/user-panel/${userId}`)
+                    })
                 })
-            })
-        }catch(err){
-            console.log(err)
-        }    
+            } catch (err) {
+                console.log(err)
+            } 
+        }else{
+            try {
+                const savedUser = userService.saveUser(credentiales).then((res) => {
+                    console.log(res)
+
+                    const userId = savedUser._id
+
+                    setTimeout(() => {
+                        navigate(`/user-management/${userId}`)
+                    })
+                })
+            } catch (err) {
+                console.log(err)
+            } 
+        }
 
     }
 
@@ -87,13 +106,13 @@ const AccountManagement = () => {
                     <div className="perfil__portrait">
 
                         <div className="perfil__portrait--image">
-                            <img src={ credentials.avatar || avatar } alt="Username" />
+                            <img src={ user.avatar || avatar } alt="Username" />
                         </div>
 
                         <div className="perfil__portrait--info">
 
                             <div className="info__name">
-                                <p>{ user.name || 'Juan Perez Lozano'}</p>
+                                <p>{ user.name || 'Juan Perez Lozano'} {user.lastname}</p>
                             </div>
 
                             <div className="perfil__rol">
@@ -132,19 +151,19 @@ const AccountManagement = () => {
                                         id="nombre"
                                         type="text"
                                         placeholder="nombre"
-                                        value={user.name}
+                                        value={name}
                                         onChange={({ target }) => setName(target.value)} />
-                                    <label htmlFor="nombre">Nombre </label>
+                                    <label htmlFor="nombre">{user.name} </label>
                                 </Form.Floating>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
                                         id="apellido"
                                         type="text"
                                         placeholder="Apellido"
-                                        value={user.lastname}
+                                        value={lastname}
                                         onChange={({ target }) => setLastname(target.value)}
                                     />
-                                    <label htmlFor="apellido">Apellido</label>
+                                    <label htmlFor="apellido">{user.lastname}</label>
                                 </Form.Floating>
                             </div>
 
@@ -154,17 +173,17 @@ const AccountManagement = () => {
                                         id="telefono"
                                         type="text"
                                         placeholder="Telefono"
-                                        value={user.phone}
+                                        value={phone}
                                         onChange={({ target }) => setPhone(target.value)}
                                     />
-                                    <label htmlFor="telefono">Telefono </label>
+                                    <label htmlFor="telefono">{user.phone} </label>
                                 </Form.Floating>
                                 <Form.Floating>
                                     <Form.Control
                                         id="cumpleaños"
                                         type="date"
                                         placeholder="dd-mm-yyyy"
-                                        value={user.birthdate}
+                                        value={birthdate}
                                         onChange={({ target }) => setBirthdate(target.value)}
                                     />
                                     <label htmlFor="cumpleaños">Cumpleaños</label>
@@ -176,8 +195,8 @@ const AccountManagement = () => {
                                     <Form.Control
                                         id="direccion"
                                         type="text"
-                                        placeholder="Direccion"
-                                        value={user.address}
+                                        placeholder={user.address || 'Direccion'}
+                                        value={address}
                                         onChange={({ target }) => setAddress(target.value)}
                                     />
                                     <label htmlFor="direccion">Direccion</label>
@@ -192,7 +211,7 @@ const AccountManagement = () => {
                                         id="email"
                                         type="text"
                                         placeholder="Email"
-                                        value={credentials?.email}
+                                        value={user.credentials?.email}
                                         disabled
                                     />
                                     <label htmlFor="email">Email</label>
@@ -202,7 +221,7 @@ const AccountManagement = () => {
                                         id="password"
                                         type="pasword"
                                         placeholder="Contraseña"
-                                        value={credentials?.password}
+                                        value={user.credentials?.password}
                                         disabled
                                     />
                                     <label htmlFor="password">Contraseña </label>
@@ -211,9 +230,14 @@ const AccountManagement = () => {
 
                             <Form.Floating
                                 className="btn-send" >
-                                <Button variant="primary" size="lg"
+                                { update ?
+                                    <Button variant="primary" size="lg"
+                                        className="btn-send"
+                                        type='submit'> Actualizar información</Button>
+                                    :
+                                    <Button variant="primary" size="lg"
                                  className="btn-send"
-                                 type='submit'> Guardar información</Button>
+                                 type='submit'> Guardar información</Button>}
                             </Form.Floating>
                         </form>
 

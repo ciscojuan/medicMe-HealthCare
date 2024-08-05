@@ -89,6 +89,12 @@
     border: 1px dotted;
     text-align: center;
 }
+.user-panel__operation--card{
+        display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+}
 
 .cards__container {
     width: 100%;

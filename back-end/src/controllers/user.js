@@ -48,10 +48,10 @@ exports.getUser = async (req, res) => {
 }
 
 exports.updateUser = async (req, res) => {
-    const { name, lastname, birthdate, phone, address, specialty } = req.body;
-    if (!name || !lastname || !birthdate || !phone || !address || specialty) return res.status(400).json({ message: "One or more fields are missing." })
-
-    const credentialsExist = await Credentials.findById(req.params.id);
+    const { name, lastname, birthdate, phone, address, specialty, credentials } = req.body;
+    if (!name || !lastname || !birthdate || !phone || !address || !credentials || specialty) return res.status(400).json({ message: "One or more fields are missing." })
+        console.log(`credentials retrieved from front: ${credentials}`)
+    const credentialsExist = await Credentials.findById(credentials);
     if (!credentialsExist) return res.status(404).json({ message: "Invalid id for credentials" })
 
     try {
@@ -62,7 +62,7 @@ exports.updateUser = async (req, res) => {
                 birthdate: birthdate,
                 phone: phone,
                 address: address,
-                credentials: req.params.id,
+                credentials: credentials,
                 specialty: specialty,
                 updateAt: new Date()
             },

@@ -11,6 +11,7 @@ const locationRoutes = require('./routes/location');
 const bookingRoutes = require('./routes/booking');
 const credentialsRoutes = require('./routes/credentials');
 const LoginRoute = require('./routes/login');
+const specialtyRoutes = require('./routes/specialty');
 
 const PORT = process.env.PORT || 6533;
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -29,6 +30,7 @@ app.use(`${api}/user`, userRoutes);
 app.use(`${api}/booking`, bookingRoutes);
 app.use(`${api}/login`, LoginRoute);
 app.use(`${api}/credentials`, credentialsRoutes);
+app.use(`${api}/specialty`, specialtyRoutes);
 
 
 

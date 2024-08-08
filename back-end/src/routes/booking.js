@@ -1,9 +1,9 @@
 const express = require('express')
+const router = express.Router();
 const middleware = require('../utils/middlewares')
 const Booking = require('../controllers/booking')
-const router = express.Router();
 
-router.get('/', Booking.getBookings);
+router.get('/user/:id', Booking.getBookings);
 router.get('/:id', Booking.getBooking)
 router.post('/', Booking.createBooking);
 router.put('/:id', Booking.updateBooking);

@@ -1,11 +1,11 @@
 const Location = require('../models/location');
 
 exports.createLocation = async (req, res) => {
-    const { name, direction } = req.body;
+    const { name, direction, specialty } = req.body;
 
     try{
         const newLocation = new Location({
-            name, direction
+            name, direction, specialty
         });
         const savedLocation = await newLocation.save();
         res.status(201).json(savedLocation);
@@ -16,7 +16,7 @@ exports.createLocation = async (req, res) => {
 
 exports.getLocations = async (req, res) => {
     try{
-        const locations = await Location.find();
+        const locations = await Location.find().populate('specialty');
         res.status(200).json(locations);
     }catch(err){
         res.status(500).json({message: err.message});

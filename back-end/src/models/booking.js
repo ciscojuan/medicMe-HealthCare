@@ -5,6 +5,11 @@ const bookingSchema = mongoose.Schema({
         ref: "User",
         require: true
     },
+    specialty_id:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Speciality",
+        require: true
+    },
     paciente_id:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

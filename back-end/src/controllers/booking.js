@@ -7,7 +7,7 @@ const { default: mongoose } = require('mongoose');
 // CREATE
 exports.createBooking = async (req, res) => {
 
-  const { doctor_id, paciente_id, sede_id, appointment } = req.body;
+  const { doctor_id, paciente_id, sede_id, specialty_id, appointment } = req.body;
   if (!mongoose.isValidObjectId(doctor_id)) return res.status(400).json({ error: 'Invalid doctor' });
   if (!mongoose.isValidObjectId(paciente_id)) return res.status(400).json({ error: 'Invalid paciente' });
   if (!mongoose.isValidObjectId(sede_id)) return res.status(400).json({ error: 'Invalid sede_id' });
@@ -23,8 +23,8 @@ exports.createBooking = async (req, res) => {
       paciente_id : paciente_id,
       sede_id: sede_id,
       appointment: appointment,
+      specialty_id: specialty_id,
       createDate: new Date(),
-      updateAt: new Date()
     });
 
     const savedBooking = await newBooking.save();
@@ -37,7 +37,12 @@ exports.createBooking = async (req, res) => {
 // READ
 exports.getBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find().populate('doctor_id', { 'name': 1, 'lastname': 1, 'specialty': 1 }).populate('paciente_id', { 'name': 1, 'lastname': 1}).populate('sede_id', { 'sede': 1, 'direction': 1 });
+    const bookings = await Booking.find({ paciente_id: req.params.id })
+      .populate('doctor_id', { 'name': 1, 'lastname': 1, 'specialty': 1 })
+      .populate('paciente_id', { 'name': 1, 'lastname': 1 })
+      .populate('sede_id', { 'name': 1, 'direction': 1 })
+      .populate('specialty_id', { 'name': 1 });
+
     res.json(bookings);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -69,6 +74,7 @@ exports.updateBooking = async (req, res) => {
         $set: {
           user_id: req.body.user_id,
           sede_id: req.body.sede_id,
+          specialty_id: req.body.specialty_id,
           appointment: req.body.appointment,
           updateAt: new Date()
         }

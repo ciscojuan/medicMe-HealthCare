@@ -6,6 +6,10 @@ const locationSchema = mongoose.Schema({
     direction:{
         type: String,
          required:[true, "Description is required."]
+    },
+    specialty: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Speciality"
     }
 })
 

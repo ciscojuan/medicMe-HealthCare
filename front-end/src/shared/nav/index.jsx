@@ -42,7 +42,7 @@ const Nav = ({ className, logo }) => {
             <div className="nav__menu">
                 <div className="nav__menu--link">
                     <Link to="/home" className="link active">Home</Link>
-                    <Link to="/services" className="link">Services</Link>
+                    <Link to="/user-panel" className="link">Perfil</Link>
                     <Link to="/company" className="link">Company</Link>
                     <Link to="/login" className="link">Doctors</Link>
                     <Link to="/contact-us" className="link">Contact us</Link>

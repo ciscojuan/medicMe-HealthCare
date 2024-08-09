@@ -2,8 +2,9 @@ import axios from "axios";
 
 const urlBooking = 'http://localhost:5535/api/v1/booking'
 const urlUser = 'http://localhost:5535/api/v1/user'
-const urlLocation = 'http://localhost:5535/api/v1/location'
 const urlCredentials = 'http://localhost:5535/api/v1/credentials'
+const urlSpecialty = 'http://localhost:5535/api/v1/specialty'
+const urlLocation = 'http://localhost:5535/api/v1/location'
 
 let token = null
 
@@ -11,22 +12,33 @@ const setToken =(newToken) => {
     const token = `Bearer ${newToken}`
 
 }
+const getSpecialty = () => {
+    return axios.get(urlSpecialty)
+}
 
-const getBookings = () =>{
-    return axios.get(urlBooking)
+const getLocations = () => {
+    return axios.get(urlLocation)
+}
 
+const getBookings = (id) =>{
+    return axios.get(`${urlBooking}/user/${id}`)
+
+}
+
+const getAllBookings = () => {
+    return axios.get(`${urlBooking}`)
 }
 
 const getUser = (id) => {
     return axios.get(`${urlUser}/${id}`)
 }
 
-const getCredentials = (id) => {
-    return axios.get(`${urlCredentials}/user/${id}`)
+const getUserFromCredential = (id) => {
+    return axios.get(`${urlUser}/credential/${id}`)
 }
 
-const getLocation= () => {
-    return axios.get(urlLocation)
+const getCredentials = (id) => {
+    return axios.get(`${urlCredentials}/${id}`)
 }
 
 const saveCredentials = async (credentials) => {
@@ -39,6 +51,14 @@ const saveCredentials = async (credentials) => {
     }
 }
 
+const saveBooking = async (data) => {
+    try {
+        const res = await axios.post(urlBooking, data)
+        return res.data
+    } catch (err) {
+        console.log(err)
+    }
+}
 const saveUser = async (credentials) => {
     console.log(credentials)
     try {
@@ -58,4 +78,8 @@ const updateUser = async (id, credentials) =>{
         console.log(err)
     }
 }
-export default {setToken, getBookings, getUser, getLocation, saveUser, updateUser, getCredentials, saveCredentials}
+
+const getDoctors = () => {
+    return axios.get(`${urlUser}/doctors`)
+}
+export default {setToken, getBookings, getAllBookings, saveBooking, getUser, getDoctors, saveUser, updateUser, getCredentials, saveCredentials, getUserFromCredential, getSpecialty, getLocations }

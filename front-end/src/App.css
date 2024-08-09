@@ -26,6 +26,7 @@ body {
   font-family: var(--font-family-1);
   color: var(--color-4);
   box-sizing: border-box;
+  scrollbar-color: var(--color-1) var(--color-4);
 }
 
 button:disabled {

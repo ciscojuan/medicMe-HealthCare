@@ -13,9 +13,10 @@ import Footer from "../../shared/footer";
 import './account.css';
 
 const AccountManagement = () => {
-    const {id} = useParams();
+    const { id } = useParams();
     const navigate = useNavigate();
     const userLogged = JSON.parse(localStorage.getItem('userLogged'));
+
     const [credencial, setCredentials] = useState([])
     const [user, setUser] = useState([]);
     const [update, setUpdate] = useState(false);
@@ -29,19 +30,25 @@ const AccountManagement = () => {
     useEffect(() =>{
         userService.getCredentials(userLogged.id).then((res)=>{
             setCredentials(res.data)
+            console.log(credencial)
         })
     },[])
 
     useEffect(()=>{
-        
+        if (!id) return;
         userService.getUser(id).then((res)=>{
             setUser(res.data)
             setUpdate(true)
-        })
-    }, [])
+            console.log(user)
+        }).catch((error) => {
+            // Manejo del error si el usuario no existe o hubo un problema con la solicitud
+            console.error("Error al obtener el usuario:", error);
+        });
 
-console.log(user)
-console.log(userLogged.id)
+    }, [id])
+
+
+
     const handleSubmit = (e) =>{
 
         e.preventDefault()
@@ -53,10 +60,10 @@ console.log(userLogged.id)
                 const updateUser = userService.updateUser(user._id, credentiales).then((res) => {
                     console.log(res)
 
-                    const userId = updateUser._id
+                    const updateUserId = updateUser._id
 
                     setTimeout(() => {
-                        navigate(`/user-panel/${userId}`)
+                        navigate(`/user-panel/${updateUserId}`)
                     })
                 })
             } catch (err) {
@@ -67,10 +74,10 @@ console.log(userLogged.id)
                 const savedUser = userService.saveUser(credentiales).then((res) => {
                     console.log(res)
 
-                    const userId = savedUser._id
+                    const saveUserId = savedUser._id
 
                     setTimeout(() => {
-                        navigate(`/user-management/${userId}`)
+                        navigate(`/user-management/${saveUserId}`)
                     })
                 })
             } catch (err) {
@@ -112,7 +119,7 @@ console.log(userLogged.id)
                         <div className="perfil__portrait--info">
 
                             <div className="info__name">
-                                <p>{ user.name || 'Juan Perez Lozano'} {user.lastname}</p>
+                                <p>{ user.name || '- -'} {user.lastname}</p>
                             </div>
 
                             <div className="perfil__rol">
@@ -139,10 +146,10 @@ console.log(userLogged.id)
 
                 <div className="sidebar__user-panel">
 
-                    <div className="perfil__form">
-                        <div className="register__title">
+                        <div className="update__title">
                             <h2>Actualizacion de Datos</h2>
                         </div>
+                    <div className="perfil__form">
 
                         <form onSubmit={handleSubmit} className='form__container'> 
                             <div className="form__name">
@@ -199,7 +206,7 @@ console.log(userLogged.id)
                                         value={address}
                                         onChange={({ target }) => setAddress(target.value)}
                                     />
-                                    <label htmlFor="direccion">Direccion</label>
+                                    <label htmlFor="direccion">{user.address}</label>
                                 </Form.Floating>
                             </div>
 
@@ -211,7 +218,7 @@ console.log(userLogged.id)
                                         id="email"
                                         type="text"
                                         placeholder="Email"
-                                        value={user.credentials?.email}
+                                        value={user.credentials?.email || credencial?.email}
                                         disabled
                                     />
                                     <label htmlFor="email">Email</label>

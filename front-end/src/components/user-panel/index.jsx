@@ -23,25 +23,32 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 const UserPanel = () => {
 
     const navigate = useNavigate();
+
     const [reservas, setReservas] = useState([])
     const [user, setUser] = useState([])
     const idParams = useParams()
-
-
+    
     useEffect(() => {
-        userService.getBookings().then((res) => {
-            setReservas(res.data); // Store fetched data in `blogs` state
-        });
-        
         const userLogged = JSON.parse(localStorage.getItem("userLogged")); //devuelvo el contenido de localS en formato JSON
-        const userId = !idParams.id == null ? idParams.id : userLogged.id
-        userService.getCredentials(userId).then((res) => {
+        
+        const userId = userLogged.id
+        
+        userService.getUserFromCredential(userId).then((res) => {
             setUser(res.data)
         })
+        
     }, []);
-    
-    const id = user._id;
-    console.log(`Credencial_id: ${id}`)
+
+    useEffect(() => {
+        if (user && user._id) {  // Ensure `user` is populated before fetching bookings
+            userService.getBookings(user._id).then((res) => {
+                setReservas(res.data); // Store fetched data in `reservas` state
+            });
+        }
+    }, [user]);
+
+    console.log(user)
+    console.log(reservas)
     const logOut = () => {
         window.localStorage.clear()
         navigate("/home")
@@ -151,7 +158,7 @@ const UserPanel = () => {
                                                 <UilMapPin size="30" className="location" />
                                             </div>
                                             <div className="info__complement">
-                                                {booking.sede_id.name} - {booking.sede_id.direction}
+                                                {booking.sede_id?.name} - {booking.sede_id?.direction}
                                             </div>
                                         </div>
                                         <div className="card__info--row">

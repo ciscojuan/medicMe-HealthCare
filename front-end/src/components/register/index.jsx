@@ -26,22 +26,22 @@ const Register = () => {
 
         const newUser = await userService.saveCredentials(credentials)
         
-        const userId = newUser.id || newUser._id;
-        
         setEmail("")
         setPassword("")
 
         setSuccessMessage("Usuario creado con exito")
 
+        //accedo con las credenciales recien creadas para generar el token
+
         const user = await login.auth(credentials)
         localStorage.setItem("userLogged", JSON.stringify({token: user.token, id: user.id}));
 
-        setTimeout(() => {
+
+         setTimeout(() => {
 
             setSuccessMessage(null);
-            navigate(`/user-management/`)
-            console.log(userId)
-        }, 2000);
+            navigate(`/user-management/${user.id}`)
+        }, 2000); 
     };
 
     return (

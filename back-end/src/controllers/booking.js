@@ -35,6 +35,20 @@ exports.createBooking = async (req, res) => {
 };
 
 // READ
+exports.getAllBookings = async (req, res) => {
+  try {
+    const bookings = await Booking.find()
+      .populate('doctor_id', { 'name': 1, 'lastname': 1, 'specialty': 1 })
+      .populate('paciente_id', { 'name': 1, 'lastname': 1 })
+      .populate('sede_id', { 'name': 1, 'direction': 1 })
+      .populate('specialty_id', { 'name': 1 });
+
+    res.json(bookings);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 exports.getBookings = async (req, res) => {
   try {
     const bookings = await Booking.find({ paciente_id: req.params.id })

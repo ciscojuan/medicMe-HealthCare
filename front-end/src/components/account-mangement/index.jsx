@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import moment from 'moment';
+import { UilFolderPlus } from '@iconscout/react-unicons'
+import { UilCalender } from '@iconscout/react-unicons'
 import { Link, useNavigate, useParams } from "react-router-dom";
 import userService from "../../services/user";
 import logo from '../../assets/logo.png';
@@ -110,38 +112,37 @@ const AccountManagement = () => {
                         <h3>Informacion Personal</h3>
                     </div>
 
-                    <div className="perfil__portrait">
+                    <div className="perfil__portrait--account">
 
-                        <div className="perfil__portrait--image">
-                            <img src={ user.avatar || avatar } alt="Username" />
+                        <img src={avatar} alt="Username" />
+
+
+                        <div className="info__name">
+                            <p>{user.name} {user.lastname}</p>
                         </div>
 
-                        <div className="perfil__portrait--info">
-
-                            <div className="info__name">
-                                <p>{ user.name || '- -'} {user.lastname}</p>
-                            </div>
-
-                            <div className="perfil__rol">
-                                <p>{ user.credentials?.role || 'Paciente'}</p>
-                            </div>
-
-                            <div className="perfil__age">
-                                <p>Edad: { getDate(user.birthdate) }</p>
-                            </div>
-
-                            <div className="perfil__email">
-                                <p>{ user.phone || '320 366 1206'}</p>
-                            </div>
-
-                            <div className="perfil__email">
-                                <p>{ user.credentials?.email || 'juan@mail.com'}</p>
-                            </div>
-
-                            <Button onClick={() => logOut()}>Cerrar sesion</Button>
-
+                        <div className="perfil__rol">
+                            <p>{user.credentials?.role}</p>
                         </div>
+
+                        <div className="perfil__age">
+                            <p>Edad: {getDate(user.birthdate)}</p>
+                        </div>
+
+                        <div className="perfil__email">
+                            <p>{user.phone}</p>
+                        </div>
+
+                        <div className="perfil__email">
+                            <p>{user.credentials?.email}</p>
+                        </div>
+
+                        <Button onClick={() => logOut()}>Cerrar sesion</Button>
+
+
                     </div>
+
+
                 </div>
 
                 <div className="sidebar__user-panel">
@@ -149,6 +150,7 @@ const AccountManagement = () => {
                         <div className="update__title">
                             <h2>Actualizacion de Datos</h2>
                         </div>
+
                     <div className="perfil__form">
 
                         <form onSubmit={handleSubmit} className='form__container'> 

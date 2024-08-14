@@ -29,6 +29,10 @@ const getAllBookings = () => {
     return axios.get(`${urlBooking}`)
 }
 
+const deleteBooking = (id) => {
+    return axios.delete(`${urlBooking}/${id}`)
+}
+
 const getUser = (id) => {
     return axios.get(`${urlUser}/${id}`)
 }
@@ -59,6 +63,17 @@ const saveBooking = async (data) => {
         console.log(err)
     }
 }
+
+const updateBooking = async (id, data) => {
+    console.log(`campos para actualizar: ${JSON.stringify(data)} ID: ${id}`)
+    try {
+        const res = await axios.put(`${urlBooking}/${id}`, data)
+        return res.data
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 const saveUser = async (credentials) => {
     console.log(credentials)
     try {
@@ -82,4 +97,4 @@ const updateUser = async (id, credentials) =>{
 const getDoctors = () => {
     return axios.get(`${urlUser}/doctors`)
 }
-export default {setToken, getBookings, getAllBookings, saveBooking, getUser, getDoctors, saveUser, updateUser, getCredentials, saveCredentials, getUserFromCredential, getSpecialty, getLocations }
+export default {setToken, getBookings, getAllBookings, deleteBooking, saveBooking,updateBooking, getUser, getDoctors, saveUser, updateUser, getCredentials, saveCredentials, getUserFromCredential, getSpecialty, getLocations }

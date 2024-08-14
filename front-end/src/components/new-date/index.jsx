@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { UilFolderPlus } from '@iconscout/react-unicons'
 import { UilCalender } from '@iconscout/react-unicons'
 
@@ -20,27 +20,25 @@ import './new-date.css';
 
 const NewDate = () => {
     const navigate = useNavigate();
-
+    const { id } = useParams()
     
     // Almacernar las fechas ya asignadas
     const [blockDates, setBlockDates] = useState([])
-    
-    // Estado para manejar el estado de carga
-    const [loading, setLoading] = useState(false);
-    
+        
     const minDate = new Date(Date())
     
     const [user, setUser] = useState([])
     const [doctor, setDoctor] = useState([])
     const [specialty, setSpeciaity]=useState([])
     const [locations, setLocation] = useState([])
+    //handle update data
+    const [update, setUpdate] = useState(false)
     
     //estado para almacenar la fecha seleccionada
     const [selectedDate, setSelectedDate] = useState('');
     const [specialtySelected, setSpecialtySelected] = useState('')
     const [locationSelected, setLocationSelected] = useState('')
     const [doctorSelected, setDoctorSelected] = useState('')
-
     const [filteredDoctors, setFilteredDoctors] = useState([]);
     const [filteredLocation, setFilteredLocation] = useState([])
     
@@ -99,6 +97,10 @@ const NewDate = () => {
     }, [specialtySelected, doctor, locations]);
     
 
+    useEffect(() =>{
+        if(!id) return;
+        setUpdate(true)
+    }, [id])
 
     const handleDateChage = (date) => {
         date = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
@@ -114,27 +116,52 @@ const NewDate = () => {
     };
 
     const handleSubmit = (e) => {
-        try {
-            e.preventDefault()
+        if(update){
+            try {
+                e.preventDefault()
 
-            const newData = {
-                paciente_id: user._id,
-                doctor_id: doctorSelected,
-                sede_id: locationSelected,
-                specialty_id: specialtySelected,
-                appointment: selectedDate,
+                const newData = {
+                    paciente_id: user._id,
+                    doctor_id: doctorSelected,
+                    sede_id: locationSelected,
+                    specialty_id: specialtySelected,
+                    appointment: selectedDate,
+                }
+
+                setDoctorSelected('')
+                setSpecialtySelected('')
+                setLocationSelected('')
+                setSelectedDate('')
+
+                userService.updateBooking(id, newData)
+                console.log(newData)
+                navigate(`/user-panel`)
+            } catch (err) {
+                console.log(err)
             }
+        }else{
+            try {
+                e.preventDefault()
 
-            setDoctorSelected('')
-            setSpecialtySelected('')
-            setLocationSelected('')
-            setSelectedDate('')
-            
-            userService.saveBooking(newData)
-            console.log(newData)
-            navigate(`/user-panel/${newData.paciente_id}`)
-        } catch (err) {
-            console.log(err)
+                const newData = {
+                    paciente_id: user._id,
+                    doctor_id: doctorSelected,
+                    sede_id: locationSelected,
+                    specialty_id: specialtySelected,
+                    appointment: selectedDate,
+                }
+
+                setDoctorSelected('')
+                setSpecialtySelected('')
+                setLocationSelected('')
+                setSelectedDate('')
+
+                userService.saveBooking(newData)
+                console.log(newData)
+                navigate(`/user-panel`)
+            } catch (err) {
+                console.log(err)
+            }
         }
     }
 
@@ -164,63 +191,44 @@ const NewDate = () => {
         <div className="user-panel">
             <Nav className="nav--purple" logo={logoBlack} />
             <div className="user-panel__container">
-                <div className="sidebar__perfil">
+                <div className="sidebar__perfil--new-date">
 
                     <div className="perfil__title">
                         <h3>Informacion Personal</h3>
                     </div>
 
-                    <div className="perfil__portrait">
+                    <div className="perfil__portrait--new-date">
 
-                        <div className="perfil__portrait--image">
-                            <img src={avatar} alt="Username" />
+                        <img src={avatar} alt="Username" />
+
+
+                        <div className="info__name">
+                            <p>{user.name} {user.lastname}</p>
                         </div>
 
-                        <div className="perfil__portrait--info">
-
-                            <div className="info__name">
-                                <p>{user.name} - {user.lastname}</p>
-                            </div>
-
-                            <div className="perfil__rol">
-                                <p>{user.credentials?.role}</p>
-                            </div>
-
-                            <div className="perfil__age">
-                                <p>{getDate(user.birthdate)}</p>
-                            </div>
-
-                            <div className="perfil__email">
-                                <p>320 366 1206</p>
-                            </div>
-
-                            <div className="perfil__email">
-                                <p>juan@mail.com</p>
-                            </div>
-
-                            <Button
-                                onClick={() => logOut()}>Cerrar sesion</Button>
-
+                        <div className="perfil__rol">
+                            <p>{user.credentials?.role}</p>
                         </div>
+
+                        <div className="perfil__age">
+                            <p>Edad: {getDate(user.birthdate)}</p>
+                        </div>
+
+                        <div className="perfil__email">
+                            <p>{user.phone}</p>
+                        </div>
+
+                        <div className="perfil__email">
+                            <p>{user.credentials?.email}</p>
+                        </div>
+
+                        <Button onClick={() => logOut()}>Cerrar sesion</Button>
                     </div>
+
 
                 </div>
 
                 <div className="sidebar__user-panel">
-                    <div className="perfil__title">
-                        <h3>Citas Generales</h3>
-                    </div>
-
-                    <div className="user-panel__operation">
-                        <div className="user-panel__operation--card">
-                            <UilFolderPlus size="60" />
-                            <p>Crear Cita</p>
-                        </div>
-                        <div className="user-panel__operation--card">
-                            <UilCalender size="60" />
-                            <p>Consultar Citas</p>
-                        </div>
-                    </div>
 
                     <div className="new-date__container">
                         <h2>Asignacion de citas médicas</h2>
@@ -274,7 +282,7 @@ const NewDate = () => {
                                 <hr className="hr" />
 
                                 <div className="new-date__calendar">
-                                    <label htmlFor="">Fecha:
+                                    <label htmlFor="" className="label__form">Fecha:
 
                                         <div className="form__date">
                                             <DatePicker
@@ -301,13 +309,21 @@ const NewDate = () => {
                                     </label>
                                     
                                 </div>
-
-                                <Button 
-                                variant="primary" 
-                                size="lg" 
-                                className="mt-5"
-                                disabled={!isFormValid()}
-                                type="submit"> Guardar información</Button>
+                                {
+                                    id ? <Button
+                                        variant="primary"
+                                        size="lg"
+                                        className="form__date--btn"
+                                        disabled={!isFormValid()}
+                                        type="submit"> Actualizar información</Button>  :
+                                        <Button
+                                            variant="primary"
+                                            size="lg"
+                                            className="form__date--btn"
+                                            disabled={!isFormValid()}
+                                            type="submit"> Guardar información</Button>
+                                }
+                                
 
                             </form>
                         </div>

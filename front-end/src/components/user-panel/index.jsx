@@ -62,6 +62,17 @@ const UserPanel = () => {
         return age;
     }
 
+    const deleteBooking = (id) => {
+        // Show a confirmation dialog
+        const confirmDelete = window.confirm("Are you sure you want to delete this booking?");
+
+        // If the user confirms, proceed with the deletion
+        if (confirmDelete) {
+            userService.deleteBooking(id).then(() => {
+                window.location.reload();
+            });
+        }
+    };
     return (
         <div className="user-panel">
             <Nav className="nav--purple" logo={logoBlack} />
@@ -75,12 +86,9 @@ const UserPanel = () => {
 
                     <div className="perfil__portrait">
 
-                        <div className="perfil__portrait--image">
                             <img src={avatar} alt="Username" />
-                        </div>
 
-                        <div className="perfil__portrait--info">
-
+                        
                             <div className="info__name">
                                 <p>{user.name} {user.lastname}</p>
                             </div>
@@ -103,7 +111,7 @@ const UserPanel = () => {
 
                             <Button onClick={() => logOut()}>Cerrar sesion</Button>
 
-                        </div>
+ 
                     </div>
 
 
@@ -114,19 +122,10 @@ const UserPanel = () => {
                         <h3>Citas Generales</h3>
                     </div>
 
-                    <div className="user-panel__operation">
-                        <div className="user-panel__operation--card">
-                            <UilFolderPlus size="60" />
-                            <Link to="/new-date">Crear cita</Link>
-                        </div>
-                        <div className="user-panel__operation--card">
-                            <UilCalender size="60" />
-                            <Link to={`/user-management/${user._id}`}>Editar Informacion</Link>
-                        </div>
-                    </div>
+                    
 
                     <div className="cards__container">
-                        {reservas.map((booking) => {
+                        { reservas !== null ? reservas.map((booking) => {
                             const appointmentDate = moment(booking.appointment);
 
                             return (
@@ -136,7 +135,7 @@ const UserPanel = () => {
                                         <h6>Día: {appointmentDate.format('DD')}</h6>
                                         <h6>Mes: {appointmentDate.format('MM')}</h6>
                                         <h6>Año: {appointmentDate.format('YYYY')}</h6>
-                                        <h5>{appointmentDate.format('HH:mm')}</h5>
+
                                     </div>
                                     <div className="card__status-mobile">
                                         <h4>Confirmado</h4>
@@ -150,7 +149,7 @@ const UserPanel = () => {
                                                 <UilUser size="30" className="user" />
                                             </div>
                                             <div className="info__complement">
-                                                {booking.doctor_id?.name} - {booking.doctor_id?.lastname} - {booking.doctor_id?.specialty}
+                                                {booking.doctor_id?.name} - {booking.doctor_id?.lastname} 
                                             </div>
                                         </div>
                                         <div className="card__info--row">
@@ -158,7 +157,7 @@ const UserPanel = () => {
                                                 <UilMapPin size="30" className="location" />
                                             </div>
                                             <div className="info__complement">
-                                                {booking.sede_id?.name} - {booking.sede_id?.direction}
+                                                <span className="location-name">{booking.sede_id?.name}</span> - {booking.sede_id?.direction}
                                             </div>
                                         </div>
                                         <div className="card__info--row">
@@ -172,12 +171,12 @@ const UserPanel = () => {
                                     </div>
 
                                     <div className="card__operations">
-                                        <UilRedo className="booking" size="30" />
-                                        <UilTrash className="delete" size="30" />
+                                        <UilRedo className="update" onClick={() => navigate(`/new-date/${booking._id}`)} size="30" />
+                                        <UilTrash className="delete" onClick={() => deleteBooking(booking._id)} size="30" />
                                     </div>
                                 </div>
-                            );
-                        })}
+                            ) 
+                        }) : <p>No hay citas agendadas</p>}
 
                     </div>
                 </div>

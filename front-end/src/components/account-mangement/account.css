@@ -1,10 +1,4 @@
-.user-panel__container {
-    place-items: center;
-}
 
-.perfil__title {
-    height: 130px;
-}
 .update__title{
         width: 400px;
             height: 130px;
@@ -12,16 +6,17 @@
             justify-content: center;
             align-items: center;
 }
-.perfil__portrait {
-    width: 60%;
+.perfil__portrait--account {
+    width: 40%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: var(--border-radius-2);
+    background: var(--color-1);
+    padding: 20px;
+    color: var(--color-3);
 }
-
 .perfil__form {
     width: 80%;
     height: 100%;

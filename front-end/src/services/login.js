@@ -1,4 +1,3 @@
-'use strict'
 import axios from "axios";
 const url = 'http://localhost:5535/api/v1/login';
 

@@ -3,10 +3,10 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "install:client": "cd frontend && npm install",
-        "install:server": "cd backend && npm install",
-        "build:client": "cd frontend && npm run build",
+        "install:client": "cd front-end && npm install",
+        "install:server": "cd back-end && npm install",
+        "build:client": "cd front-end && npm run build",
         "build": "npm run install:client && npm run install:server && npm run build:client",
-        "start": "cd backend && npm start"
+        "start": "cd back-end && npm start"
     }
 }

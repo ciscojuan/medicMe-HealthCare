@@ -1,0 +1,76 @@
+.admin-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.admin-sidebar {
+    width: 20%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+    background-color: var(--color-1);
+    border-radius: 0 25px 25px 0;
+
+}
+
+.logo {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img {
+    max-width: 80%;
+    text-align: center;
+}
+
+.admin-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 400px;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+    color: var(--color-3);
+    cursor:pointer;
+}
+
+
+.admin-content {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.admin-content--title{
+width: 80;
+height: 150px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.admin-body{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.table{
+text-align: center;
+}

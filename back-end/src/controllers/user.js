@@ -77,7 +77,7 @@ exports.getDoctors = async (req, res) => {
 exports.getUserFromCredential = async (req,res) => {
     const credentialID = req.params.id;
     try{
-        const user = await User.findOne({credentials: credentialID}).populate('credentials', { 'email': 1, 'role': 1, _id: 0 }).populate('specialty');
+        const user = await User.findOne({ credentials: credentialID }).populate('credentials', { 'email': 1, 'role': 1, isAdmin: 1, _id: 0 }).populate('specialty');
         res.status(200).json(user)
     }catch(err){
         res.status(500).json({Error: err.message}   )
@@ -89,7 +89,7 @@ exports.getUser = async (req, res) => {
     const { id } = req.params
     console.log(id)
     try {
-        const user = await User.findById(id).populate('credentials', { 'email': 1, 'role': 1, _id: 0 }).populate('specialty');
+        const user = await User.findById(id).populate('credentials', { 'email': 1, 'role': 1, isAdmin:1, _id: 0 }).populate('specialty');
         if (!user) return res.status(404).json({ message: "No document found.", id: id });
         res.status(200).json(user);
     } catch (err) {

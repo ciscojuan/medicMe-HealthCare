@@ -12,6 +12,7 @@ const Nav = ({ className, logo }) => {
 
     const navigate = useNavigate();
     const [user, setUser ]= useState([])
+   
     const redirectTo = (path) => {
 
         console.log(path)
@@ -22,13 +23,16 @@ const Nav = ({ className, logo }) => {
     }
 
     useEffect(() => {
-        const userLogged = JSON.parse(localStorage.getItem("userLogged")); //devuelvo el contenido de localS en formato JSON
-
-        const userId = userLogged.id
-
-        userService.getUserFromCredential(userId).then((res) => {
-            setUser(res.data)
-        })
+        if(localStorage.getItem("userLogged")){
+            
+            const userLogged = JSON.parse(localStorage.getItem("userLogged")); //devuelvo el contenido de localS en formato JSON
+    
+            const id = userLogged?.id
+    
+            userService.getUserFromCredential(id).then((res) => {
+                setUser(res.data)
+            })
+        }
 
     }, []);
 

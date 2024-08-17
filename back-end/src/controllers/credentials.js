@@ -7,7 +7,7 @@ const User = require('../models/user');
 // Create a new user
 exports.createUser = async (req, res) => {
   console.log(`Server: ${req.body}`);
-  const { email, password, role } = req.body
+  const { email, password, role, isAdmin } = req.body
   if (!email || !password) return res.status(400).send({ error: 'Email and password are required' });
   console.log(req.body);
   const seed = 10;
@@ -15,7 +15,8 @@ exports.createUser = async (req, res) => {
     const credentials = new Credential({
       email: email,
       password: await bcrypt.hash(password, seed),
-      role: role
+      role: role,
+      isAdmin: isAdmin
     });
     await credentials.save();
 

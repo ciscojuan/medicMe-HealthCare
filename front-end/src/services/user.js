@@ -33,6 +33,9 @@ const deleteBooking = (id) => {
     return axios.delete(`${urlBooking}/${id}`)
 }
 
+const getUsers = () =>{
+return axios.get(`${urlUser}`)
+}
 const getUser = (id) => {
     return axios.get(`${urlUser}/${id}`)
 }
@@ -97,4 +100,4 @@ const updateUser = async (id, credentials) =>{
 const getDoctors = () => {
     return axios.get(`${urlUser}/doctors`)
 }
-export default {setToken, getBookings, getAllBookings, deleteBooking, saveBooking,updateBooking, getUser, getDoctors, saveUser, updateUser, getCredentials, saveCredentials, getUserFromCredential, getSpecialty, getLocations }
+export default {setToken, getBookings, getAllBookings, deleteBooking, saveBooking,updateBooking, getUser, getUsers, getDoctors, saveUser, updateUser, getCredentials, saveCredentials, getUserFromCredential, getSpecialty, getLocations }

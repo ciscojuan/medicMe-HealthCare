@@ -6,6 +6,7 @@ import Register from './components/register';
 import UserPanel from './components/user-panel';
 import AccountManagement from './components/account-mangement';
 import NewDate from './components/new-date';
+import Admin from './components/admin';
 import ProtectedRoute from './shared/protectedRoutes/ProtectedRouted';
 
 
@@ -20,6 +21,7 @@ const routes = [
     { path: '/user-management/:id?', element: <ProtectedRoute element={<AccountManagement />} />},
     { path: '/new-date', element: <ProtectedRoute element={<NewDate />} /> },
     { path: '/new-date/:id?', element: <ProtectedRoute element={<NewDate />} /> },
+    { path: '/admin', element: <ProtectedRoute element={<Admin />} /> },
     { path: '*', element: <Navigate to='/' /> }
 ]
 

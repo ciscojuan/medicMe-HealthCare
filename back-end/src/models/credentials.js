@@ -16,6 +16,10 @@ const credentialsSchema = new mongoose.Schema({
         enum: ['patient', 'Doctor'],
         default: 'patient'
     },
+    isAdmin:{
+        type: Boolean,
+        default: false
+    },
     createdAt: {
         type: Date,
         default: Date.now

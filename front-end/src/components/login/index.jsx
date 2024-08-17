@@ -47,6 +47,7 @@ const Login = () => {
             setEmail("")
             setPassword("")
 
+            if (user.isAdmin && navigate("/admin"))
             
             navigate("/user-panel")
 

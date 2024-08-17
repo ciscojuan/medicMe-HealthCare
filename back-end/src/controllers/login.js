@@ -38,7 +38,8 @@ exports.login = async (req, res) => {
         res.status(200).json({
             token,
             username: credentials.email,
-            id: credentials._id
+            id: credentials._id,
+            isAdmin: credentials.isAdmin,
         });
     } catch (err) {
         res.status(500).json({ Error: err.message })

@@ -13,7 +13,7 @@ import '../../../shared/nav/nav.css';
 const Header = () => {
     return (
         <>
-            <Nav className="nav" logo={logo}/>
+            <Nav className="navv" logo={logo}/>
             <div className='header'>
             <div className="header__center">
                     <div className="header__title">

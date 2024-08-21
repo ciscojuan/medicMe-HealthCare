@@ -1,263 +1,301 @@
-import React, { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import moment from 'moment';
-import { UilFolderPlus } from '@iconscout/react-unicons'
-import { UilCalender } from '@iconscout/react-unicons'
+import React, { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import moment from "moment";
+import { UilFolderPlus } from "@iconscout/react-unicons";
+import { UilCalender } from "@iconscout/react-unicons";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import userService from "../../services/user";
-import logo from '../../assets/logo.png';
-import logoWithe from '../../assets/logoWhite.png';
-import logoBlack from '../../assets/logoblack.png'
-import avatar from '../../assets/header-img-p3.png'
+import logo from "../../assets/logo.png";
+import logoWithe from "../../assets/logoWhite.png";
+import logoBlack from "../../assets/logoblack.png";
+import avatar from "../../assets/header-img-p3.png";
 import Nav from "../../shared/nav";
 import Footer from "../../shared/footer";
-import './account.css';
+import "./account.css";
 
 const AccountManagement = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const userLogged = JSON.parse(localStorage.getItem('userLogged'));
+  const test_img = "https://github.com/mdo.png";
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const userLogged = JSON.parse(localStorage.getItem("userLogged"));
 
-    const [credencial, setCredentials] = useState([])
-    const [user, setUser] = useState([]);
-    const [update, setUpdate] = useState(false);
+  const [credencial, setCredentials] = useState([]);
+  const [user, setUser] = useState([]);
+  const [update, setUpdate] = useState(false);
 
-    const [name, setName] = useState('');
-    const [lastname, setLastname] = useState('');
-    const [phone, setPhone] = useState('');
-    const [birthdate, setBirthdate] = useState('');
-    const [address, setAddress] = useState('')
-    
-    useEffect(() =>{
-        userService.getCredentials(userLogged.id).then((res)=>{
-            setCredentials(res.data)
-            console.log(credencial)
+  const [name, setName] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [phone, setPhone] = useState("");
+  const [birthdate, setBirthdate] = useState("");
+  const [address, setAddress] = useState("");
+
+  useEffect(() => {
+    userService.getCredentials(userLogged.id).then((res) => {
+      setCredentials(res.data);
+      console.log(credencial);
+      if (!id) return;
+      userService
+        .getUser(id)
+        .then((res) => {
+          setUser(res.data);
+          setUpdate(true);
+          console.log(user);
         })
-    },[])
-
-    useEffect(()=>{
-        if (!id) return;
-        userService.getUser(id).then((res)=>{
-            setUser(res.data)
-            setUpdate(true)
-            console.log(user)
-        }).catch((error) => {
-            // Manejo del error si el usuario no existe o hubo un problema con la solicitud
-            console.error("Error al obtener el usuario:", error);
+        .catch((error) => {
+          // Manejo del error si el usuario no existe o hubo un problema con la solicitud
+          console.error("Error al obtener el usuario:", error);
         });
+    });
+  }, []);
 
-    }, [id])
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const credentiales = {
+      name,
+      lastname,
+      phone,
+      birthdate,
+      address,
+      credentials: userLogged.id,
+    };
+    console.log(credentiales);
 
+    if (update) {
+      try {
+        const updateUser = userService
+          .updateUser(user._id, credentiales)
+          .then((res) => {
+            console.log(res);
 
+            const updateUserId = updateUser._id;
 
-    const handleSubmit = (e) =>{
+            setTimeout(() => {
+              navigate(`/user-panel/${updateUserId}`);
+            });
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      try {
+        const savedUser = userService.saveUser(credentiales).then((res) => {
+          console.log(res);
 
-        e.preventDefault()
-        const credentiales = {name, lastname, phone, birthdate, address, credentials: userLogged.id}
-        console.log(credentiales)
-        
-        if(update){
-            try {
-                const updateUser = userService.updateUser(user._id, credentiales).then((res) => {
-                    console.log(res)
+          const saveUserId = savedUser._id;
 
-                    const updateUserId = updateUser._id
-
-                    setTimeout(() => {
-                        navigate(`/user-panel/${updateUserId}`)
-                    })
-                })
-            } catch (err) {
-                console.log(err)
-            } 
-        }else{
-            try {
-                const savedUser = userService.saveUser(credentiales).then((res) => {
-                    console.log(res)
-
-                    const saveUserId = savedUser._id
-
-                    setTimeout(() => {
-                        navigate(`/user-management/${saveUserId}`)
-                    })
-                })
-            } catch (err) {
-                console.log(err)
-            } 
-        }
-
+          setTimeout(() => {
+            navigate(`/user-management/${saveUserId}`);
+          });
+        });
+      } catch (err) {
+        console.log(err);
+      }
     }
+  };
 
-    const getDate = (birthDate) => {
-        const date = moment(birthDate);
-        const today = moment();
-        const age = today.diff(date, 'years');
-        return age;
-    } 
+  const getDate = (birthDate) => {
+    const date = moment(birthDate);
+    const today = moment();
+    const age = today.diff(date, "years");
+    return age;
+  };
 
-    const logOut = () => {
-        localStorage.clear();
-        navigate("/")
-    }
-    return (
-        <div className="user-panel">
-            <Nav className="nav--purple" logo={logoBlack} />
-
-            <div className="user-panel__container">
-
-                <div className="sidebar__perfil">
-
-                    <div className="perfil__title">
-                        <h3>Informacion Personal</h3>
-                    </div>
-
-                    <div className="perfil__portrait--account">
-
-                        <img src={avatar} alt="Username" />
-
-
-                        <div className="info__name">
-                            <p>{user.name} {user.lastname}</p>
-                        </div>
-
-                        <div className="perfil__rol">
-                            <p>{user.credentials?.role}</p>
-                        </div>
-
-                        <div className="perfil__age">
-                            <p>Edad: {getDate(user.birthdate)}</p>
-                        </div>
-
-                        <div className="perfil__email">
-                            <p>{user.phone}</p>
-                        </div>
-
-                        <div className="perfil__email">
-                            <p>{user.credentials?.email}</p>
-                        </div>
-
-                        <Button onClick={() => logOut()}>Cerrar sesion</Button>
-
-
-                    </div>
-
-
-                </div>
-
-                <div className="sidebar__user-panel">
-
-                        <div className="update__title">
-                            <h2>Actualizacion de Datos</h2>
-                        </div>
-
-                    <div className="perfil__form">
-
-                        <form onSubmit={handleSubmit} className='form__container'> 
-                            <div className="form__name">
-                                <Form.Floating className="mb-2">
-                                    <Form.Control
-                                        id="nombre"
-                                        type="text"
-                                        placeholder="nombre"
-                                        value={name}
-                                        onChange={({ target }) => setName(target.value)} />
-                                    <label htmlFor="nombre">{user.name} </label>
-                                </Form.Floating>
-                                <Form.Floating className="mb-2">
-                                    <Form.Control
-                                        id="apellido"
-                                        type="text"
-                                        placeholder="Apellido"
-                                        value={lastname}
-                                        onChange={({ target }) => setLastname(target.value)}
-                                    />
-                                    <label htmlFor="apellido">{user.lastname}</label>
-                                </Form.Floating>
-                            </div>
-
-                            <div className="form__name">
-                                <Form.Floating >
-                                    <Form.Control
-                                        id="telefono"
-                                        type="text"
-                                        placeholder="Telefono"
-                                        value={phone}
-                                        onChange={({ target }) => setPhone(target.value)}
-                                    />
-                                    <label htmlFor="telefono">{user.phone} </label>
-                                </Form.Floating>
-                                <Form.Floating>
-                                    <Form.Control
-                                        id="cumpleaños"
-                                        type="date"
-                                        placeholder="dd-mm-yyyy"
-                                        value={birthdate}
-                                        onChange={({ target }) => setBirthdate(target.value)}
-                                    />
-                                    <label htmlFor="cumpleaños">Cumpleaños</label>
-                                </Form.Floating>
-                            </div>
-
-                            <div className="form__direction">
-                                <Form.Floating>
-                                    <Form.Control
-                                        id="direccion"
-                                        type="text"
-                                        placeholder={user.address || 'Direccion'}
-                                        value={address}
-                                        onChange={({ target }) => setAddress(target.value)}
-                                    />
-                                    <label htmlFor="direccion">{user.address}</label>
-                                </Form.Floating>
-                            </div>
-
-                            <hr className="hr" />
-
-                            <div className="form__name">
-                                <Form.Floating>
-                                    <Form.Control
-                                        id="email"
-                                        type="text"
-                                        placeholder="Email"
-                                        value={user.credentials?.email || credencial?.email}
-                                        disabled
-                                    />
-                                    <label htmlFor="email">Email</label>
-                                </Form.Floating>
-                                <Form.Floating className="mb-2">
-                                    <Form.Control
-                                        id="password"
-                                        type="pasword"
-                                        placeholder="Contraseña"
-                                        value={user.credentials?.password}
-                                        disabled
-                                    />
-                                    <label htmlFor="password">Contraseña </label>
-                                </Form.Floating>
-                            </div>
-
-                            <Form.Floating
-                                className="btn-send" >
-                                { update ?
-                                    <Button variant="primary" size="lg"
-                                        className="btn-send"
-                                        type='submit'> Actualizar información</Button>
-                                    :
-                                    <Button variant="primary" size="lg"
-                                 className="btn-send"
-                                 type='submit'> Guardar información</Button>}
-                            </Form.Floating>
-                        </form>
-
-                    </div>
-
-
-                </div>
-            </div>
-            <Footer />
+  const logOut = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+  return (
+    <div className="d-flex ">
+      <div
+        className="d-flex flex-column flex-shrink-0 p-3 text-white sticky-top"
+        style={{ width: "280px", height: "100vh", background: "#6f42c1" }}
+      >
+        <div className="h3 text-center">
+          {user ? `${user.name} ${user.lastname}` : "Name"}
         </div>
-    )
-}
+
+        <img
+          src={test_img}
+          className="img-thumbnail rounded-circle mx-auto"
+          alt="card-img-top"
+          width="150"
+        />
+
+        <div className="d-flex flex-column mt-3">
+          <p className="text-center">
+            {user ? user.credentials?.role : "Paciente"}
+          </p>
+          <p className="text-center">Edad: {getDate(user.birthdate)}</p>
+          <p className="text-center">{user ? user.phone : "Telefono"}</p>
+          <p className="text-center">
+            {user ? user.credentials?.email : "Email"}
+          </p>
+        </div>
+
+        <hr style={{ color: "white" }} />
+
+        <ul className="nav nav-pills flex-column mb-auto menu-user">
+          <li className="nav-item">
+            <Link
+              to={`/user-management/${user._id}`}
+              className="nav-link text-white active"
+              aria-current="page"
+            >
+              <i className="bi bi-person-fill-gear me-2"></i>
+              Actualizar Datos
+            </Link>
+          </li>
+          <li>
+            <Link to="/new-date" className="nav-link text-white">
+              <i className="bi bi-calendar-plus me-2"></i>
+              Agendar Cita
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={`/user-panel/${user._id}`}
+              className="nav-link text-white"
+            >
+              <i className="bi bi-person-fill-gear me-2"></i>
+              Perfil
+            </Link>
+          </li>
+          <li>
+            <Link to="/" className="nav-link text-white">
+              <i className="bi bi-house me-2"></i>
+              Home
+            </Link>
+          </li>
+        </ul>
+        <hr className="dropdown-divider"></hr>
+
+        <div
+          className="btn btn-lg btn-outline-light"
+          data-logOff="1"
+          onClick={() => logOut()}
+        >
+          Cerrar sesion
+        </div>
+      </div>
+
+      <div className="d-flex flex-column justify-content-center align-items-center flex-grow-1 p-3">
+        <div className="h2 text-center mt-5">
+          Actualización de datos personales
+        </div>
+        <div className="row mx-auto col-lg-10 col-md-12 mt-5 bg-light">
+          <form onSubmit={handleSubmit} class="form-control">
+            <div className="form-group">
+              <label for="name">Nombre:</label>
+              <input
+                id="name"
+                type="text"
+                placeholder={user.name}
+                className="form-control"
+                value={name}
+                onChange={({ target }) => setName(target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="apellido">Apellido</label>
+              <input
+                id="apellido"
+                type="text"
+                placeholder={user.lastname}
+                className="form-control"
+                value={lastname}
+                onChange={({ target }) => setLastname(target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="telefono">{user.phone} </label>
+              <input
+                id="telefono"
+                type="text"
+                className="form-control"
+                placeholder={user.phone}
+                value={phone}
+                onChange={({ target }) => setPhone(target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="cumpleaños">Cumpleaños</label>
+              <input
+                className="form-control"
+                id="cumpleaños"
+                type="date"
+                placeholder="dd-mm-yyyy"
+                value={birthdate}
+                onChange={({ target }) => setBirthdate(target.value)}
+              />
+            </div>
+
+            <div className="form-group">
+              <label for="direccion"></label>
+              <input
+                className="form-control"
+                id="direccion"
+                type="text"
+                placeholder={user.address || "Direccion"}
+                value={address}
+                onChange={({ target }) => setAddress(target.value)}
+              />
+            </div>
+
+            <hr className="hr" />
+
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                className="form-control"
+                id="email"
+                type="text"
+                value={user.credentials?.email || credencial?.email}
+                disabled
+              />
+            </div>
+
+            <div className="form-group">
+              <label for="password">Contraseña </label>
+              <input
+                className="form-control"
+                id="password"
+                type="pasword"
+                placeholder="Contraseña"
+                value="***"
+                disabled
+              />
+            </div>
+            <hr className="hr" />
+            <div className="form-group"></div>
+            <Form.Floating className="btn-send">
+              {update ? (
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="btn-send"
+                  type="submit"
+                >
+                  Actualizar información
+                </Button>
+              ) : (
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="btn-send"
+                  type="submit"
+                >
+                  Guardar información
+                </Button>
+              )}
+            </Form.Floating>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default AccountManagement;

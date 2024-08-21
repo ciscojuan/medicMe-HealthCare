@@ -23,7 +23,6 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--color-3);
-  font-family: var(--font-family-1);
   color: var(--color-4);
   box-sizing: border-box;
   scrollbar-color: var(--color-1) var(--color-4);
@@ -37,8 +36,6 @@ button:disabled {
   background-color: var(--color-3);
   border: 2px solid var(--color-1);
   color: var(--color-1);
-
-
 }
 .btn-primary:hover {
   background-color: var(--color-1);
@@ -68,13 +65,12 @@ button:disabled {
     animation-timing-function: linear;
     animation-iteration-count: infinite;
 }
-h1{
+.h1{
 
   font-weight: bold;
 }
 
-h2{
-
+.h2{
       font-weight: bold;
 }
 .react-datepicker__header, .react-datepicker__day--selected{

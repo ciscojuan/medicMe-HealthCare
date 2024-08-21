@@ -14,41 +14,43 @@ const Doctores = ({ doctores }) => {
 
     }
     return (
-
-            <div className="table table-bordered table-responsive align-middle">
-                <thead className='table-dark'>
-                    <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Edad</th>
-                        <th scope="col">Telefono</th>
-                        <th scope="col">Direccion</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Fecha Creacion</th>
-                        <th scope="col">Fecha Actualizacion</th>
-                        <th scope="col">Accion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {doctores.map((doctor, index) => (
-                        <tr key={doctor._id}>
-                            <td scope="row">{doctor.name}</td>
-                            <td>{doctor.lastname}</td>
-                            <td>{getAge(doctor.birtdate)}</td>
-                            <td>{doctor.phone}</td>
-                            <td>{doctor.address}</td>
-                            <td>{doctor.credentials.email}</td>
-                            <td>{getDate(doctor.createAt)}</td>
-                            <td>{getDate(doctor.updateAt)}</td>
-                            <td class="d-grid gap-2">
-                                <button
-                                    class="btn btn-sm btn-danger"
-                                    onClick={() => userService.getUser(doctor._id)} >Eliminar</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-        </div>
-    )
+      <table className="table table-bordered  table-responsive align-middle">
+        <thead className="table-dark">
+          <tr scope="col">
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Edad</th>
+            <th>Telefono</th>
+            <th>Direccion</th>
+            <th>Email</th>
+            <th>F. Creacion</th>
+            <th>F. Actualizacion</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {doctores.map((paciente, index) => (
+            <tr scope="row">
+              <td>{paciente.name}</td>
+              <td>{paciente.lastname}</td>
+              <td>{getAge(paciente.birthdate)}</td>
+              <td>{paciente.phone}</td>
+              <td>{paciente.address}</td>
+              <td>{paciente.credentials.email}</td>
+              <td>{getDate(paciente.createAt)}</td>
+              <td>{getDate(paciente.updateAt)}</td>
+              <td class="d-grid gap-2">
+                <button
+                  class="btn btn-sm btn-danger"
+                  onClick={() => userService.getUser(paciente._id)}
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
 }
 export default Doctores;

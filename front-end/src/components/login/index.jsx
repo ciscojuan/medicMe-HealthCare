@@ -47,9 +47,9 @@ const Login = () => {
             setEmail("")
             setPassword("")
 
-            if (user.isAdmin && navigate("/admin"))
+            user.isAdmin ? navigate("/admin") : navigate("/user-panel")
             
-            navigate("/user-panel")
+            
 
 
         } catch (exception) {

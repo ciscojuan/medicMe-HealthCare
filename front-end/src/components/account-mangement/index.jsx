@@ -239,12 +239,19 @@ const AccountManagement = () => {
 
             {credencial.isAdmin === true && (
               <div className="form-group">
-                <label for="direccion">Especialidad</label>
-                <select name="especialidad" id="especialidad"
-                className="form-control"
-                onClick={({ target }) => setEspecialidad(target.value)}>
+                <label for="especialidad">Especialidad</label>
+                <select
+                  name="especialidad"
+                  id="especialidad"
+                  className="form-control"
+                  onChange={({ target }) => setEspecialidad(target.value)}
+                >
+                  <option>Escoje la especialidad de tu preferencia:</option>
+
                   {especialidad.map((especialidad) => (
-                    <option value={especialidad._id}>{especialidad.name}</option>
+                    <option key={especialidad._id} value={especialidad._id}>
+                      {especialidad.name}
+                    </option>
                   ))}
                 </select>
               </div>

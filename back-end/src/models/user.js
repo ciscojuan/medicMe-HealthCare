@@ -25,7 +25,7 @@ const patientSchema = mongoose.Schema({
     },
     specialty: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Specialty'
+        ref: 'Speciality'
     },
     createAt: {
         type: Date,

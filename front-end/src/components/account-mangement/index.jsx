@@ -18,6 +18,7 @@ const AccountManagement = () => {
   const [credencial, setCredentials] = useState([]);
   const [user, setUser] = useState([]);
   const [especialidad, setEspecialidad] = useState([])
+  const [specialtySelected, setSpecialtySelected] = useState("");
   const [update, setUpdate] = useState(false);
 
   const [name, setName] = useState("");
@@ -244,7 +245,7 @@ const AccountManagement = () => {
                   name="especialidad"
                   id="especialidad"
                   className="form-control"
-                  onChange={({ target }) => setEspecialidad(target.value)}
+                  onChange={({ target }) => setSpecialtySelected(target.value)}
                 >
                   <option>Escoje la especialidad de tu preferencia:</option>
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UilUserMd } from '@iconscout/react-unicons'
 import { UilBookMedical } from '@iconscout/react-unicons'
 import { UilBooks } from '@iconscout/react-unicons'
@@ -7,6 +8,7 @@ import './services.css';
 import { Button } from "react-bootstrap";
 
 const Servcios = () => {
+    const navigate = useNavigate();
     return (
         <div className='servicios'>
             <div className="servicios__container">
@@ -44,7 +46,8 @@ const Servcios = () => {
             </div>
             
             <div className="servicios__container--button">
-                <Button size='lg' className="btn-primary">Reservar</Button>
+                <Button size='lg' className="btn-primary"
+                onClick={() => navigate('/register')}>Reservar</Button>
             </div>
 
 

@@ -1,6 +1,5 @@
-import { useNavigate } from 'react-router-dom';
 import React from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo from '../../../assets/logo.png'
 import Nav from "../../../shared/nav";
 import imgCal from '../../../assets/header-img-calendar.png';
@@ -28,7 +27,7 @@ const Header = () => {
                     </div>
                     <div className="header__start">
                         <Button size="lg"
-                        onClick={() => Navigate('/login')} className="btn-primary">Empecemos</Button>
+                        onClick={() => navigate('/login')} className="btn-primary">Empecemos</Button>
                     </div>
             </div>
             </div>

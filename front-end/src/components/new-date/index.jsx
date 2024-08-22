@@ -294,7 +294,7 @@ const [isMenuOpen, setIsMenuOpen] = useState(true)
 
                 {filteredDoctors.map((doctor) => (
                   <option key={doctor._id} value={doctor._id}>
-                    {doctor.name}
+                    {`${doctor.name} ${doctor.lastname}`}
                   </option>
                 ))}
               </select>
@@ -364,6 +364,7 @@ const [isMenuOpen, setIsMenuOpen] = useState(true)
           </form>
         </div>
       </div>
+
       <label for="nav__checkbox" className="menu-sidebar">
         {isMenuOpen ? (
           <svg

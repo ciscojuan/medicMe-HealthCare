@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../assets/logoblack.png";
-import Footer from '../../shared/footer'
+import { Link, useNavigate } from "react-router-dom";
+import moment from "moment";
 import "./admin.css";
 
 import userService from "../../services/user";
@@ -10,6 +11,11 @@ import Especialidades from "./Especialidades";
 import Sedes from "./Sedes";
 
 const Admin = () => {
+  const navigate = useNavigate()
+  const test_img = "https://github.com/mdo.png";
+  const userLogged = JSON.parse(localStorage.getItem("userLogged"));
+  const [user, setUser] = useState([]);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [users, setUsers] = useState([]);
   const [pacientes, setPacientes] = useState([]);
   const [doctores, setDoctores] = useState([]);
@@ -63,6 +69,16 @@ const Admin = () => {
   };
 
   useEffect(() => {
+        const userLogged = JSON.parse(localStorage.getItem("userLogged")); //devuelvo el contenido de localS en formato JSON
+
+        const userId = userLogged.id;
+
+        userService.getUserFromCredential(userId).then((res) => {
+          setUser(res.data);
+        });
+  }, []);
+
+  useEffect(() => {
     userService.getUsers().then((response) => {
       setUsers(response.data);
     });
@@ -94,88 +110,78 @@ const Admin = () => {
     }
   }, [users]);
 
+  const getDate = (birthDate) => {
+    const date = moment(birthDate);
+    const today = moment();
+    const age = today.diff(date, "years");
+    return age;
+  };
+
+    const logOut = () => {
+      window.localStorage.clear();
+      navigate("/home");
+    };
+
   return (
     <div className="d-flex">
-      <div
-        className="d-flex flex-column flex-shrink-0 p-3 text-white sticky-top"
-        style={{ width: "280px", height: "100vh", background: "#6f42c1" }}
-      >
-        <a
-          href="/"
-          className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+      {isMenuOpen ? (
+        <div
+          className="d-flex flex-column  flex-shrink-0 p-3 text-white sticky-top menu-toggleable"
+          style={{
+            width: "280px",
+            height: "100vh",
+            background: "#6f42c1",
+          }}
         >
-          <img src={logo} alt="Medicme - Healtcare" className="logo" />
-        </a>
-        <hr style={{ color: "white" }} />
-        <ul className="d-flex flex-column mb-auto side-bar">
-          <li className="nav-item" onClick={() => showPaciente()}>
-            <i className="bi bi-person me-2" style={{ color: "#fff" }}></i>
-            Pacientes
-          </li>
-          <li className="nav-item" onClick={() => showDoctor()}>
-            <i
-              className="bi bi-person-circle me-2"
-              style={{ color: "#fff" }}
-            ></i>
-            Doctores
-          </li>
-          <li className="nav-item" onClick={() => showSede()}>
-            <i className="bi bi-buildings me-2" style={{ color: "#fff" }}></i>
-            Sedes
-          </li>
-          <li className="nav-item" onClick={() => showEspecialidad()}>
-            <i className="bi bi-calendar3 me-2" style={{ color: "#fff" }}></i>
-            Especialidades
-          </li>
-        </ul>
-        <hr />
-        <div className="dropdown">
-          <a
-            href="#"
-            className="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-            id="dropdownUser1"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <img
-              src="https://github.com/mdo.png"
-              alt=""
-              width="32"
-              height="32"
-              className="rounded-circle me-2"
-            />
-            <strong>mdo</strong>
-          </a>
-          <ul
-            className="dropdown-menu dropdown-menu-dark text-small shadow"
-            aria-labelledby="dropdownUser1"
-          >
-            <li>
-              <a className="dropdown-item" href="#">
-                New project...
-              </a>
+          <div className="h3 text-center">{`${user.name} ${user.lastname}`}</div>
+          <img
+            src={test_img}
+            className="img-thumbnail rounded-circle mx-auto"
+            alt="card-img-top"
+            width="150"
+          />
+          <div className="d-flex flex-column mt-3">
+            <p className="text-center">
+              {user ? user.credentials?.role : "Paciente"}
+            </p>
+            <p className="text-center">Edad: {getDate(user.birthdate)}</p>
+            <p className="text-center">{user ? user.phone : "Telefono"}</p>
+            <p className="text-center">
+              {user ? user.credentials?.email : "Email"}
+            </p>
+          </div>
+          <hr style={{ color: "white" }} />
+          <ul className="nav nav-pills flex-column mb-auto menu-user">
+            <li className="nav-link" onClick={() => showPaciente()}>
+              <i className="bi bi-person me-2" style={{ color: "#fff" }}></i>
+              Pacientes
             </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                Settings
-              </a>
+            <li className="nav-link" onClick={() => showDoctor()}>
+              <i
+                className="bi bi-person-circle me-2 text-white"
+              ></i>
+              Doctores
             </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                Profile
-              </a>
+            <li className="nav-link" onClick={() => showSede()}>
+              <i className="bi bi-buildings me-2" style={{ color: "#fff" }}></i>
+              Sedes
             </li>
-            <li>
-              <hr className="dropdown-divider" />
-            </li>
-            <li>
-              <a className="dropdown-item" href="#">
-                Sign out
-              </a>
+            <li className="nav-link" onClick={() => showEspecialidad()}>
+              <i className="bi bi-calendar3 me-2" style={{ color: "#fff" }}></i>
+              Especialidades
             </li>
           </ul>
+          
+          <hr className="dropdown-divider"></hr>
+          <div
+            className="btn btn-lg btn-outline-light"
+            data-logOff="1"
+            onClick={() => logOut()}
+          >
+            Cerrar sesion
+          </div>
         </div>
-      </div>
+      ) : null}
 
       <div className="d-flex flex-column align-items-center mt-5 ">
         <div className="row ">

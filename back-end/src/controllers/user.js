@@ -89,7 +89,7 @@ exports.getUser = async (req, res) => {
     const { id } = req.params
     console.log(id)
     try {
-        const user = await User.findById(id).populate('credentials', { 'email': 1, 'role': 1, isAdmin:1, _id: 0 }).populate('specialty');
+        const user = await User.findById(id).populate('credentials', { _id:1, 'email': 1, 'role': 1, isAdmin:1, }).populate('specialty');
         if (!user) return res.status(404).json({ message: "No document found.", id: id });
         res.status(200).json(user);
     } catch (err) {

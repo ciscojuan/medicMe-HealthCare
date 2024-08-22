@@ -2,16 +2,9 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import moment from "moment";
-import { UilFolderPlus } from "@iconscout/react-unicons";
-import { UilCalender } from "@iconscout/react-unicons";
+
 import { Link, useNavigate, useParams } from "react-router-dom";
 import userService from "../../services/user";
-import logo from "../../assets/logo.png";
-import logoWithe from "../../assets/logoWhite.png";
-import logoBlack from "../../assets/logoblack.png";
-import avatar from "../../assets/header-img-p3.png";
-import Nav from "../../shared/nav";
-import Footer from "../../shared/footer";
 import "./account.css";
 
 const AccountManagement = () => {
@@ -20,10 +13,11 @@ const AccountManagement = () => {
   const navigate = useNavigate();
   const userLogged = JSON.parse(localStorage.getItem("userLogged"));
 
-const [isMenuOpen, setIsMenuOpen] = useState(true)
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
 
   const [credencial, setCredentials] = useState([]);
   const [user, setUser] = useState([]);
+  const [especialidad, setEspecialidad] = useState([])
   const [update, setUpdate] = useState(false);
 
   const [name, setName] = useState("");
@@ -49,6 +43,10 @@ const [isMenuOpen, setIsMenuOpen] = useState(true)
           console.error("Error al obtener el usuario:", error);
         });
     });
+
+    userService.getSpecialty().then((res) => {
+      setEspecialidad(res.data)
+    })
   }, []);
 
   const handleSubmit = (e) => {
@@ -59,7 +57,8 @@ const [isMenuOpen, setIsMenuOpen] = useState(true)
       phone,
       birthdate,
       address,
-      credentials: userLogged.id,
+      credentials: id ? user.credencial._id : userLogged.id,
+      specialty: especialidad
     };
     console.log(credentiales);
 
@@ -215,7 +214,7 @@ const [isMenuOpen, setIsMenuOpen] = useState(true)
             </div>
 
             <div className="form-group">
-              <label htmlFor="telefono">{user.phone} </label>
+              <label htmlFor="telefono">Telefono </label>
               <input
                 id="telefono"
                 type="text"
@@ -238,8 +237,21 @@ const [isMenuOpen, setIsMenuOpen] = useState(true)
               />
             </div>
 
+            {credencial.isAdmin === true && (
+              <div className="form-group">
+                <label for="direccion">Especialidad</label>
+                <select name="especialidad" id="especialidad"
+                className="form-control"
+                onClick={({ target }) => setEspecialidad(target.value)}>
+                  {especialidad.map((especialidad) => (
+                    <option value={especialidad._id}>{especialidad.name}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+
             <div className="form-group">
-              <label for="direccion"></label>
+              <label for="direccion">Direccion</label>
               <input
                 className="form-control"
                 id="direccion"

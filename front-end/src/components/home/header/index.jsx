@@ -1,4 +1,6 @@
+import { useNavigate } from 'react-router-dom';
 import React from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import logo from '../../../assets/logo.png'
 import Nav from "../../../shared/nav";
 import imgCal from '../../../assets/header-img-calendar.png';
@@ -11,6 +13,8 @@ import './header.css';
 import '../../../shared/nav/nav.css';
 
 const Header = () => {
+
+    const navigate = useNavigate();
     return (
         <>
             <Nav className="navv" logo={logo}/>
@@ -23,7 +27,8 @@ const Header = () => {
                         <p>Encuentra a los mejores médicos y reserva tus citas de manera facil y rapida.</p>
                     </div>
                     <div className="header__start">
-                        <Button size="lg" className="btn-primary">Empecemos</Button>
+                        <Button size="lg"
+                        onClick={() => Navigate('/login')} className="btn-primary">Empecemos</Button>
                     </div>
             </div>
             </div>

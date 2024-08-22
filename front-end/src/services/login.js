@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = 'http://localhost:5535/api/v1/login';
+const url = "https://medicme-healthcare.onrender.com/api/v1/login";
 
 const auth = async credentials => {
     //console.log(`credentials: ${JSON.stringify(credentials)}`)

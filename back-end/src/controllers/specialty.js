@@ -1,6 +1,4 @@
-const express = require('express');
 const Specialty = require('../models/specialty');
-const { mongo } = require('mongoose');
 
 exports.getSpecialties = async (req, res) => {
     try {

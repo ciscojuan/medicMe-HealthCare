@@ -1,4 +1,3 @@
-'use strict'
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -40,5 +39,7 @@ mongoose.connect(MONGODB_URI)
   .catch(err => console.error('Database connection error:', err));
 
 app.listen(PORT, () =>{
-    console.log(`Servidor corriendo en: http://localhost:${PORT}`)
+ const renderURL =
+   process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
+ console.log(`Servidor corriendo en: ${renderURL}`);
 })

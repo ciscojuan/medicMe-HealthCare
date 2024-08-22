@@ -45,77 +45,91 @@ const Register = () => {
     };
 
     return (
-        <div className="register">
-            <div className="register__nav">
-                <div className="register__nav--img">
-                    <img src={logo} alt="MedicMe - HealthCare" />
-                </div>
-
-            </div>
-            <div className="register__container">
-                <div className="register__services">
-                    <div className="register__service--icons">
-                        <div className="service__icon">< UilUserMd size="80" color="#6D30ED" /></div>
-                        <div className="service__icon">< UilCalendarAlt size="80" color="#6D30ED" /></div>
-                        <div className="service__icon">< UilUserMd size="80" color="#6D30ED" /></div>
-                    </div>
-                    <div className="register__title">
-                        <h2>Registrate y comienza ahora</h2>
-                    </div>
-                    <div className="register__service--content">
-                        <label >MedicMe, la innovadora aplicacion diseñada para simplificar tu vida y hacer el agendamiento de citas algo censillo.</label>
-                    </div>
-                </div>
-
-                <div className="register__form">
-
-                <div className="register__form--container">
-                        <div className="register__title">
-                            <h2>Formulario de Registro</h2>
-                        </div>
-
-                        <div className="register__form--content">
-                            <Notification messageError={errorMessage} message={successMessage} />
-                        <form onSubmit={handleSubmit}>
-                                <Form.Floating className="form-floating__register">
-                                    <Form.Control
-                                        id="floatingInputCustom"
-                                        type="email"
-                                        placeholder="Email"
-                                        value={email}
-                                        onChange={({target}) => setEmail(target.value)}
-                                    />
-                                    <label htmlFor="floatingInputCustom">Email</label>
-                                </Form.Floating>
-                                <Form.Floating className="">
-                                    <Form.Control
-                                        id="floatingPasswordCustom"
-                                        type="password"
-                                        value={password}
-                                        placeholder="Password"
-                                        onChange={({target}) => setPassword(target.value)}
-                                    />
-                                    <label htmlFor="floatingPasswordCustom">Contraseña</label>
-                                </Form.Floating>
-                                <div className="register__buton">
-                                    <Button v
-                                    ariant="primary" 
-                                    size="lg" 
-                                    className="btn-register"
-                                    type="submit"> Ingresar</Button>
-                                    <label>Ya tienes cuenta?</label> <Link to="/login">Ingresa aca</Link>
-                                </div>
-                        </form>
-
-                        </div>
-                </div>
-
-                </div>
-            </div>
-            <div className="leftCircle"></div>
-            <div className="rightCircle"></div>
-            <div className="rightRectangle"></div>
+      <div className="register">
+        <div className="register__nav">
+          <div className="register__nav--img">
+            <img src={logo} alt="MedicMe - HealthCare" />
+          </div>
         </div>
-    )
+        <div className="register__container">
+          <div className="register__services">
+            <div className="register__service--icons">
+              <div className="service__icon">
+                <UilUserMd size="80" color="#6D30ED" />
+              </div>
+              <div className="service__icon">
+                <UilCalendarAlt size="80" color="#6D30ED" />
+              </div>
+              <div className="service__icon">
+                <UilUserMd size="80" color="#6D30ED" />
+              </div>
+            </div>
+            <div className="register__title">
+              <h2>Registrate y comienza ahora</h2>
+            </div>
+            <div className="register__service--content">
+              <label>
+                MedicMe, la innovadora aplicacion diseñada para simplificar tu
+                vida y hacer el agendamiento de citas algo censillo.
+              </label>
+            </div>
+          </div>
+
+          <div className="register__form">
+            <div className="register__form--container">
+              <div className="register__title">
+                <h2>Formulario de Registro</h2>
+              </div>
+
+              <div className="register__form--content">
+                <Notification
+                  messageError={errorMessage}
+                  message={successMessage}
+                />
+                <form onSubmit={handleSubmit}>
+                  <label htmlFor="floatingInputCustom">Email</label>
+                  <Form.Floating className="form-floating__register">
+                    <Form.Control
+                      id="floatingInputCustom"
+                      type="email"
+                      placeholder="Email"
+                      value={email}
+                      onChange={({ target }) => setEmail(target.value)}
+                    />
+                  </Form.Floating>
+                  <label htmlFor="floatingPasswordCustom">Contraseña</label>
+                  <Form.Floating className="form-floating__register">
+                    <Form.Control
+                      id="floatingPasswordCustom"
+                      type="password"
+                      value={password}
+                      placeholder="Password"
+                      onChange={({ target }) => setPassword(target.value)}
+                    />
+                  </Form.Floating>
+                  <div className="register__buton">
+                    <Button
+                      v
+                      ariant="primary"
+                      size="lg"
+                      className="btn-register"
+                      type="submit"
+                    >
+                      {" "}
+                      Ingresar
+                    </Button>
+                    <label>Ya tienes cuenta?</label>{" "}
+                    <Link to="/login">Ingresa aca</Link>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="leftCircle"></div>
+        <div className="rightCircle"></div>
+        <div className="rightRectangle"></div>
+      </div>
+    );
 }
 export default Register;

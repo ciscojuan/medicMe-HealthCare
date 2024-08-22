@@ -200,7 +200,7 @@ header .nav--link .active {
         display: none;
     }
 
-        .nav {
+        .navv {
             flex-direction: column;
             height: 100%;
         }
@@ -237,7 +237,7 @@ header .nav--link .active {
 }
 
 @media (max-width: 640px) {
-    .nav {
+    .navv {
             flex-direction: column;
             height: 100%;
         }
@@ -274,7 +274,7 @@ header .nav--link .active {
 }
 
 @media (max-width: 480px) {
-    .nav {
+    .navv {
         flex-direction: column;
         height: 100%;
     }

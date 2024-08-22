@@ -1,8 +1,8 @@
 import userService from "../../services/user";
 const Sedes = ({sedes}) =>{
     return (
-        <div className="table-responsive">
-            <table className="table table-bordered  table-stritable table-striped table-hover align-middleped">
+
+            <table className="table table-bordered  table-hover ">
                 <thead className='table-dark'>
                     <tr>
                         <th scope="col">Sede</th>
@@ -28,7 +28,6 @@ const Sedes = ({sedes}) =>{
                     </tr>
                 </tbody>
             </table>
-        </div>
     )
 }
 export default Sedes;

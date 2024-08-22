@@ -16,7 +16,7 @@ const Pacientes = ({ pacientes }) => {
     }
 
     return (
-        <table className="table table-bordered  table-responsive align-middle">
+        <table className="table align-middle">
                 <thead className='table-dark'>
                     <tr scope="col">
                         <th >Nombre</th>

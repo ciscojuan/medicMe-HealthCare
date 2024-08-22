@@ -63,12 +63,10 @@ const Nav = ({ className, logo }) => {
                 <div className="nav__menu--link">
                     <Link to="/home" className="link active">Home</Link>
                     <Link to="/user-panel" className="link">Perfil</Link>
-                    <Link to="/company" className="link">Company</Link>
                     {localStorage.getItem('userLogged') &&
                         <Link to={`/user-management/${user._id}`} className="link">Actualizar Datos</Link>}
                     {localStorage.getItem('userLogged') &&
                         <Link to="/new-date" className="link">Agendar cita</Link>}
-                    <Link to="/contact-us" className="link">Contact us</Link>
                 </div>
             </div>
             {!localStorage.getItem('userLogged') &&

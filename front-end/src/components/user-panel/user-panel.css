@@ -1,3 +1,23 @@
-.bi{
-    margin-right: 10px;
+.bi {
+  margin-right: 10px;
+}
+.toggle-menu {
+  position: relative;
+}
+.menu-sidebar {
+  display: none;
+  position: fixed;
+  top: 50px;
+  right: 25px;
+}
+.menu-sidebar svg {
+  fill: #6f42c1;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .menu-sidebar{
+    display: block;
+  }
 }

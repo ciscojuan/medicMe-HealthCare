@@ -1,8 +1,8 @@
 import userService  from '../../services/user'
 const Especialidades = ({ especialidades }) => {
     return (
-        <div className='table-responsive'>
-            <table className="table table-bordered  align-middle">
+
+            <table className="table align-middle">
                 <thead className='table-dark'>
                     <tr>
                         <th scope="col">Especialidad</th>
@@ -23,7 +23,7 @@ const Especialidades = ({ especialidades }) => {
 
                 </tbody>
             </table>
-        </div>
+
     )
 }
 export default Especialidades;

@@ -26,6 +26,8 @@ const NewDate = () => {
   // Almacernar las fechas ya asignadas
   const [blockDates, setBlockDates] = useState([]);
 
+const [isMenuOpen, setIsMenuOpen] = useState(true)
+
   const minDate = new Date(Date());
 
   const [user, setUser] = useState([]);
@@ -184,73 +186,81 @@ const NewDate = () => {
 
   return (
     <div className="d-flex">
-      <div
-        className="d-flex flex-column  flex-shrink-0 p-3 text-white sticky-top"
-        style={{ width: "280px", height: "100vh", background: "#6f42c1" }}
-      >
-        <div className="h3 text-center">
-          {user ? `${user.name} ${user.lastname}` : "Name"}
+      {isMenuOpen ? (
+        <div
+          className="d-flex flex-column  flex-shrink-0 p-3 text-white sticky-top"
+          style={{
+            width: "280px",
+            height: "100vh",
+            background: "#6f42c1",
+          }}
+        >
+          <div className="h3 text-center">{`${user.name} ${user.lastname}`}</div>
+
+          <img
+            src={test_img}
+            className="img-thumbnail rounded-circle mx-auto"
+            alt="card-img-top"
+            width="150"
+          />
+
+          <div className="d-flex flex-column mt-3">
+            <p className="text-center">
+              {user ? user.credentials?.role : "Paciente"}
+            </p>
+            <p className="text-center">Edad: {getDate(user.birthdate)}</p>
+            <p className="text-center">{user ? user.phone : "Telefono"}</p>
+            <p className="text-center">
+              {user ? user.credentials?.email : "Email"}
+            </p>
+          </div>
+
+          <hr style={{ color: "white" }} />
+
+          <ul className="nav nav-pills flex-column mb-auto menu-user">
+            <li className="nav-item">
+              <Link
+                to={`/user-management/${user._id}`}
+                className="nav-link text-white"
+                aria-current="page"
+              >
+                <i className="bi bi-person-fill-gear me-2"></i>
+                Actualizar Datos
+              </Link>
+            </li>
+            <li>
+              <Link to="/new-date" className="nav-link text-white ">
+                <i className="bi bi-calendar-plus me-2"></i>
+                Agendar Cita
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={`/user-panel/${user._id}`}
+                className="nav-link text-white active"
+              >
+                <i className="bi bi-person-fill-gear me-2"></i>
+                Perfil
+              </Link>
+            </li>
+            <li>
+              <Link to="/" className="nav-link text-white">
+                <i className="bi bi-house me-2"></i>
+                Home
+              </Link>
+            </li>
+          </ul>
+          <hr className="dropdown-divider"></hr>
+
+          <div
+            className="btn btn-lg btn-outline-light"
+            data-logOff="1"
+            onClick={() => logOut()}
+          >
+            Cerrar sesion
+          </div>
         </div>
-
-        <img
-          src={test_img}
-          className="img-thumbnail rounded-circle mx-auto"
-          alt="card-img-top"
-          width="150"
-        />
-
-        <div className="d-flex flex-column mt-3">
-          <p className="text-center">
-            {user ? user.credentials?.role : "Paciente"}
-          </p>
-          <p className="text-center">Edad: {getDate(user.birthdate)}</p>
-          <p className="text-center">{user ? user.phone : "Telefono"}</p>
-          <p className="text-center">
-            {user ? user.credentials?.email : "Email"}
-          </p>
-        </div>
-
-        <hr style={{ color: "white" }} />
-
-        <ul className="nav nav-pills flex-column mb-auto menu-user">
-          <li className="nav-item">
-            <Link
-              to={`/user-management/${user._id}`}
-              className="nav-link text-white"
-              aria-current="page"
-            >
-              <i className="bi bi-person-fill-gear me-2"></i>
-              Actualizar Datos
-            </Link>
-          </li>
-          <li>
-            <Link to="/new-date" className="nav-link text-white active">
-              <i className="bi bi-calendar-plus me-2"></i>
-              Agendar Cita
-            </Link>
-          </li>
-          <li>
-            <Link
-              to={`/user-panel/${user._id}`}
-              className="nav-link text-white"
-            >
-              <i className="bi bi-person-fill-gear me-2"></i>
-              Perfil
-            </Link>
-          </li>
-          <li>
-            <Link to="/" className="nav-link text-white">
-              <i className="bi bi-house me-2"></i>
-              Home
-            </Link>
-          </li>
-        </ul>
-        <hr className="dropdown-divider"></hr>
-
-        <div className="btn btn-lg btn-outline-light" onClick={() => logOut()}>
-          Cerrar sesion
-        </div>
-      </div>
+      ) : null}
 
       <div className="flex-grow-1 p-3">
         <div className="h2 text-center mt-5">Asignacion de citas médicas</div>
@@ -311,7 +321,7 @@ const NewDate = () => {
             <div className="form-group">
               <label htmlFor="fecha" className="label__form">
                 Fecha:
-                <div >
+                <div>
                   <DatePicker
                     selected={selectedDate}
                     onChange={handleDateChage}
@@ -354,6 +364,28 @@ const NewDate = () => {
           </form>
         </div>
       </div>
+      <label for="nav__checkbox" className="menu-sidebar">
+        {isMenuOpen ? (
+          <svg
+            viewBox="0 0 384 512"
+            width="25"
+            title="times"
+            color=""
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z" />
+          </svg>
+        ) : (
+          <svg
+            viewBox="0 0 448 512"
+            width="25"
+            title="bars"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z" />
+          </svg>
+        )}
+      </label>
     </div>
   );
 };

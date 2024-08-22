@@ -73,6 +73,10 @@ button:disabled {
 .h2{
       font-weight: bold;
 }
+.title{
+
+font-weight: normal;
+}
 .react-datepicker__header, .react-datepicker__day--selected{
   background-color: #6D30ED;
 }

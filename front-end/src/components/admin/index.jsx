@@ -97,7 +97,7 @@ const Admin = () => {
   return (
     <div className="d-flex">
       <div
-        className="d-flex flex-column flex-shrink-0 p-3 text-white"
+        className="d-flex flex-column flex-shrink-0 p-3 text-white sticky-top"
         style={{ width: "280px", height: "100vh", background: "#6f42c1" }}
       >
         <a
@@ -113,7 +113,10 @@ const Admin = () => {
             Pacientes
           </li>
           <li className="nav-item" onClick={() => showDoctor()}>
-            <i className="bi bi-person-circle me-2" style={{ color: "#fff" }}></i>
+            <i
+              className="bi bi-person-circle me-2"
+              style={{ color: "#fff" }}
+            ></i>
             Doctores
           </li>
           <li className="nav-item" onClick={() => showSede()}>
@@ -174,7 +177,7 @@ const Admin = () => {
         </div>
       </div>
 
-      <div className="d-flex flex-column align-items-center mt-5 table">
+      <div className="d-flex flex-column align-items-center mt-5 ">
         <div className="row ">
           <div className="col-lg-3 col-md-6 col-sm-12 mb-3 mb-sm-5">
             <div
@@ -182,9 +185,9 @@ const Admin = () => {
               style={{ backgroundColor: "#f5f1ff" }}
             >
               <div className="card-body d-flex flex-column justify-content-center align-items-center ">
-                <h5 className="card-title">Nuestros usuarios</h5>
+                <h5 className="card-title">Pacientes</h5>
                 <p className="card-text text-center">
-                  Contamos con {users.length} usuarios registrados.
+                  Contamos con {pacientes.length} usuarios registrados.
                 </p>
                 <p>
                   <i
@@ -220,9 +223,9 @@ const Admin = () => {
               style={{ backgroundColor: "#f0f9ff" }}
             >
               <div className="card-body d-flex flex-column justify-content-center align-items-center ">
-                <h5 className="card-title">Nuestros usuarios</h5>
+                <h5 className="card-title">Sedes médicas</h5>
                 <p className="card-text text-center">
-                  Contamos con {users.length} usuarios registrados.
+                  Contamos con {sedes.length} sedes.
                 </p>
                 <p>
                   <i
@@ -239,9 +242,9 @@ const Admin = () => {
               style={{ backgroundColor: "#fcf7df" }}
             >
               <div className="card-body d-flex flex-column justify-content-center align-items-center ">
-                <h5 className="card-title">Nuestros usuarios</h5>
+                <h5 className="card-title">Doctores</h5>
                 <p className="card-text text-center">
-                  Contamos con {users.length} usuarios registrados.
+                  Contamos con {doctores.length} usuarios registrados.
                 </p>
                 <p>
                   <i
@@ -254,19 +257,20 @@ const Admin = () => {
           </div>
         </div>
 
-        <div className="row">
-          {showPacientes ? (
-            <Pacientes pacientes={pacientes} />
-          ) : showDoctores ? (
-            <Doctores doctores={doctores} />
-          ) : showEspecialidades ? (
-            <Especialidades especialidades={especialidades} />
-          ) : showSedes ? (
-            <Sedes sedes={sedes} />
-          ) : null}
+        <div className="row col-12 col-md-10 ">
+          <div className="table-responsive">
+            {showPacientes ? (
+              <Pacientes pacientes={pacientes} />
+            ) : showDoctores ? (
+              <Doctores doctores={doctores} />
+            ) : showEspecialidades ? (
+              <Especialidades especialidades={especialidades} />
+            ) : showSedes ? (
+              <Sedes sedes={sedes} />
+            ) : null}
+          </div>
         </div>
       </div>
-      
     </div>
   );
 };

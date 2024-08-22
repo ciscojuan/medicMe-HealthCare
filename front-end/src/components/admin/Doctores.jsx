@@ -1,20 +1,19 @@
-import userService from '../../services/user'
-import moment from 'moment';
+import userService from "../../services/user";
+import moment from "moment";
 const Doctores = ({ doctores }) => {
+  const getAge = (birthdate) => {
+    const date = moment(birthdate);
+    const today = moment();
+    const age = today.diff(date, "years");
+    return age;
+  };
 
-    const getAge = (birthdate) => {
-        const date = moment(birthdate);
-        const today = moment();
-        const age = today.diff(date, 'years');
-        return age;
-    }
+  const getDate = (birthdate) => {
+    return moment(birthdate).format("DD/MM/YYYY : HH:MM");
+  };
+  return (
 
-    const getDate = (birthdate) =>{
-        return moment(birthdate).format('DD/MM/YYYY : HH:MM');
-
-    }
-    return (
-      <table className="table table-bordered  table-responsive align-middle">
+      <table className="table align-middle">
         <thead className="table-dark">
           <tr scope="col">
             <th>Nombre</th>
@@ -39,7 +38,7 @@ const Doctores = ({ doctores }) => {
               <td>{paciente.credentials.email}</td>
               <td>{getDate(paciente.createAt)}</td>
               <td>{getDate(paciente.updateAt)}</td>
-              <td class="d-grid gap-2">
+              <td className="d-grid gap-2">
                 <button
                   class="btn btn-sm btn-danger"
                   onClick={() => userService.getUser(paciente._id)}
@@ -51,6 +50,6 @@ const Doctores = ({ doctores }) => {
           ))}
         </tbody>
       </table>
-    );
-}
+  );
+};
 export default Doctores;

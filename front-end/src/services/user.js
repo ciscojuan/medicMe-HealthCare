@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const urlBooking = "https://medicme-healthcare.onrender.com/api/v1/booking";
-const urlUser = "https://medicme-healthcare.onrender.com/api/v1/user";
+const urlBooking = "https://api-medicme-healthcare.onrender.com/api/v1/booking";
+const urlUser = "https://api-medicme-healthcare.onrender.com/api/v1/user";
 const urlCredentials =
-  "https://medicme-healthcare.onrender.com/api/v1/credentials";
-const urlSpecialty = "https://medicme-healthcare.onrender.com/api/v1/specialty";
-const urlLocation = "https://medicme-healthcare.onrender.com/api/v1/location";
+  "https://api-medicme-healthcare.onrender.com/api/v1/credentials";
+const urlSpecialty = "https://api-medicme-healthcare.onrender.com/api/v1/specialty";
+const urlLocation = "https://api-medicme-healthcare.onrender.com/api/v1/location";
 
 let token = null;
 

@@ -59,7 +59,7 @@ const AccountManagement = () => {
       birthdate,
       address,
       credentials: id ? user.credencial._id : userLogged.id,
-      specialty: especialidad
+      specialty: specialtySelected
     };
     console.log(credentiales);
 

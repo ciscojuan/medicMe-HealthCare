@@ -1,11 +1,11 @@
 import axios from "axios";
 const dev ="http://localhost:5535/api/v1"
 const prod = "https://api-medicme-healthcare.onrender.com/api/v1"
-const urlBooking = `${dev}/booking`;
-const urlUser = `${dev}/user`;
-const urlCredentials =`${dev}/credentials`;
-const urlSpecialty = `${dev}/specialty`;
-const urlLocation = `${dev}/location`;
+const urlBooking = `${prod}/booking`;
+const urlUser = `${prod}/user`;
+const urlCredentials =`${prod}/credentials`;
+const urlSpecialty = `${prod}/specialty`;
+const urlLocation = `${prod}/location`;
 
 
 let token = null;

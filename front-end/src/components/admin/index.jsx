@@ -259,9 +259,9 @@ const Admin = () => {
             ) : showDoctores ? (
               <Doctores doctores={doctores} especialidades={especialidades} />
             ) : showEspecialidades ? (
-              <Especialidades especialidades={especialidades} />
+              <Especialidades especialidades={especialidades} setEspecialidades={setEspecialidades} />
             ) : showSedes ? (
-              <Sedes sedes={sedes} />
+              <Sedes sedes={sedes} setSedes={setSedes} />
             ) : null}
           </div>
         </div>

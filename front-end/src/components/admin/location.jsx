@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import userService from "../../services/user";
-import Notification from "../../shared/Notification";
 
-const Location = () => {
+const Location = ({ handleAddLocation }) => {
   const [especialidades, setEspecialidades] = useState([]);
+
   const [name, setName] = useState("");
   const [direction, setDirection] = useState("");
   const [specialty, setSpecialty] = useState("");
-  const [message, setMessage] = useState("");
 
   useEffect(() => {
     userService.getSpecialty().then((res) => {
@@ -16,29 +15,20 @@ const Location = () => {
     });
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newLocation = {
-      name: name,
-      direction: direction,
-      specialty: specialty,
-    };
+const handleSubmit = (e) =>{
+  e.preventDefault()
+  
+  handleAddLocation({
+    name: name,
+    direction: direction,
+    specialty: specialty,
+  });
 
-    try {
-      userService.savedLocation(newLocation).then((res) => {
-        console.log(res.data);
-
-        setTimeout(() => {
-          setMessage("Sede añadida");
-          setName("");
-          setDirection("");
-          setSpecialty("");
-        }, 1000);
-      });
-    } catch (err) {
-      console.log(err);
-    }
+  setName("")
+  setDirection("")
+  setSpecialty("")
   };
+
   return (
     <form onSubmit={handleSubmit} className="form-control">
       <div className="form-group">
@@ -47,6 +37,7 @@ const Location = () => {
           type="text"
           name="name"
           id="name"
+          value={name}
           className="form-control"
           onChange={({ target }) => setName(target.value)}
         />
@@ -57,6 +48,7 @@ const Location = () => {
           name="direccion"
           id="direccion"
           type="text"
+          value={direction}
           className="form-control"
           onChange={({ target }) => setDirection(target.value)}
         />
@@ -69,6 +61,7 @@ const Location = () => {
           className="custom-select"
           onChange={({ target }) => setSpecialty(target.value)}
         >
+          <option value="">Seleccione una opcion</option>
           {especialidades.map((especialidad) => (
             <option value={especialidad._id} key={especialidad._id}>
               {especialidad.name}
@@ -78,11 +71,9 @@ const Location = () => {
       </div>
       <div className="form-group">
         <button type="submit" className="btn btn-primary">
-          Guardar
+          Guardar Sede
         </button>
       </div>
-
-      <Notification message={message} />
     </form>
   );
 };

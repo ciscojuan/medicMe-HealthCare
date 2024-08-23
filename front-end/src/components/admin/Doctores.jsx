@@ -2,7 +2,7 @@ import userService from "../../services/user";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
-const Doctores = ({ doctores }) => {
+const Doctores = ({ doctores, especialidades }) => {
   const navigate = useNavigate()
   const getAge = (birthdate) => {
     const date = moment(birthdate);
@@ -24,8 +24,7 @@ const Doctores = ({ doctores }) => {
           <th>Telefono</th>
           <th>Direccion</th>
           <th>Email</th>
-          <th>F. Creacion</th>
-          <th>F. Actualizacion</th>
+          <th>Especialidad</th>
           <th>Accion</th>
         </tr>
       </thead>
@@ -38,8 +37,7 @@ const Doctores = ({ doctores }) => {
             <td>{doctor.phone}</td>
             <td>{doctor.address}</td>
             <td>{doctor.credentials.email}</td>
-            <td>{getDate(doctor.createAt)}</td>
-            <td>{getDate(doctor.updateAt)}</td>
+            <td>{doctor.specialty}</td>
             <td className="d-flex ">
               <button
                 class="btn btn-primary mx-3"

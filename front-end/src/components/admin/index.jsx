@@ -9,6 +9,7 @@ import Pacientes from "./Pacientes";
 import Doctores from "./Doctores";
 import Especialidades from "./Especialidades";
 import Sedes from "./Sedes";
+import Location from "./location";
 
 const Admin = () => {
   const navigate = useNavigate()
@@ -27,18 +28,6 @@ const Admin = () => {
   const [showDoctores, setShowDoctores] = useState(false);
   const [showEspecialidades, setShowEspecialidades] = useState(false);
   const [showSedes, setShowSedes] = useState(false);
-
-  const showTitle = () => {
-    if (showPacientes) {
-      return "Pacientes";
-    } else if (showDoctores) {
-      return "Doctores";
-    } else if (showEspecialidades) {
-      return "Especialidades";
-    } else if (showSedes) {
-      return "Sedes";
-    }
-  };
 
   const showPaciente = () => {
     setShowPacientes(true);
@@ -268,7 +257,7 @@ const Admin = () => {
             {showPacientes ? (
               <Pacientes pacientes={pacientes} />
             ) : showDoctores ? (
-              <Doctores doctores={doctores} />
+              <Doctores doctores={doctores} especialidades={especialidades} />
             ) : showEspecialidades ? (
               <Especialidades especialidades={especialidades} />
             ) : showSedes ? (

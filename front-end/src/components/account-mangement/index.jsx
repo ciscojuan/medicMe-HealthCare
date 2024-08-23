@@ -50,6 +50,7 @@ const AccountManagement = () => {
     })
   }, []);
 
+  console.log(user)
   const handleSubmit = (e) => {
     e.preventDefault();
     const credentiales = {
@@ -58,7 +59,7 @@ const AccountManagement = () => {
       phone,
       birthdate,
       address,
-      credentials: id ? user.credencials._id : userLogged.id,
+      credentials: id ? user.credentials._id : userLogged.id,
       specialty: specialtySelected
     };
     console.log(credentiales);

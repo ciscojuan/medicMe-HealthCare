@@ -1,11 +1,12 @@
 import axios from "axios";
+const dev ="http://localhost:5535/api/v1"
+const prod = "https://api-medicme-healthcare.onrender.com/api/v1"
+const urlBooking = `${dev}/booking`;
+const urlUser = `${dev}/user`;
+const urlCredentials =`${dev}/credentials`;
+const urlSpecialty = `${dev}/specialty`;
+const urlLocation = `${dev}/location`;
 
-const urlBooking = "https://api-medicme-healthcare.onrender.com/api/v1/booking";
-const urlUser = "https://api-medicme-healthcare.onrender.com/api/v1/user";
-const urlCredentials =
-  "https://api-medicme-healthcare.onrender.com/api/v1/credentials";
-const urlSpecialty = "https://api-medicme-healthcare.onrender.com/api/v1/specialty";
-const urlLocation = "https://api-medicme-healthcare.onrender.com/api/v1/location";
 
 let token = null;
 
@@ -20,6 +21,7 @@ const getLocations = () => {
   return axios.get(urlLocation);
 };
 
+
 const getBookings = (id) => {
   return axios.get(`${urlBooking}/user/${id}`);
 };
@@ -30,6 +32,10 @@ const getAllBookings = () => {
 
 const deleteBooking = (id) => {
   return axios.delete(`${urlBooking}/${id}`);
+};
+
+const deletLocation = (id) => {
+  return axios.delete(`${urlLocation}/${id}`);
 };
 
 const getUsers = () => {
@@ -45,6 +51,16 @@ const getUserFromCredential = (id) => {
 
 const getCredentials = (id) => {
   return axios.get(`${urlCredentials}/${id}`);
+};
+
+const savedLocation =  async(newData) => {
+  try{
+    const res = await axios.post(urlLocation, newData);
+    return res.data
+  }catch(err){
+    console.log(err)
+  }
+
 };
 
 const saveCredentials = async (credentials) => {
@@ -118,4 +134,6 @@ export default {
   getUserFromCredential,
   getSpecialty,
   getLocations,
+  deletLocation,
+  savedLocation,
 };

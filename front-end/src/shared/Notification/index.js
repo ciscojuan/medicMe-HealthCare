@@ -1,5 +1,5 @@
 const Notification = ({ messageError, message }) => {
-    if (messageError) {
+    if (messageError, message) {
         return (
             <div className="error">
                 {messageError}

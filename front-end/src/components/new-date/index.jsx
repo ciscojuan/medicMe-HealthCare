@@ -1,20 +1,9 @@
 import React, { useState, useEffect } from "react";
-
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { UilFolderPlus } from "@iconscout/react-unicons";
-import { UilCalender } from "@iconscout/react-unicons";
-
 import moment from "moment";
 import userService from "../../services/user";
 import DatePicker from "react-datepicker";
-import logo from "../../assets/logo.png";
-import logoWithe from "../../assets/logoWhite.png";
-import logoBlack from "../../assets/logoblack.png";
-import avatar from "../../assets/header-img-p3.png";
-import Nav from "../../shared/nav";
-import Footer from "../../shared/footer";
+
 import "react-datepicker/dist/react-datepicker.css";
 import "./new-date.css";
 

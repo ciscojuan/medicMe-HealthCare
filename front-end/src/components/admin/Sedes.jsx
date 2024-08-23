@@ -1,8 +1,7 @@
-import react, {useState, useEffect} from 'react'
+import react, { useState, useEffect } from "react";
 import userService from "../../services/user";
 import Location from "./location";
 const Sedes = ({ sedes, setSedes }) => {
-
   const [location, setLocation] = useState(false);
 
   return (
@@ -22,15 +21,15 @@ const Sedes = ({ sedes, setSedes }) => {
               <td>{sede.direction}</td>
               <td class="d-grid gap-2">
                 <button
-                  class="btn btn-sm btn-danger"
+                  class="btn btn-primary mx-3"
                   onClick={() => userService.deletLocation(sede._id)}
                 >
                   Eliminar
                 </button>
 
                 <button
-                  class="btn btn-sm btn-danger"
-                  onClick={() => setLocation(true)}
+                  class="btn btn-primary"
+                  onClick={() => setLocation(!location)}
                 >
                   Agregar
                 </button>
@@ -39,7 +38,7 @@ const Sedes = ({ sedes, setSedes }) => {
           ))}
         </tbody>
       </table>
-      {location ? <Location sedes={sedes} setSedes={setSedes}/> : null}
+      {location ? <Location sedes={sedes} setSedes={setSedes} /> : null}
     </>
   );
 };

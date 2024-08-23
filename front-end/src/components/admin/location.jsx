@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import userService from "../../services/user";
 import Notification from "../../shared/Notification";
 
-const Location = ({ sedes, setSedes }) => {
+const Location = () => {
   const [especialidades, setEspecialidades] = useState([]);
   const [name, setName] = useState("");
   const [direction, setDirection] = useState("");
@@ -27,7 +27,7 @@ const Location = ({ sedes, setSedes }) => {
     try {
       userService.savedLocation(newLocation).then((res) => {
         console.log(res.data);
-        setSedes(sedes)
+
         setTimeout(() => {
           setMessage("Sede añadida");
           setName("");

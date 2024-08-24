@@ -14,8 +14,15 @@ const Doctores = ({ doctores, especialidades }) => {
   const getDate = (birthdate) => {
     return moment(birthdate).format("DD/MM/YYYY : HH:MM");
   };
+
+  const deleteDoctor = (id) => {
+    window.confirm("¿Estas seguro de eliminar este doctor?") &&
+    userService.deletUser(id);
+    doctores.filter((doctor) => doctor._id !== id)
+  };
+
   return (
-    <table className="table align-middle">
+    <table className="table">
       <thead className="table-dark">
         <tr scope="col">
           <th>Nombre</th>
@@ -38,7 +45,7 @@ const Doctores = ({ doctores, especialidades }) => {
             <td>{doctor.address}</td>
             <td>{doctor.credentials.email}</td>
             <td>{doctor.specialty}</td>
-            <td className="d-flex ">
+            <td className="d-flex align-items-center">
               <button
                 class="btn btn-primary mx-3"
                 onClick={() => navigate(`/user-management/${doctor._id}`)}
@@ -46,8 +53,8 @@ const Doctores = ({ doctores, especialidades }) => {
                 Actualizar
               </button>
               <button
-                class="btn btn-sm btn-danger"
-                onClick={() => userService.deleteBooking(doctor._id)}
+                class="btn btn-primary"
+                onClick={() => deleteDoctor(doctor._id)}
               >
                 Eliminar
               </button>

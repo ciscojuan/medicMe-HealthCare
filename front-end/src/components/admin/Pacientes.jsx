@@ -13,8 +13,14 @@ const Pacientes = ({ pacientes }) => {
     return moment(birthdate).format("DD/MM/YYYY : HH:MM");
   };
 
+  const deletePaciente = (id) => {
+    window.confirm("¿Estas seguro de eliminar este paciente?") &&
+    userService.deletUser(id);
+    pacientes.filter((paciente) => paciente._id !== id)
+  };
+
   return (
-    <table className="table align-middle">
+    <table className="table table-bordered align-middle">
       <thead className="table-dark">
         <tr scope="col">
           <th>Nombre</th>
@@ -41,8 +47,8 @@ const Pacientes = ({ pacientes }) => {
             <td>{getDate(paciente.updateAt)}</td>
             <td className="d-grid gap-2">
               <button
-                class="btn btn-sm btn-danger"
-                onClick={() => userService.getUser(paciente._id)}
+                class="btn btn-primary"
+                onClick={() => deletePaciente(paciente._id)}
               >
                 Eliminar
               </button>

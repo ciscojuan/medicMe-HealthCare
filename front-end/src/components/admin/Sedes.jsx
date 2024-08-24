@@ -12,9 +12,10 @@ const Sedes = ({ sedes, setSedes }) => {
   const [specialty, setSpecialty] = useState("");
 
   const deleteSede = (id) => {
-    userService.deletLocation(id).then((res) => {
-      setSedes(sedes.filter((sede) => sede._id !== id));
-    });
+    window.confirm("¿Estas seguro de eliminar esta sede?") &&
+      userService.deletLocation(id).then((res) => {
+        setSedes(sedes.filter((sede) => sede._id !== id));
+      });
   };
 
   const handleAddLocation = (newLocation) => {

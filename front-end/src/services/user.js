@@ -34,8 +34,16 @@ const deleteBooking = (id) => {
   return axios.delete(`${urlBooking}/${id}`);
 };
 
+const deleteSpecialty = (id) => {
+  return axios.delete(`${urlSpecialty}/${id}`);
+};
+
 const deletLocation = (id) => {
   return axios.delete(`${urlLocation}/${id}`);
+};
+
+const deletUser = (id) => {
+  return axios.delete(`${urlUser}/${id}`);
 };
 
 const getUsers = () => {
@@ -136,4 +144,6 @@ export default {
   getLocations,
   deletLocation,
   savedLocation,
+  deleteSpecialty,
+  deletUser
 };
